@@ -1,0 +1,7 @@
+[Core]
+Name = CallIndirection
+Module = call_indirection
+
+[Documentation]
+Description = Modify the call graph of the application
+Version = 1.0

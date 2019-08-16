@@ -1,0 +1,7 @@
+[Core]
+Name = ArithmeticBranch
+Module = arithmetic_branch
+
+[Documentation]
+Description = Insert junk code (arithmetic computations)
+Version = 1.0

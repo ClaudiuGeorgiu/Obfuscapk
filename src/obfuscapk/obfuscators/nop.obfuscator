@@ -1,0 +1,7 @@
+[Core]
+Name = Nop
+Module = nop
+
+[Documentation]
+Description = Add multiple nop sequences between instructions
+Version = 1.0

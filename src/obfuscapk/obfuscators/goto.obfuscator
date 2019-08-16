@@ -1,0 +1,7 @@
+[Core]
+Name = Goto
+Module = goto
+
+[Documentation]
+Description = Reorder code using goto instructions
+Version = 1.0

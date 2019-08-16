@@ -1,0 +1,7 @@
+[Core]
+Name = Rebuild
+Module = rebuild
+
+[Documentation]
+Description = Rebuild the application
+Version = 1.0

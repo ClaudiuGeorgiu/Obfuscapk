@@ -1,0 +1,7 @@
+[Core]
+Name = RandomManifest
+Module = random_manifest
+
+[Documentation]
+Description = Randomly reorder entries in the manifest file
+Version = 1.0

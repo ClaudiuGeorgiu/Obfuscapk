@@ -1,0 +1,7 @@
+[Core]
+Name = ClassRename
+Module = class_rename
+
+[Documentation]
+Description = Change the package name and rename classes (even in the manifest file)
+Version = 1.0

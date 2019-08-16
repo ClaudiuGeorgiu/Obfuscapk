@@ -1,0 +1,7 @@
+[Core]
+Name = MethodOverload
+Module = method_overload
+
+[Documentation]
+Description = Overload the methods
+Version = 1.0

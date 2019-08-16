@@ -1,0 +1,7 @@
+[Core]
+Name = Reorder
+Module = reorder
+
+[Documentation]
+Description = Reorder code
+Version = 1.0

@@ -1,0 +1,7 @@
+[Core]
+Name = DebugRemoval
+Module = debug_removal
+
+[Documentation]
+Description = Remove debug information
+Version = 1.0

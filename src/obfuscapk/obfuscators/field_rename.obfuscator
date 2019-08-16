@@ -1,0 +1,7 @@
+[Core]
+Name = FieldRename
+Module = field_rename
+
+[Documentation]
+Description = Rename fields
+Version = 1.0

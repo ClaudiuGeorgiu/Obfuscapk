@@ -1,0 +1,7 @@
+[Core]
+Name = MethodRename
+Module = method_rename
+
+[Documentation]
+Description = Rename methods
+Version = 1.0
