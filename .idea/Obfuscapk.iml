@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/nop" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/rebuild" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/new_alignment" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/new_signature" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/debug_removal" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/random_manifest" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/reorder" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/goto" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/call_indirection" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/method_rename" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/field_rename" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/class_rename" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/arithmetic_branch" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/method_overload" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/lib_encryption" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/asset_encryption" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/const_string_encryption" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/res_string_encryption" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/reflection" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/advanced_reflection" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/src/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.7 (Obfuscapk)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="TestRunnerService">
+    <option name="projectConfiguration" value="pytest" />
+    <option name="PROJECT_TEST_RUNNER" value="pytest" />
+  </component>
+</module>

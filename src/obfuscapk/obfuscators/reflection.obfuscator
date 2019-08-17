@@ -1,0 +1,7 @@
+[Core]
+Name = Reflection
+Module = reflection
+
+[Documentation]
+Description = Apply Java reflection
+Version = 1.0

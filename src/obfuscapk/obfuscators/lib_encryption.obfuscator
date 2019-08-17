@@ -1,0 +1,7 @@
+[Core]
+Name = LibEncryption
+Module = lib_encryption
+
+[Documentation]
+Description = Encrypt libs
+Version = 1.0

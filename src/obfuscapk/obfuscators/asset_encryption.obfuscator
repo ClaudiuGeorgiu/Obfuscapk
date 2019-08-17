@@ -1,0 +1,7 @@
+[Core]
+Name = AssetEncryption
+Module = asset_encryption
+
+[Documentation]
+Description = Encrypt asset files
+Version = 1.0

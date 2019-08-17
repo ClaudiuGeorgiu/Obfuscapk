@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebResourcesPaths">
+    <contentEntries>
+      <entry url="file://$PROJECT_DIR$">
+        <entryData>
+          <resourceRoots>
+            <path value="file://$PROJECT_DIR$/docs" />
+            <path value="file://$PROJECT_DIR$/docs/logo" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/resources" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/resources/smali" />
+          </resourceRoots>
+        </entryData>
+      </entry>
+    </contentEntries>
+  </component>
+</project>

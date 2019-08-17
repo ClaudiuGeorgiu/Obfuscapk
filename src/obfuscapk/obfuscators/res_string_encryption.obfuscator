@@ -1,0 +1,7 @@
+[Core]
+Name = ResStringEncryption
+Module = res_string_encryption
+
+[Documentation]
+Description = Encrypt strings in resources (only those called inside code)
+Version = 1.0

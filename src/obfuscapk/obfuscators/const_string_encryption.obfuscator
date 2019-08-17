@@ -1,0 +1,7 @@
+[Core]
+Name = ConstStringEncryption
+Module = const_string_encryption
+
+[Documentation]
+Description = Encrypt constant strings in code
+Version = 1.0
