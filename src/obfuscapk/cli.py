@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.7
 # coding: utf-8
 
 import argparse
@@ -21,7 +21,7 @@ def get_cmd_args(args: list = None):
     obfuscators = ObfuscatorManager().get_obfuscators_names()
 
     parser = argparse.ArgumentParser(
-        prog='python -m obfuscapk.main',
+        prog='python3.7 -m obfuscapk.cli',
         description='Obfuscate an application (.apk) without needing its source code.')
     parser.add_argument('apk_file', type=str, metavar='<APK_FILE>',
                         help='The path to the application (.apk) to obfuscate')
@@ -48,6 +48,16 @@ def get_cmd_args(args: list = None):
 
 
 if __name__ == '__main__':
+    """
+    A full command to obfuscate an application:
+
+    python3.7 -m obfuscapk.cli -p -i -w /working/dir/path -d /path/to/obfuscated.apk -o DebugRemoval \
+    -o CallIndirection -o MethodRename -o LibEncryption -o AssetEncryption -o MethodOverload \
+    -o ConstStringEncryption -o ResStringEncryption -o ArithmeticBranch -o FieldRename -o Nop -o Goto \
+    -o ClassRename -o Reflection -o AdvancedReflection -o Reorder -o RandomManifest -o Rebuild \
+    -o NewSignature -o NewAlignment -o VirusTotal -k virus_total_key_1 -k virus_total_key_2 \
+    /path/to/original.apk
+    """
 
     arguments = get_cmd_args()
 
