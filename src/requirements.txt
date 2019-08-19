@@ -1,3 +1,4 @@
 pycryptodome==3.8.2
 tqdm==4.33.0
+virustotal-api==1.1.10
 Yapsy==1.12.2

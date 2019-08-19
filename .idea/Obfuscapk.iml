@@ -25,6 +25,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/res_string_encryption" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/reflection" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/advanced_reflection" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/virus_total" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/src/venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>

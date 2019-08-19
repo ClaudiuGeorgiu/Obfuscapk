@@ -1,0 +1,7 @@
+[Core]
+Name = VirusTotal
+Module = virus_total
+
+[Documentation]
+Description = Send the original and the obfuscated application to Virus Total
+Version = 1.0
