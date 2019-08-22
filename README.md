@@ -1,7 +1,7 @@
 <h1 align="center">
     <br>
     <a href="https://github.com/ClaudiuGeorgiu/Obfuscapk">
-        <img alt="Logo" src="./docs/logo/logo.png" width="700">
+        <img alt="Logo" src="https://github.com/ClaudiuGeorgiu/Obfuscapk/docs/logo/logo.png" width="700">
     </a>
     <br>
     <br>
@@ -9,6 +9,7 @@
 
 > A black-box obfuscation tool for Android apps.
 
+[![Docker Hub](http://img.shields.io/docker/cloud/build/claudiugeorgiu/obfuscapk)](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
 [![Python Version](http://img.shields.io/badge/Python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
 
@@ -24,7 +25,7 @@ make the new application very different from the original (e.g., to signature ba
 
 ## ❱ Demo
 
-![Demo](./docs/demo/cli.gif)
+![Demo](https://github.com/ClaudiuGeorgiu/Obfuscapk/docs/demo/cli.gif)
 
 
 
@@ -55,7 +56,15 @@ Docker version 19.03.0, build aeac949
 
 #### Official Docker Hub image
 
-***Coming soon, until then build the Docker image manually***
+The [official Obfuscapk Docker image](https://hub.docker.com/r/claudiugeorgiu/obfuscapk) is available on Docker Hub
+(automatically built from this repository):
+
+```Shell
+$ # Download the Docker images.
+$ docker pull claudiugeorgiu/obfuscapk
+$ # Give it a shorter name.
+$ docker tag claudiugeorgiu/obfuscapk obfuscapk
+```
 
 #### Install
 
@@ -192,8 +201,8 @@ working directory. Note: existing files will be overwritten without any warning.
 
 * `-i` is a flag for ignoring known third party libraries during the obfuscation, in order to use less resources, to
 increase performances and to reduce the risk of errors. The
-[list of libraries](./src/obfuscapk/resources/libs_to_ignore.txt) to ignore is adapted from
-[LiteRadar](https://github.com/pkumza/LiteRadar) project.
+[list of libraries](https://github.com/ClaudiuGeorgiu/Obfuscapk/src/obfuscapk/resources/libs_to_ignore.txt) to ignore
+is adapted from [LiteRadar](https://github.com/pkumza/LiteRadar) project.
 
 * `-p` is a flag for showing progress bars during the obfuscation operations. When using the tool in batch
 operations/automatic builds it's convenient to have progress bars disabled, otherwise this flag should be enabled to
@@ -230,7 +239,7 @@ obfuscator left or until an error is encountered
     no output file was specified, the resulting apk file is saved in the working directory created before
 
     - `NewSignature` obfuscator signs the newly created apk file with a custom certificate contained in
-    [this keystore](./src/obfuscapk/resources/obfuscation_keystore.jks)
+    [this keystore](https://github.com/ClaudiuGeorgiu/Obfuscapk/src/obfuscapk/resources/obfuscation_keystore.jks)
 
     - `NewAlignment` obfuscator uses `zipalign` tool to align the resulting apk file
 
@@ -252,4 +261,4 @@ Questions, bug reports and pull requests are welcome on GitHub at
 
 ## ❱ License
 
-You are free to use this code under the [MIT License](./LICENSE).
+You are free to use this code under the [MIT License](https://github.com/ClaudiuGeorgiu/Obfuscapk/LICENSE).
