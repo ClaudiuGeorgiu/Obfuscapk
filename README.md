@@ -60,7 +60,7 @@ Docker version 19.03.0, build aeac949
 #### Install
 
 If you downloaded the official image from Docker Hub, you are ready to use the tool so go ahead and check the
-[usage instructions](#usage), otherwise execute the following commands in the previously created `Obfuscapk/src/`
+[usage instructions](#-usage), otherwise execute the following commands in the previously created `Obfuscapk/src/`
 directory (the folder containing the `Dockerfile`) in order to build the Docker image:
 
 ```Shell
@@ -77,7 +77,7 @@ usage: python3.7 -m obfuscapk.cli [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK]
 ...
 ```
 
-Obfuscapk is now ready to be used, see the [usage instructions](#usage) for more information.
+Obfuscapk is now ready to be used, see the [usage instructions](#-usage) for more information.
 
 ### From source
 
@@ -142,7 +142,7 @@ usage: python3.7 -m obfuscapk.cli [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK]
 ...
 ```
 
-Obfuscapk is now ready to be used, see the [usage instructions](#usage) for more information.
+Obfuscapk is now ready to be used, see the [usage instructions](#-usage) for more information.
 
 
 
