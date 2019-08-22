@@ -4,7 +4,7 @@
 import argparse
 import logging
 
-from .main import perform_obfuscation
+from .main import perform_obfuscation, check_external_tool_dependencies
 from .obfuscator_manager import ObfuscatorManager
 
 logger = logging.getLogger(__name__)
@@ -58,6 +58,10 @@ if __name__ == '__main__':
     -o NewSignature -o NewAlignment -o VirusTotal -k virus_total_key_1 -k virus_total_key_2 \
     /path/to/original.apk
     """
+
+    # Verify that the external dependencies are available even before showing the help message: this way, if the help
+    # message is displayed correctly it means that all the needed external tools are available and ready to be used.
+    check_external_tool_dependencies()
 
     arguments = get_cmd_args()
 
