@@ -3,5 +3,5 @@ Name = LibEncryption
 Module = lib_encryption
 
 [Documentation]
-Description = Encrypt libs
+Description = Encrypt native libs
 Version = 1.0

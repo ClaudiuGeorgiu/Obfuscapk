@@ -3,5 +3,5 @@ Name = MethodOverload
 Module = method_overload
 
 [Documentation]
-Description = Overload the methods
+Description = Overload methods
 Version = 1.0

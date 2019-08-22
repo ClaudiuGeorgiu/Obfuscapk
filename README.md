@@ -9,6 +9,7 @@
 
 > A black-box obfuscation tool for Android apps.
 
+[![Codacy](https://api.codacy.com/project/badge/Grade/076af5e6284541d39679c96d16d83772)](https://www.codacy.com/app/ClaudiuGeorgiu/Obfuscapk)
 [![Docker Hub](http://img.shields.io/docker/cloud/build/claudiugeorgiu/obfuscapk)](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
 [![Python Version](http://img.shields.io/badge/Python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
@@ -60,7 +61,7 @@ The [official Obfuscapk Docker image](https://hub.docker.com/r/claudiugeorgiu/ob
 (automatically built from this repository):
 
 ```Shell
-$ # Download the Docker images.
+$ # Download the Docker image.
 $ docker pull claudiugeorgiu/obfuscapk
 $ # Give it a shorter name.
 $ docker tag claudiugeorgiu/obfuscapk obfuscapk
@@ -247,8 +248,119 @@ obfuscator left or until an error is encountered
 `obfuscation_working_dir/original_obfuscated.apk`, signed, aligned and ready to be installed into a device/emulator
 
 As seen in the previous example, `Rebuild`, `NewSignature` and `NewAlignment` obfuscators are always needed to complete
-an obfuscation operation, in order to build the final obfuscated apk. They are not actual obfuscators, but are needed
-for the build process and they are included in the list of obfuscators to keep the overall architecture modular.
+an obfuscation operation, in order to build the final obfuscated apk. They are not actual obfuscation techniques, but
+they are needed in the build process and so they are included in the list of obfuscators to keep the overall
+architecture modular.
+
+
+
+## ❱ Obfuscators
+
+The obfuscators included in Obfuscapk can be divided into different categories, depending on the operations they
+perform:
+
+* **Trivial**: as the name suggests, this category includes simple operations (that do not modify much the original
+application), like signing the apk file with a new signature
+
+* **Rename**: operations that change the names of the used identifiers (classes, fields, methods)
+
+* **Encryption**: packaging encrypted code/resources and decrypting them during the app execution
+
+* **Code**: all the operations that involve the modification of the decompiled source code
+
+* **Resources**: operations on the resource files (like modifying the manifest)
+
+* **Other**
+
+The obfuscators currently bundled with Obfuscapk are briefly presented below (in alphabetical order).
+
+`NOTE:` not all the obfuscators below correspond to real obfuscation techniques (e.g., `Rebuild`, `NewSignature`,
+`NewAlignment` and `VirusTotal`), but they are implemented as obfuscators in order to keep the architecture modular
+and easy to extend with new functionality.
+
+### [AdvancedReflection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/advanced_reflection) [Code]
+
+> Apply Java reflection only to dangerous APIs.
+
+### [ArithmeticBranch](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/arithmetic_branch) [Code]
+
+> Insert junk code (arithmetic computations).
+
+### [AssetEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/asset_encryption) [Encryption]
+
+> Encrypt asset files.
+
+### [CallIndirection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/call_indirection) [Code]
+
+> Modify the call graph of the application.
+
+### [ClassRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/class_rename) [Rename]
+
+> Change the package name and rename classes (even in the manifest file).
+
+### [ConstStringEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/const_string_encryption) [Encryption]
+
+> Encrypt constant strings in code.
+
+### [DebugRemoval](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/debug_removal) [Code]
+
+> Remove debug information.
+
+### [FieldRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/field_rename) [Rename]
+
+> Rename fields.
+
+### [Goto](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/goto) [Code]
+
+> Reorder code using goto instructions.
+
+### [LibEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/lib_encryption) [Encryption]
+
+> Encrypt native libs.
+
+### [MethodOverload](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/method_overload) [Code]
+
+> Overload methods.
+
+### [MethodRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/method_rename) [Rename]
+
+> Rename methods.
+
+### [NewAlignment](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/new_alignment) [Trivial]
+
+> Realign the application.
+
+### [NewSignature](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/new_signature) [Trivial]
+
+> Re-sign the application with a new custom signature.
+
+### [Nop](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/nop) [Code]
+
+> Add multiple nop sequences between instructions.
+
+### [RandomManifest](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/random_manifest) [Resource]
+
+> Randomly reorder entries in the manifest file.
+
+### [Rebuild](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/rebuild) [Trivial]
+
+> Rebuild the application.
+
+### [Reflection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reflection) [Code]
+
+> Apply Java reflection.
+
+### [Reorder](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reorder) [Code]
+
+> Reorder code.
+
+### [ResStringEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/res_string_encryption) [Encryption]
+
+> Encrypt strings in resources (only those called inside code).
+
+### [VirusTotal](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/virus_total) [Other]
+
+> Send the original and the obfuscated application to Virus Total.
 
 
 
