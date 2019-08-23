@@ -17,7 +17,7 @@ class MethodOverload(obfuscator_category.ICodeObfuscator):
 
         self.is_adding_methods = True
 
-        self.param_types = ['Ljava/lang/String;', 'C', 'I', 'F', 'D']
+        self.param_types = ['Ljava/lang/String;', 'Z', 'B', 'S', 'C', 'I', 'F']
 
     def get_parent_class_names(self, smali_files: List[str]) -> Set[str]:
         class_names: Set[str] = set()

@@ -3,5 +3,5 @@ Name = Reflection
 Module = reflection
 
 [Documentation]
-Description = Apply Java reflection
+Description = Apply reflection
 Version = 1.0

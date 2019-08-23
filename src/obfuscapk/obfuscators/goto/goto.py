@@ -39,7 +39,7 @@ class Goto(obfuscator_category.ICodeObfuscator):
                             print('\t:before_first_instruction')
 
                         elif line.startswith('.end method') and editing_method:
-                            # If a the end of the method, insert a label after the last instruction of the method
+                            # If at the end of the method, insert a label after the last instruction of the method
                             # and a "goto" to the label at the beginning of the method. This will not cause an
                             # endless loop because the method will return at some point and the second "goto" won't
                             # be called again when the method finishes.

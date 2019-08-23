@@ -3,5 +3,5 @@ Name = AdvancedReflection
 Module = advanced_reflection
 
 [Documentation]
-Description = Apply Java reflection only to dangerous APIs
+Description = Apply reflection only to dangerous APIs
 Version = 1.0
