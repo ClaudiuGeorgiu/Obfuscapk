@@ -20,8 +20,6 @@ application, after applying some obfuscation techniques on the decompiled `smali
 The obfuscated app retains the same functionality as the original one, but the differences under the hood sometimes
 make the new application very different from the original (e.g., to signature based antivirus software).
 
-***More details coming soon***
-
 
 
 ## ❱ Demo
@@ -34,21 +32,23 @@ make the new application very different from the original (e.g., to signature ba
 
 ![Architecture](https://raw.githubusercontent.com/ClaudiuGeorgiu/Obfuscapk/master/docs/architecture/architecture.png)
 
-Obfuscapk was designed to be modular and easy to extend, so it's built using a
+Obfuscapk is designed to be modular and easy to extend, so it's built using a
 [plugin system](https://github.com/tibonihoo/yapsy). Consequently, every obfuscator is a plugin that inherits from an
 abstract [base class](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/obfuscator_category.py) and
 needs to implement the method `obfuscate`. When the tool starts processing a new Android application file, it creates
 an [obfuscation object](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/obfuscation.py) to store
-all the information (e.g., the location of the decompiled `smali` code) and the internal state of the operations (e.g.,
-the list of already used obfuscators). Then the obfuscation object is passed, as a parameter to the `obfuscate` method,
-to all the active plugins/obfuscators (in sequence) to be processed and modified. The list and the order of the active
-plugins is specified through [command line options](#-usage).
+all the needed information (e.g., the location of the decompiled `smali` code) and the internal state of the operations
+(e.g., the list of already used obfuscators). Then the obfuscation object is passed, as a parameter to the `obfuscate`
+method, to all the active plugins/obfuscators (in sequence) to be processed and modified. The list and the order of the
+active plugins is specified through [command line options](#-usage).
 
 The tool is easily extensible with new obfuscators: it's enough to add the source code implementing the obfuscation
 technique and the plugin metadata (a `<obfuscator-name>.obfuscator` file) in the
 [`src/obfuscapk/obfuscators`](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators)
-directory (take an existing obfuscator as an example). The tool will detect automatically the new plugin, so no further
-configuration is needed (from now on the new plugin will be treated like all the other plugins bundled with the tool).
+directory (take a simple existing obfuscator like
+[`Nop`](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/obfuscators/nop/nop.py) as a starting
+example). The tool will detect automatically the new plugin, so no further configuration is needed (the new plugin will
+be treated like all the other plugins bundled with the tool).
 
 
 
@@ -374,7 +374,7 @@ and easy to extend with new functionality.
 
 ### [Reorder](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reorder) \[Code]
 
-> Reorder code.
+> Reorder code by shuffling code blocks.
 
 ### [ResStringEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/res_string_encryption) \[Encryption]
 

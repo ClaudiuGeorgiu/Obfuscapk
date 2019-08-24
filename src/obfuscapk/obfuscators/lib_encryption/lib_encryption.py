@@ -43,11 +43,9 @@ class LibEncryption(obfuscator_category.IEncryptionObfuscator):
                     with open(smali_file, 'r', encoding='utf-8') as current_file:
                         lines = current_file.readlines()
 
-                    # Line numbers where a native library is loaded.
-                    lib_index: List[int] = []
+                    class_name = None
 
-                    # Registers containing the strings with the names of the loaded libraries.
-                    lib_register: List[str] = []
+                    local_count = 16
 
                     # Names of the loaded libraries.
                     lib_names: List[str] = []
@@ -55,10 +53,30 @@ class LibEncryption(obfuscator_category.IEncryptionObfuscator):
                     editing_constructor = False
                     start_index = 0
                     for line_number, line in enumerate(lines):
+
+                        if not class_name:
+                            class_match = util.class_pattern.match(line)
+                            if class_match:
+                                class_name = class_match.group('class_name')
+                                continue
+
+                        # Native libraries should be loaded inside static constructors.
                         if line.startswith('.method static constructor <clinit>()V') and not editing_constructor:
                             # Entering static constructor.
                             editing_constructor = True
-                            start_index = line_number
+                            start_index = line_number + 1
+                            local_match = util.locals_pattern.match(lines[line_number + 1])
+                            if local_match:
+                                local_count = int(local_match.group('local_count'))
+                                if local_count <= 15:
+                                    # An additional register is needed for the encryption.
+                                    local_count += 1
+                                    lines[line_number + 1] = '\t.locals {0}\n'.format(local_count)
+                                    continue
+
+                            # For some reason the locals declaration was not found where it should be, so assume the
+                            # local registers are all used (we can't add any instruction here).
+                            break
 
                         elif line.startswith('.end method') and editing_constructor:
                             # Only one static constructor per class.
@@ -68,93 +86,31 @@ class LibEncryption(obfuscator_category.IEncryptionObfuscator):
                             # Inside static constructor.
                             invoke_match = native_lib_invoke_pattern.match(line)
                             if invoke_match:
-                                # Native library load instruction.
-                                lib_index.append(line_number)
-                                lib_register.append(invoke_match.group('invoke_pass'))
+                                # Native library load instruction. Iterate the constructor lines backwards in order to
+                                # find the string containing the name of the loaded library.
+                                for l_num in range(line_number - 1, start_index, -1):
+                                    string_match = util.const_string_pattern.match(lines[l_num])
+                                    if string_match and \
+                                            string_match.group('register') == invoke_match.group('invoke_pass'):
+                                        # Native library string declaration.
+                                        lib_names.append(string_match.group('string'))
 
-                    # Iterate the constructor lines backwards and for each library load instruction
-                    # find the string containing the name of the loaded library.
-                    for lib_number, index in enumerate(lib_index):
-                        for line_number in range(index - 1, start_index, -1):
-                            string_match = util.const_string_pattern.match(lines[line_number])
-                            if string_match and string_match.group('register') == lib_register[lib_number]:
-                                # Native library string declaration.
-                                lib_names.append(string_match.group('string'))
+                                # Static constructors take no parameters, so the highest register is v<local_count - 1>.
+                                lines[line_number] = '\tconst-class v{class_register_num}, {class_name}\n\n' \
+                                    '\tinvoke-static {{v{class_register_num}, {original_register}}}, ' \
+                                    'Lcom/decryptassetmanager/DecryptAsset;->loadEncryptedLibrary(' \
+                                    'Ljava/lang/Class;Ljava/lang/String;)V\n'.format(
+                                        class_name=class_name, original_register=invoke_match.group('invoke_pass'),
+                                        class_register_num=local_count - 1)
 
-                                # Change the library string since it won't be used anymore.
-                                lines[line_number] = lines[line_number].replace(
-                                    '"{0}"'.format(string_match.group('string')), '"removed"')
-
-                                # Proceed with the next native library (if any).
-                                break
-
-                    # Remove current native library invocations (new invocations to the encrypted version
-                    # of the libraries will be added later). The const-string references to the libraries
-                    # are just renamed and not removed, to avoid errors in case there is a surrounding
-                    # try/catch block.
-                    lines = [line for index, line in enumerate(lines) if index not in lib_index]
-
-                    # Insert invocations to the encrypted native libraries (if any).
-                    if lib_names:
-                        editing_method = False
-                        after_invoke_super = False
-                        for line in lines:
-                            if line.startswith('.method protected attachBaseContext(Landroid/content/Context;)V') \
-                                    and not editing_method:
-                                # Entering method.
-                                editing_method = True
-
-                            elif line.startswith('.end method') and editing_method:
-                                # Only one method with this signature per class.
-                                break
-
-                            elif editing_method and not after_invoke_super:
-                                # Inside method, before the call to the parent constructor.
-                                # Look for the call to the parent constructor.
-                                invoke_match = util.invoke_pattern.match(line)
-                                if invoke_match and invoke_match.group('invoke_type') == 'invoke-super':
-                                    after_invoke_super = True
-
-                            elif editing_method and after_invoke_super:
-                                # Inside method, after the call to the parent constructor. We'll insert here
-                                # the invocations of the encrypted native libraries.
-                                for lib_name in lib_names:
-                                    line += '\n\tconst-string/jumbo p0, "{name}"\n'.format(name=lib_name) + \
-                                        '\n\tinvoke-static {p1, p0}, ' \
-                                        'Lcom/decryptassetmanager/DecryptAsset;->' \
-                                        'loadEncryptedLibrary(Landroid/content/Context;Ljava/lang/String;)V\n'
-
-                        # No existing attachBaseContext method was found, we have to declare it.
-                        if not editing_method:
-                            # Look for the virtual methods section (if present, otherwise add it).
-                            virtual_methods_line = next((line_number for line_number, line in enumerate(lines)
-                                                         if line.startswith('# virtual methods')), None)
-                            if not virtual_methods_line:
-                                lines.append('\n# virtual methods')
-
-                            lines.append('\n.method protected attachBaseContext(Landroid/content/Context;)V\n'
-                                         '\t.locals 0\n'
-                                         '\n\tinvoke-super {p0, p1}, '
-                                         'Landroid/support/v7/app/AppCompatActivity;->'
-                                         'attachBaseContext(Landroid/content/Context;)V\n')
-
-                            for lib_name in lib_names:
-                                lines.append('\n\tconst-string/jumbo p0, "{name}"\n'.format(name=lib_name) +
-                                             '\n\tinvoke-static {p1, p0}, '
-                                             'Lcom/decryptassetmanager/DecryptAsset;->'
-                                             'loadEncryptedLibrary(Landroid/content/Context;Ljava/lang/String;)V\n')
-
-                            lines.append('\n\treturn-void'
-                                         '\n.end method\n')
-
-                        # Encrypt the native libraries used in code and put them in asset folder.
+                        # Encrypt the native libraries used in code and put them in assets folder.
                         assets_dir = obfuscation_info.get_assets_directory()
                         os.makedirs(assets_dir, exist_ok=True)
                         for native_lib in native_libs:
                             for lib_name in lib_names:
                                 if native_lib.endswith('{0}.so'.format(lib_name)):
                                     arch = os.path.basename(os.path.dirname(native_lib))
-                                    encrypted_lib_path = os.path.join(assets_dir, 'lib,{arch},{lib_name}.so'
+                                    encrypted_lib_path = os.path.join(assets_dir, 'lib.{arch}.{lib_name}.so'
                                                                       .format(arch=arch, lib_name=lib_name))
 
                                     with open(native_lib, 'rb') as native_lib_file:
@@ -179,6 +135,13 @@ class LibEncryption(obfuscator_category.IEncryptionObfuscator):
                     with open(destination_file, 'w', encoding='utf-8') as decrypt_asset_smali:
                         decrypt_asset_smali.write(util.get_decrypt_asset_smali_code())
                         obfuscation_info.decrypt_asset_smali_file_added_flag = True
+
+                # Remove the original native libraries (the encrypted ones will be used instead).
+                for native_lib in native_libs:
+                    try:
+                        os.remove(native_lib)
+                    except OSError as e:
+                        self.logger.warning('Unable to delete native library "{0}": {1}'.format(native_lib, e))
 
             else:
                 self.logger.debug('No native libraries found')

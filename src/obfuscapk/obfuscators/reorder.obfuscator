@@ -3,5 +3,5 @@ Name = Reorder
 Module = reorder
 
 [Documentation]
-Description = Reorder code
+Description = Reorder code by shuffling code blocks
 Version = 1.0

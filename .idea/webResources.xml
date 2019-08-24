@@ -11,6 +11,7 @@
             <path value="file://$PROJECT_DIR$/src/obfuscapk/resources/smali" />
             <path value="file://$PROJECT_DIR$/docs/demo" />
             <path value="file://$PROJECT_DIR$/docs/architecture" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/resources/java" />
           </resourceRoots>
         </entryData>
       </entry>
