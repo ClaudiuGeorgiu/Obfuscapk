@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import logging
+import random
 from typing import List, Set
 
 from obfuscapk import obfuscator_category
@@ -120,7 +121,8 @@ class MethodOverload(obfuscator_category.ICodeObfuscator):
                     # Add method overload.
                     if method not in methods_to_ignore:
                         # Create random parameter lists to be added to the method signature.
-                        for params in util.get_random_list_permutations(self.param_types)[:3]:
+                        # Add 3 overloads for each method and for each overload use 4 random params.
+                        for params in util.get_random_list_permutations(random.sample(self.param_types, 4))[:3]:
                             new_param = ''.join(params)
                             # Update parameter list and add void return type.
                             overloaded_signature = line.replace(

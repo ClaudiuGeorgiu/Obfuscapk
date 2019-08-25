@@ -51,7 +51,7 @@ class Apktool(object):
             raise FileExistsError('Output directory "{0}" already exists, use the "force" flag to overwrite'
                                   .format(output_dir_path))
 
-        decode_cmd: List[str] = [self.apktool_path, 'd', '--no-debug-info', apk_path, '-o', output_dir_path]
+        decode_cmd: List[str] = [self.apktool_path, 'd', apk_path, '-o', output_dir_path]
 
         if force:
             decode_cmd.insert(2, '--force')

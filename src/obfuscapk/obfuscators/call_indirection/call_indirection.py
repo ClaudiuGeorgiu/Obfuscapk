@@ -136,8 +136,7 @@ class CallIndirection(obfuscator_category.ICodeObfuscator):
                             invoke_match.group('invoke_type'), invoke_match.group('invoke_pass'),
                             invoke_match.group('invoke_object'), invoke_match.group('invoke_method'),
                             invoke_match.group('invoke_param'), invoke_match.group('invoke_return'),
-                            class_name, new_method
-                        )
+                            class_name, new_method)
                     else:
                         print(line, end='')
                 else:

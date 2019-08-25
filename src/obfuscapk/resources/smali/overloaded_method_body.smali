@@ -1,16 +1,14 @@
-    .locals 7
+    .locals 0
 
-    const/16 v2, 0x65
+    const/16 p0, 0x2a
 
-    const/16 v3, 0x23e
+    const/16 p1, 0xd2
 
-    mul-int v4, v2, v3
+    mul-int p2, p0, p1
 
-    add-int v5, v2, v3
+    add-int p3, p2, p1
 
-    const v6, -0xe276
-
-    int-to-double v0, v6
+    int-to-double p0, p3
 
     return-void
 .end method
