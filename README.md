@@ -14,6 +14,8 @@
 [![Python Version](https://img.shields.io/badge/Python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
 
+
+
 **Obfuscapk** is a modular Python tool for obfuscating Android apps without needing their source code, since
 [`apktool`](https://ibotpeaches.github.io/Apktool/) is used to decompile the original apk file and to build a new
 application, after applying some obfuscation techniques on the decompiled `smali` code, resources and manifest.
@@ -396,3 +398,11 @@ Questions, bug reports and pull requests are welcome on GitHub at
 ## ❱ License
 
 You are free to use this code under the [MIT License](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE).
+
+
+## ❱ Credits
+
+[![Unige](https://intranet.dibris.unige.it/img/logo_unige.gif)](https://unige.it/)
+[![Dibris](https://intranet.dibris.unige.it/img/logo_dibris.gif)](https://www.dibris.unige.it/en/) 
+
+This software was developed for research purposes at DIBRIS, University of Genova.
