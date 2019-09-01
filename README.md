@@ -400,9 +400,10 @@ Questions, bug reports and pull requests are welcome on GitHub at
 You are free to use this code under the [MIT License](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE).
 
 
+
 ## ❱ Credits
 
-[![Unige](https://intranet.dibris.unige.it/img/logo_unige.gif)](https://unige.it/)
+[![Unige](https://intranet.dibris.unige.it/img/logo_unige.gif)](https://unige.it/en/)
 [![Dibris](https://intranet.dibris.unige.it/img/logo_dibris.gif)](https://www.dibris.unige.it/en/) 
 
-This software was developed for research purposes at DIBRIS, University of Genova.
+This software was developed for research purposes at the Computer Security Lab ([CSecLab](https://csec.it/)), hosted at DIBRIS, University of Genoa.
