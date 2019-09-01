@@ -1,0 +1,104 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+
+  build:
+
+    name: Build on Python ${{ matrix.python-version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        python-version: [3.6, 3.7]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+
+      - uses: actions/checkout@v1
+
+      - name: Set up Java
+        uses: actions/setup-java@v1
+        with:
+          version: 8.0.x
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r src/requirements.txt
+
+      - name: Install dependencies (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        env:
+          APKTOOL_VERSION: 2.4.0
+          ANDROID_HOME: /android-sdk
+          BUILD_TOOLS_VERSION: 29.0.2
+        run: |
+          # Android SDK (needed for zipalign).
+          sudo mkdir -p ${ANDROID_HOME} && wget -q https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+          sudo unzip -q sdk-tools-linux-4333796.zip -d ${ANDROID_HOME}
+          sudo bash -c "echo y | '${ANDROID_HOME}/tools/bin/sdkmanager' 'build-tools;${BUILD_TOOLS_VERSION}'" > /dev/null
+          # Apktool.
+          sudo wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O /usr/local/bin/apktool
+          sudo chmod a+x /usr/local/bin/apktool
+          sudo wget -q "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_${APKTOOL_VERSION}.jar" -O /usr/local/bin/apktool.jar
+          sudo chmod a+x /usr/local/bin/apktool.jar
+
+      - name: Install dependencies (Windows)
+        if: matrix.os == 'windows-latest'
+        env:
+          APKTOOL_VERSION: 2.4.0
+          ANDROID_HOME: C:\android-sdk
+          BUILD_TOOLS_VERSION: 29.0.2
+        run: |
+          REM Android SDK (needed for zipalign).
+          powershell -Command "$ProgressPreference = 'SilentlyContinue'; wget https://dl.google.com/android/repository/sdk-tools-windows-4333796.zip -OutFile sdk-tools-windows-4333796.zip"
+          7z x sdk-tools-windows-4333796.zip -o%ANDROID_HOME% > nul
+          yes | %ANDROID_HOME%\tools\bin\sdkmanager.bat "build-tools;%BUILD_TOOLS_VERSION%" > nul
+          REM Apktool.
+          powershell -Command "wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/windows/apktool.bat -OutFile C:\Windows\apktool.bat"
+          powershell -Command "wget "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_$env:APKTOOL_VERSION.jar" -OutFile C:\Windows\apktool.jar"
+
+      - name: Install dependencies (MacOS)
+        if: matrix.os == 'macOS-latest'
+        env:
+          APKTOOL_VERSION: 2.4.0
+          ANDROID_HOME: /android-sdk
+          BUILD_TOOLS_VERSION: 29.0.2
+        run: |
+          # Android SDK (needed for zipalign).
+          sudo mkdir -p ${ANDROID_HOME} && wget -q https://dl.google.com/android/repository/sdk-tools-darwin-4333796.zip
+          sudo unzip -q sdk-tools-darwin-4333796.zip -d ${ANDROID_HOME}
+          sudo bash -c "echo y | '${ANDROID_HOME}/tools/bin/sdkmanager' 'build-tools;${BUILD_TOOLS_VERSION}'" > /dev/null
+          # Apktool.
+          sudo wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/osx/apktool -O /usr/local/bin/apktool
+          sudo chmod a+x /usr/local/bin/apktool
+          sudo wget -q "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_${APKTOOL_VERSION}.jar" -O /usr/local/bin/apktool.jar
+          sudo chmod a+x /usr/local/bin/apktool.jar
+
+      - name: Check installation
+        if: matrix.os != 'windows-latest'
+        env:
+          ANDROID_HOME: /android-sdk
+          BUILD_TOOLS_VERSION: 29.0.2
+        run: |
+          export PATH="${PATH}:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
+          cd src
+          python -m obfuscapk.cli --help
+
+      - name: Check installation (Windows)
+        if: matrix.os == 'windows-latest'
+        env:
+          ANDROID_HOME: C:\android-sdk
+          BUILD_TOOLS_VERSION: 29.0.2
+        run: |
+          SET PATH=%PATH%;%ANDROID_HOME%\build-tools\%BUILD_TOOLS_VERSION%
+          cd src
+          python -m obfuscapk.cli --help

@@ -10,14 +10,15 @@ RUN bash -c 'for i in {1..8}; do mkdir -p "/usr/share/man/man$i"; done' && \
     # Java 8 (needed for apktool and jarsigner).
     apt update && apt install --no-install-recommends -y openjdk-8-jdk-headless wget unzip && \
     # Android SDK (needed for zipalign).
-    mkdir -p ${ANDROID_HOME} && wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip && \
-    unzip sdk-tools-linux-4333796.zip -d ${ANDROID_HOME} && \
+    mkdir -p "${ANDROID_HOME}" && \
+    wget -q "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" && \
+    unzip -q sdk-tools-linux-4333796.zip -d "${ANDROID_HOME}" && \
     rm sdk-tools-linux-4333796.zip && \
     yes | sdkmanager "build-tools;${BUILD_TOOLS_VERSION}" && \
     # Apktool.
-    wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool \
+    wget -q "https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool" \
     -O /usr/local/bin/apktool && chmod a+x /usr/local/bin/apktool && \
-    wget "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_${APKTOOL_VERSION}.jar" \
+    wget -q "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_${APKTOOL_VERSION}.jar" \
     -O /usr/local/bin/apktool.jar && chmod a+x /usr/local/bin/apktool.jar && \
     # Clean.
     apt remove --purge -y wget unzip && \
