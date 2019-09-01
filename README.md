@@ -408,3 +408,11 @@ You are free to use this code under the [MIT License](https://github.com/Claudiu
 [![Dibris](https://intranet.dibris.unige.it/img/logo_dibris.gif)](https://www.dibris.unige.it/en/) 
 
 This software was developed for research purposes at the Computer Security Lab ([CSecLab](https://csec.it/)), hosted at DIBRIS, University of Genoa.
+
+
+
+## ❱ Team
+* [Gabriel Claudiu Georgiu](https://github.com/ClaudiuGeorgiu) -- Core Developer
+* [Simone Aonzo](https://packmad.github.io/) -- Research assistant
+* [Alessio Merlo](http://csec.it/people/alessio_merlo/) -- Faculty Member
+
