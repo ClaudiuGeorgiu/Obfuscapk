@@ -10,9 +10,12 @@
 > A black-box obfuscation tool for Android apps.
 
 [![Codacy](https://api.codacy.com/project/badge/Grade/076af5e6284541d39679c96d16d83772)](https://www.codacy.com/app/ClaudiuGeorgiu/Obfuscapk)
+[![Actions Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Build/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions)
 [![Docker Hub](https://img.shields.io/docker/cloud/build/claudiugeorgiu/obfuscapk)](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
 [![Python Version](https://img.shields.io/badge/Python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
+
+
 
 **Obfuscapk** is a modular Python tool for obfuscating Android apps without needing their source code, since
 [`apktool`](https://ibotpeaches.github.io/Apktool/) is used to decompile the original apk file and to build a new
@@ -396,3 +399,20 @@ Questions, bug reports and pull requests are welcome on GitHub at
 ## ❱ License
 
 You are free to use this code under the [MIT License](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE).
+
+
+
+## ❱ Credits
+
+[![Unige](https://intranet.dibris.unige.it/img/logo_unige.gif)](https://unige.it/en/)
+[![Dibris](https://intranet.dibris.unige.it/img/logo_dibris.gif)](https://www.dibris.unige.it/en/) 
+
+This software was developed for research purposes at the Computer Security Lab ([CSecLab](https://csec.it/)), hosted at DIBRIS, University of Genoa.
+
+
+
+## ❱ Team
+* [Gabriel Claudiu Georgiu](https://github.com/ClaudiuGeorgiu) -- Core Developer
+* [Simone Aonzo](https://packmad.github.io/) -- Research assistant
+* [Alessio Merlo](http://csec.it/people/alessio_merlo/) -- Faculty Member
+
