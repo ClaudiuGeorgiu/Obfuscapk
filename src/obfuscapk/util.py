@@ -177,15 +177,19 @@ def get_smali_method_overload() -> str:
 
 
 def get_decrypt_asset_smali_code(encryption_secret: str) -> str:
-    return get_text_from_file(os.path.join(os.path.dirname(__file__),
-                                           'resources', 'smali', 'DecryptAsset.smali'
-                                ).replace('This-key-need-to-be-32-character', encryption_secret))
+    text = get_text_from_file(os.path.join(os.path.dirname(__file__),
+                                           'resources', 'smali', 'DecryptAsset.smali'))
+    return replace_default_secret_key(text, encryption_secret)
 
 
 def get_decrypt_string_smali_code(encryption_secret: str) -> str:
-    return get_text_from_file(os.path.join(os.path.dirname(__file__),
-                                           'resources', 'smali', 'DecryptString.smali')
-                                ).replace('This-key-need-to-be-32-character', encryption_secret)
+    text = get_text_from_file(os.path.join(os.path.dirname(__file__),
+                                           'resources', 'smali', 'DecryptString.smali'))
+    return replace_default_secret_key(text, encryption_secret)
+
+
+def replace_default_secret_key(text: str, encryption_secret: str) -> str:
+    return text.replace('This-key-need-to-be-32-character', encryption_secret)
 
 
 def get_api_reflection_smali_code() -> str:
