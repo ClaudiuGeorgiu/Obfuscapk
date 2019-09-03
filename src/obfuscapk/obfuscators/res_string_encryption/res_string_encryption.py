@@ -70,6 +70,7 @@ class ResStringEncryption(obfuscator_category.IEncryptionObfuscator):
     def obfuscate(self, obfuscation_info: Obfuscation):
         self.logger.info('Running "{0}" obfuscator'.format(self.__class__.__name__))
 
+        self.encryption_secret = obfuscation_info.encryption_secret
         try:
             string_res_field_pattern = re.compile(r'\.field\spublic\sstatic\sfinal\s(?P<string_name>\S+?):I\s=\s'
                                                   r'(?P<string_id>[0-9a-fA-FxX]+)', re.UNICODE)
@@ -303,7 +304,7 @@ class ResStringEncryption(obfuscator_category.IEncryptionObfuscator):
                 destination_dir = os.path.dirname(obfuscation_info.get_smali_files()[0])
                 destination_file = os.path.join(destination_dir, 'DecryptString.smali')
                 with open(destination_file, 'w', encoding='utf-8') as decrypt_string_smali:
-                    decrypt_string_smali.write(util.get_decrypt_string_smali_code())
+                    decrypt_string_smali.write(util.get_decrypt_string_smali_code(self.encryption_secret))
                     obfuscation_info.decrypt_string_smali_file_added_flag = True
 
         except Exception as e:

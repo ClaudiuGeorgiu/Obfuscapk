@@ -3,6 +3,8 @@
 
 import logging
 import os
+import secrets
+import string
 from typing import List, Union
 
 from . import util
@@ -26,6 +28,10 @@ class Obfuscation(object):
         self.ignore_libs: bool = ignore_libs
         self.interactive: bool = interactive
         self.virus_total_api_key: List[str] = virus_total_api_key
+
+        # Random string (32 chars long) generation with ASCII letters and digits
+        self.encryption_secret = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(32))
+        self.logger.debug('Auto-generated random secret key for encryption: "{0}"'.format(self.encryption_secret))
 
         # The list of obfuscators already used on the application.
         self.used_obfuscators: List[str] = []

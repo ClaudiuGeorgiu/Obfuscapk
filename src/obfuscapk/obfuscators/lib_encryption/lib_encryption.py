@@ -25,6 +25,7 @@ class LibEncryption(obfuscator_category.IEncryptionObfuscator):
     def obfuscate(self, obfuscation_info: Obfuscation):
         self.logger.info('Running "{0}" obfuscator'.format(self.__class__.__name__))
 
+        self.encryption_secret = obfuscation_info.encryption_secret
         try:
             native_libs = obfuscation_info.get_native_lib_files()
 
@@ -133,7 +134,7 @@ class LibEncryption(obfuscator_category.IEncryptionObfuscator):
                     destination_dir = os.path.dirname(obfuscation_info.get_smali_files()[0])
                     destination_file = os.path.join(destination_dir, 'DecryptAsset.smali')
                     with open(destination_file, 'w', encoding='utf-8') as decrypt_asset_smali:
-                        decrypt_asset_smali.write(util.get_decrypt_asset_smali_code())
+                        decrypt_asset_smali.write(util.get_decrypt_asset_smali_code(self.encryption_secret))
                         obfuscation_info.decrypt_asset_smali_file_added_flag = True
 
                 # Remove the original native libraries (the encrypted ones will be used instead).

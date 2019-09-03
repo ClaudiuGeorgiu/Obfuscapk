@@ -19,12 +19,12 @@ class AssetEncryption(obfuscator_category.IEncryptionObfuscator):
     def __init__(self):
         self.logger = logging.getLogger('{0}.{1}'.format(__name__, self.__class__.__name__))
         super().__init__()
-
         self.encryption_secret = 'This-key-need-to-be-32-character'
 
     def obfuscate(self, obfuscation_info: Obfuscation):
         self.logger.info('Running "{0}" obfuscator'.format(self.__class__.__name__))
 
+        self.encryption_secret = obfuscation_info.encryption_secret
         try:
             # This instruction takes 2 registers, the latter contains the name of the asset file to load.
             open_asset_invoke_pattern = re.compile(r'\s+invoke-virtual\s'
@@ -127,7 +127,7 @@ class AssetEncryption(obfuscator_category.IEncryptionObfuscator):
                     destination_dir = os.path.dirname(obfuscation_info.get_smali_files()[0])
                     destination_file = os.path.join(destination_dir, 'DecryptAsset.smali')
                     with open(destination_file, 'w', encoding='utf-8') as decrypt_asset_smali:
-                        decrypt_asset_smali.write(util.get_decrypt_asset_smali_code())
+                        decrypt_asset_smali.write(util.get_decrypt_asset_smali_code(self.encryption_secret))
                         obfuscation_info.decrypt_asset_smali_file_added_flag = True
 
             else:
