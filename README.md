@@ -188,23 +188,23 @@ according to how you installed the tool:
 
 * **Docker image**: a local directory containing the application to obfuscate has to be mounted to `/workdir` in the
 container (e.g., the current directory `"${PWD}"`), so the command:
-```Shell
-$ obfuscapk [params...]
-```
-becomes:
-```Shell
-$ docker run --rm -it -u $(id -u):$(id -g) -v "${PWD}":"/workdir" obfuscapk [params...]
-```
+    ```Shell
+    $ obfuscapk [params...]
+    ```
+    becomes:
+    ```Shell
+    $ docker run --rm -it -u $(id -u):$(id -g) -v "${PWD}":"/workdir" obfuscapk [params...]
+    ```
 
 * **From source**: every instruction has to be executed from the `Obfuscapk/src/` directory (or by adding
 `Obfuscapk/src/` directory to `PYTHONPATH` environment variable) and the command:
-```Shell
-$ obfuscapk [params...]
-```
-becomes:
-```Shell
-$ python3.7 -m obfuscapk.cli [params...]
-```
+    ```Shell
+    $ obfuscapk [params...]
+    ```
+    becomes:
+    ```Shell
+    $ python3.7 -m obfuscapk.cli [params...]
+    ```
 
 Let's start by looking at the help message:
 
@@ -285,33 +285,37 @@ The obfuscators included in Obfuscapk can be divided into different categories, 
 perform:
 
 * **Trivial**: as the name suggests, this category includes simple operations (that do not modify much the original
-application), like signing the apk file with a new signature
+application), like signing the apk file with a new signature.
 
-* **Rename**: operations that change the names of the used identifiers (classes, fields, methods)
+* **Rename**: operations that change the names of the used identifiers (classes, fields, methods).
 
-* **Encryption**: packaging encrypted code/resources and decrypting them during the app execution. When Obfuscapk starts, it automatically generates a random secret key (32 characters long, using ASCII letters and digits) that will be used for encryption. 
+* **Encryption**: packaging encrypted code/resources and decrypting them during the app execution. When Obfuscapk
+starts, it automatically generates a random secret key (32 characters long, using ASCII letters and digits) that will
+be used for encryption.
 
-* **Code**: all the operations that involve the modification of the decompiled source code
+* **Code**: all the operations that involve the modification of the decompiled source code.
 
-* **Resources**: operations on the resource files (like modifying the manifest)
+* **Resources**: operations on the resource files (like modifying the manifest).
 
 * **Other**
 
-The obfuscators currently bundled with Obfuscapk are briefly presented below (in alphabetical order).
+The obfuscators currently bundled with Obfuscapk are briefly presented below (in alphabetical order). Please refer
+to the code for more details.
 
 `NOTE:` not all the obfuscators below correspond to real obfuscation techniques (e.g., `Rebuild`, `NewSignature`,
 `NewAlignment` and `VirusTotal`), but they are implemented as obfuscators in order to keep the architecture modular
 and easy to extend with new functionality. 
 
-The following descriptions are just a recap. Please refer to the code for more details.
-
 ### [AdvancedReflection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/advanced_reflection) \[Code]
 
-> Uses reflection to invoke dangerous APIs of the Android Framework. In order to find out if a method belongs to the Android Framework, Obfuscapk refers to the mapping discovered by [Backes et al](https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_backes-android.pdf).
+> Uses reflection to invoke dangerous APIs of the Android Framework. In order to find out if a method belongs to the
+> Android Framework, Obfuscapk refers to the mapping discovered
+> by [Backes et al](https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_backes-android.pdf).
 
 ### [ArithmeticBranch](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/arithmetic_branch) \[Code]
 
-> Insert junk code. In this case, the junk code is composed by arithmetic computations and a branch instruction depending on the result of these computations, crafted in such a way that the branch is never taken.
+> Insert junk code. In this case, the junk code is composed by arithmetic computations and a branch instruction
+> depending on the result of these computations, crafted in such a way that the branch is never taken.
 
 ### [AssetEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/asset_encryption) \[Encryption]
 
@@ -319,8 +323,9 @@ The following descriptions are just a recap. Please refer to the code for more d
 
 ### [CallIndirection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/call_indirection) \[Code]
 
-> This technique modifies the control-flow graph without impacting the code semantics: it adds new methods that invoke the original ones.
-For example, an invocation to the method _m1_ will be substituted by a new wrapper method _m2_, that, when invoked, it calls the original method _m1_.
+> This technique modifies the control-flow graph without impacting the code semantics: it adds new methods that
+> invoke the original ones. For example, an invocation to the method _m1_ will be substituted by a new wrapper
+> method _m2_, that, when invoked, it calls the original method _m1_.
 
 ### [ClassRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/class_rename) \[Rename]
 
@@ -340,7 +345,8 @@ For example, an invocation to the method _m1_ will be substituted by a new wrapp
 
 ### [Goto](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/goto) \[Code]
 
-> Given a method, it inserts a `goto` instruction pointing to the end of the method and another `goto` pointing to the instruction after the first `goto`; it modifies the control-flow graph by adding two new nodes.
+> Given a method, it inserts a `goto` instruction pointing to the end of the method and another `goto` pointing to
+> the instruction after the first `goto`; it modifies the control-flow graph by adding two new nodes.
 
 ### [LibEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/lib_encryption) \[Encryption]
 
@@ -348,9 +354,10 @@ For example, an invocation to the method _m1_ will be substituted by a new wrapp
 
 ### [MethodOverload](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/method_overload) \[Code]
 
-> It exploits the overloading feature of the Java programming language to assign the same name to different methods but using different arguments. 
-Given an already existing method, this technique creates a new void method with the same name and arguments, but it also adds new random arguments.
-Then, the body of the new method is filled with random arithmetic instructions.
+> It exploits the overloading feature of the Java programming language to assign the same name to different methods
+> but using different arguments. Given an already existing method, this technique creates a new void method with the
+> same name and arguments, but it also adds new random arguments. Then, the body of the new method is filled with
+> random arithmetic instructions.
 
 ### [MethodRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/method_rename) \[Rename]
 
@@ -366,8 +373,8 @@ Then, the body of the new method is filled with random arithmetic instructions.
 
 ### [Nop](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/nop) \[Code]
 
-> Insert junk code. Nop, short for _no-operation_, is a dedicated instruction that does nothing. 
-This technique just inserts random `nop` instructions within every method implementation.
+> Insert junk code. Nop, short for _no-operation_, is a dedicated instruction that does nothing. This technique just
+> inserts random `nop` instructions within every method implementation.
 
 ### [RandomManifest](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/random_manifest) \[Resource]
 
@@ -379,14 +386,16 @@ This technique just inserts random `nop` instructions within every method implem
 
 ### [Reflection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reflection) \[Code]
 
-> This technique analyzes the existing code looking for method invocations of the app, ignoring the calls to the Android framework (see `AdvancedReflection`).
-If it finds an instruction with a suitable method invocation (i.e., no constructor methods, public visibility, enough free registers, etc.) such invocation is redirected to a custom method that will invoke the original method using the Reflection APIs.
+> This technique analyzes the existing code looking for method invocations of the app, ignoring the calls to the
+> Android framework (see `AdvancedReflection`). If it finds an instruction with a suitable method invocation
+> (i.e., no constructor methods, public visibility, enough free registers, etc.) such invocation is redirected to
+> a custom method that will invoke the original method using the Reflection APIs.
 
 ### [Reorder](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reorder) \[Code]
 
-> This technique consists of changing the order of basic blocks in the code.
-When a branch instruction is found, the condition is inverted (e.g., _branch if lower than_, becomes _branch if greater or equal than_) and the target basic blocks are reordered accordingly.
-Furthermore, it also randomly re-arrange the code abusing `goto` instructions.
+> This technique consists of changing the order of basic blocks in the code. When a branch instruction is found, the
+> condition is inverted (e.g., _branch if lower than_, becomes _branch if greater or equal than_) and the target basic
+> blocks are reordered accordingly. Furthermore, it also randomly re-arranges the code abusing `goto` instructions.
 
 ### [ResStringEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/res_string_encryption) \[Encryption]
 
@@ -394,7 +403,7 @@ Furthermore, it also randomly re-arrange the code abusing `goto` instructions.
 
 ### [VirusTotal](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/virus_total) \[Other]
 
-> Send the original and the obfuscated application to Virus Total. You must provide the VT API key (see `- k`).
+> Send the original and the obfuscated application to Virus Total. You must provide the VT API key (see `-k` option).
 
 
 
@@ -421,7 +430,8 @@ This software was developed for research purposes at the Computer Security Lab (
 
 
 ## ❱ Team
-* [Gabriel Claudiu Georgiu](https://github.com/ClaudiuGeorgiu) -- Core Developer
-* [Simone Aonzo](https://packmad.github.io/) -- Research assistant
-* [Alessio Merlo](http://csec.it/people/alessio_merlo/) -- Faculty Member
 
+* [Simone Aonzo](https://packmad.github.io/) - Research Assistant
+* [Gabriel Claudiu Georgiu](https://github.com/ClaudiuGeorgiu) - Core Developer
+* [Luca Verderame](https://csec.it/) - Postdoctoral Researcher
+* [Alessio Merlo](https://csec.it/people/alessio_merlo/) - Faculty Member
