@@ -43,10 +43,6 @@ jobs:
 #        env:
 #          ANDROID_HOME: /android-sdk
         run: |
-#          # Android SDK (needed for zipalign).
-#          sudo mkdir -p ${ANDROID_HOME} && wget -q https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-#          sudo unzip -q sdk-tools-linux-4333796.zip -d ${ANDROID_HOME}
-#          sudo bash -c "echo y | '${ANDROID_HOME}/tools/bin/sdkmanager' 'build-tools;${BUILD_TOOLS_VERSION}'" > /dev/null
           # Install Apktool.
           sudo wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O /usr/local/bin/apktool
           sudo chmod a+x /usr/local/bin/apktool
@@ -59,10 +55,6 @@ jobs:
 #        env:
 #          ANDROID_HOME: C:\android-sdk
         run: |
-#          # Android SDK (needed for zipalign).
-#          powershell -Command "$ProgressPreference = 'SilentlyContinue'; wget https://dl.google.com/android/repository/sdk-tools-windows-4333796.zip -OutFile sdk-tools-windows-4333796.zip"
-#          7z x sdk-tools-windows-4333796.zip -o%ANDROID_HOME% > nul
-#          yes | %ANDROID_HOME%\tools\bin\sdkmanager.bat "build-tools;%BUILD_TOOLS_VERSION%" > nul
           # Install Apktool.
           wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/windows/apktool.bat -OutFile C:\Windows\apktool.bat
           wget "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_$env:APKTOOL_VERSION.jar" -OutFile C:\Windows\apktool.jar
@@ -73,10 +65,6 @@ jobs:
 #        env:
 #          ANDROID_HOME: /android-sdk
         run: |
-#          # Android SDK (needed for zipalign).
-#          sudo mkdir -p ${ANDROID_HOME} && wget -q https://dl.google.com/android/repository/sdk-tools-darwin-4333796.zip
-#          sudo unzip -q sdk-tools-darwin-4333796.zip -d ${ANDROID_HOME}
-#          sudo bash -c "echo y | '${ANDROID_HOME}/tools/bin/sdkmanager' 'build-tools;${BUILD_TOOLS_VERSION}'" > /dev/null
           # Install Apktool.
           sudo wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/osx/apktool -O /usr/local/bin/apktool
           sudo chmod a+x /usr/local/bin/apktool
@@ -89,7 +77,6 @@ jobs:
 #        env:
 #          ANDROID_HOME: /android-sdk
         run: |
-#          export PATH="${PATH}:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
           cd src
           python -m obfuscapk.cli --help
 
@@ -99,6 +86,5 @@ jobs:
 #        env:
 #          ANDROID_HOME: C:\android-sdk
         run: |
-#          SET PATH=%PATH%;%ANDROID_HOME%\build-tools\%BUILD_TOOLS_VERSION%
           cd src
           python -m obfuscapk.cli --help
