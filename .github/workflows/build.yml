@@ -16,16 +16,12 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     env:
       APKTOOL_VERSION: 2.4.1
+      BUILD_TOOLS_VERSION: 29.0.2
 
     steps:
 
       - name: Checkout repository
         uses: actions/checkout@v2
-
-#      - name: Set up Java
-#        uses: actions/setup-java@v1
-#        with:
-#          version: 8.0.x
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
@@ -40,8 +36,6 @@ jobs:
       - name: Install dependencies (Ubuntu)
         if: contains(matrix.os, 'ubuntu') == true
         shell: bash
-#        env:
-#          ANDROID_HOME: /android-sdk
         run: |
           # Install Apktool.
           sudo wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O /usr/local/bin/apktool
@@ -52,8 +46,6 @@ jobs:
       - name: Install dependencies (Windows)
         if: contains(matrix.os, 'windows') == true
         shell: powershell
-#        env:
-#          ANDROID_HOME: C:\android-sdk
         run: |
           # Install Apktool.
           wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/windows/apktool.bat -OutFile C:\Windows\apktool.bat
@@ -62,8 +54,6 @@ jobs:
       - name: Install dependencies (MacOS)
         if: contains(matrix.os, 'macOS') == true
         shell: bash
-#        env:
-#          ANDROID_HOME: /android-sdk
         run: |
           # Install Apktool.
           sudo wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/osx/apktool -O /usr/local/bin/apktool
@@ -74,17 +64,15 @@ jobs:
       - name: Check installation
         if: contains(matrix.os, 'windows') == false
         shell: bash
-#        env:
-#          ANDROID_HOME: /android-sdk
         run: |
+          export PATH="${PATH}:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
           cd src
           python -m obfuscapk.cli --help
 
       - name: Check installation (Windows)
         if: contains(matrix.os, 'windows') == true
         shell: powershell
-#        env:
-#          ANDROID_HOME: C:\android-sdk
         run: |
+          $Env:Path += ";$($Env:ANDROID_HOME)\build-tools\$($Env:BUILD_TOOLS_VERSION)"
           cd src
           python -m obfuscapk.cli --help
