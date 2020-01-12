@@ -12,7 +12,7 @@
 [![Codacy](https://api.codacy.com/project/badge/Grade/076af5e6284541d39679c96d16d83772)](https://www.codacy.com/app/ClaudiuGeorgiu/Obfuscapk)
 [![Actions Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Build/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions)
 [![Docker Hub](https://img.shields.io/docker/cloud/build/claudiugeorgiu/obfuscapk)](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
-[![Python Version](https://img.shields.io/badge/Python-3.7-green.svg)](https://www.python.org/downloads/release/python-374/)
+[![Python Version](https://img.shields.io/badge/Python-3.6%20%7C%203.7%20%7C%203.8-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
 
 
