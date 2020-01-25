@@ -29,18 +29,18 @@ make the new application very different from the original (e.g., to signature ba
 
 More details about **Obfuscapk** can be found in the paper "[Obfuscapk: An *open-source* black-box obfuscation tool for Android apps](https://doi.org/10.1016/j.softx.2020.100403)". You can cite the paper as follows:
 
-```TeX
+```BibTeX
 @article{AONZO2020100403,
-title = "Obfuscapk: An open-source black-box obfuscation tool for Android apps",
-journal = "SoftwareX",
-volume = "11",
-pages = "100403",
-year = "2020",
-issn = "2352-7110",
-doi = "https://doi.org/10.1016/j.softx.2020.100403",
-url = "http://www.sciencedirect.com/science/article/pii/S2352711019302791",
-author = "Simone Aonzo and Gabriel Claudiu Georgiu and Luca Verderame and Alessio Merlo",
-keywords = "Android, Obfuscation, Program analysis"
+    title = "Obfuscapk: An open-source black-box obfuscation tool for Android apps",
+    journal = "SoftwareX",
+    volume = "11",
+    pages = "100403",
+    year = "2020",
+    issn = "2352-7110",
+    doi = "https://doi.org/10.1016/j.softx.2020.100403",
+    url = "http://www.sciencedirect.com/science/article/pii/S2352711019302791",
+    author = "Simone Aonzo and Gabriel Claudiu Georgiu and Luca Verderame and Alessio Merlo",
+    keywords = "Android, Obfuscation, Program analysis"
 }
 ```
 
