@@ -58,7 +58,7 @@ class Apktool(object):
 
         try:
             self.logger.info('Running decode command "{0}"'.format(' '.join(decode_cmd)))
-            output = subprocess.check_output(decode_cmd, stderr=subprocess.STDOUT).strip()
+            output = subprocess.check_output(decode_cmd, stderr=subprocess.STDOUT, shell=True).strip()
             return output.decode()
         except subprocess.CalledProcessError as e:
             self.logger.error('Error during decode command: {0}'.format(
@@ -90,7 +90,7 @@ class Apktool(object):
 
         try:
             self.logger.info('Running build command "{0}"'.format(' '.join(build_cmd)))
-            output = subprocess.check_output(build_cmd, stderr=subprocess.STDOUT).strip()
+            output = subprocess.check_output(build_cmd, stderr=subprocess.STDOUT, shell=True).strip()
             return output.decode()
         except subprocess.CalledProcessError as e:
             self.logger.error('Error during build command: {0}'.format(
@@ -127,7 +127,7 @@ class Jarsigner(object):
 
         try:
             self.logger.info('Running sign command "{0}"'.format(' '.join(sign_cmd)))
-            output = subprocess.check_output(sign_cmd, stderr=subprocess.STDOUT).strip()
+            output = subprocess.check_output(sign_cmd, stderr=subprocess.STDOUT, shell=True).strip()
             return output.decode()
         except subprocess.CalledProcessError as e:
             self.logger.error('Error during sign command: {0}'.format(
@@ -196,7 +196,7 @@ class Zipalign(object):
             align_cmd = [self.zipalign_path, '-f', '4', apk_copy_path, apk_path]
 
             self.logger.info('Running align command "{0}"'.format(' '.join(align_cmd)))
-            output = subprocess.check_output(align_cmd, stderr=subprocess.STDOUT).strip()
+            output = subprocess.check_output(align_cmd, stderr=subprocess.STDOUT, shell=True).strip()
             return output.decode()
         except subprocess.CalledProcessError as e:
             self.logger.error('Error during align command: {0}'.format(
