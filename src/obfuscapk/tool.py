@@ -20,6 +20,15 @@ class Apktool(object):
         else:
             self.apktool_path: str = 'apktool'
 
+        full_apktool_path = shutil.which(self.apktool_path)
+
+        # Make sure to use the full path of the executable (needed for cross-platform
+        # compatibility).
+        if full_apktool_path is None:
+            raise RuntimeError('Something is wrong with executable "{0}"'.format(self.apktool_path))
+        else:
+            self.apktool_path = full_apktool_path
+
     def decode(self, apk_path: str, output_dir_path: str = None, force: bool = False) -> str:
 
         # Check if the apk file to decode is a valid file.
@@ -58,7 +67,9 @@ class Apktool(object):
 
         try:
             self.logger.info('Running decode command "{0}"'.format(' '.join(decode_cmd)))
-            output = subprocess.check_output(decode_cmd, stderr=subprocess.STDOUT).strip()
+            # A new line character is sent as input since newer versions of Apktool
+            # have an interactive prompt on Windows where the user should press a key.
+            output = subprocess.check_output(decode_cmd, stderr=subprocess.STDOUT, input=b"\n").strip()
             return output.decode()
         except subprocess.CalledProcessError as e:
             self.logger.error('Error during decode command: {0}'.format(
@@ -90,7 +101,9 @@ class Apktool(object):
 
         try:
             self.logger.info('Running build command "{0}"'.format(' '.join(build_cmd)))
-            output = subprocess.check_output(build_cmd, stderr=subprocess.STDOUT).strip()
+            # A new line character is sent as input since newer versions of Apktool
+            # have an interactive prompt on Windows where the user should press a key.
+            output = subprocess.check_output(build_cmd, stderr=subprocess.STDOUT, input=b"\n").strip()
             return output.decode()
         except subprocess.CalledProcessError as e:
             self.logger.error('Error during build command: {0}'.format(
@@ -110,6 +123,15 @@ class Jarsigner(object):
             self.jarsigner_path: str = os.environ['JARSIGNER_PATH']
         else:
             self.jarsigner_path: str = 'jarsigner'
+
+        full_jarsigner_path = shutil.which(self.jarsigner_path)
+
+        # Make sure to use the full path of the executable (needed for cross-platform
+        # compatibility).
+        if full_jarsigner_path is None:
+            raise RuntimeError('Something is wrong with executable "{0}"'.format(self.jarsigner_path))
+        else:
+            self.jarsigner_path = full_jarsigner_path
 
     def sign(self, apk_path: str, keystore_file_path: str, keystore_password: str, key_alias: str) -> str:
 
@@ -178,6 +200,16 @@ class Zipalign(object):
             self.zipalign_path: str = os.environ['ZIPALIGN_PATH']
         else:
             self.zipalign_path: str = 'zipalign'
+
+        full_zipalign_path = shutil.which(self.zipalign_path)
+
+        # Make sure to use the full path of the executable (needed for cross-platform
+        # compatibility).
+        if full_zipalign_path is None:
+            raise RuntimeError(
+                'Something is wrong with executable "{0}"'.format(self.zipalign_path))
+        else:
+            self.zipalign_path = full_zipalign_path
 
     def align(self, apk_path: str) -> str:
 
