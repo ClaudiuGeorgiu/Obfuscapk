@@ -7,10 +7,12 @@ import pytest
 
 from obfuscapk.tool import Apktool, Jarsigner, Zipalign
 
+# noinspection PyUnresolvedReferences
 from test.test_fixtures import (
     tmp_working_directory_path,
     tmp_demo_apk_v10_original_path,
     tmp_demo_apk_v10_rebuild_path,
+    tmp_demo_apk_v10_decoded_files_directory_path,
 )
 
 
@@ -25,18 +27,85 @@ class TestApktool(object):
         assert "usage: apktool" in output.lower()
 
     def test_apktool_wrong_path(self, monkeypatch):
-        monkeypatch.setenv("APKTOOL_PATH", "wrong.apktool.path")
+        monkeypatch.setenv("APKTOOL_PATH", "invalid.apktool.path")
         with pytest.raises(RuntimeError):
             Apktool()
 
     def test_decode_valid_apk(self, tmp_demo_apk_v10_original_path: str):
-        apktool = Apktool()
-        output = apktool.decode(tmp_demo_apk_v10_original_path)
+        output = Apktool().decode(tmp_demo_apk_v10_original_path)
         assert "using apktool" in output.lower()
 
-    def test_decode_wrong_apk(self):
+    def test_decode_error_invalid_apk_path(self):
         with pytest.raises(FileNotFoundError):
-            Apktool().decode("wrong.apk.path")
+            Apktool().decode("invalid.apk.path")
+
+    def test_decode_error_invalid_output_directory(
+        self, tmp_demo_apk_v10_original_path: str
+    ):
+        with pytest.raises(NotADirectoryError):
+            Apktool().decode(tmp_demo_apk_v10_original_path, "invalid.directory")
+
+    def test_decode_error_existing_directory(
+        self, tmp_working_directory_path: str, tmp_demo_apk_v10_original_path: str
+    ):
+        with pytest.raises(FileExistsError):
+            Apktool().decode(
+                tmp_demo_apk_v10_original_path, tmp_working_directory_path, force=False
+            )
+
+    def test_decode_error_invalid_file(self, tmp_working_directory_path: str):
+        invalid_file_path = os.path.join(tmp_working_directory_path, "invalid.apk")
+
+        with open(invalid_file_path, "w") as invalid_file:
+            invalid_file.write("This is not an apk file\n")
+
+        with pytest.raises(subprocess.CalledProcessError):
+            Apktool().decode(invalid_file_path, force=True)
+
+    def test_decode_error_generic(
+        self, tmp_demo_apk_v10_original_path: str, monkeypatch
+    ):
+        def mock(*args, **kwargs):
+            raise Exception
+
+        monkeypatch.setattr("subprocess.check_output", mock)
+
+        with pytest.raises(Exception):
+            Apktool().decode(tmp_demo_apk_v10_original_path, force=True)
+
+    def test_build_valid_apk(
+        self,
+        tmp_working_directory_path: str,
+        tmp_demo_apk_v10_decoded_files_directory_path: str,
+    ):
+        output_apk_path = os.path.join(tmp_working_directory_path, "output.apk")
+        output = Apktool().build(
+            tmp_demo_apk_v10_decoded_files_directory_path, output_apk_path,
+        )
+        assert "using apktool" in output.lower()
+        assert os.path.isfile(output_apk_path)
+
+    def test_build_error_invalid_input_directory_path(self):
+        with pytest.raises(NotADirectoryError):
+            Apktool().build("invalid.input.directory.path")
+
+    def test_build_error_invalid_input_directory(self, tmp_working_directory_path: str):
+        invalid_directory_path = os.path.join(tmp_working_directory_path, "empty")
+        os.makedirs(invalid_directory_path)
+
+        with pytest.raises(subprocess.CalledProcessError):
+            Apktool().build(invalid_directory_path)
+
+    def test_build_error_generic(
+        self, tmp_demo_apk_v10_decoded_files_directory_path: str, monkeypatch
+    ):
+        def mock(*args, **kwargs):
+            raise Exception
+
+        monkeypatch.setattr("subprocess.check_output", mock)
+
+        with pytest.raises(Exception):
+            Apktool().build(tmp_demo_apk_v10_decoded_files_directory_path)
 
 
 class TestJarsigner(object):
@@ -50,13 +119,12 @@ class TestJarsigner(object):
         assert "usage: jarsigner" in output.lower()
 
     def test_jarsigner_wrong_path(self, monkeypatch):
-        monkeypatch.setenv("JARSIGNER_PATH", "wrong.jarsigner.path")
+        monkeypatch.setenv("JARSIGNER_PATH", "invalid.jarsigner.path")
         with pytest.raises(RuntimeError):
             Jarsigner()
 
     def test_resign_valid_apk(self, tmp_demo_apk_v10_rebuild_path: str):
-        jarsigner = Jarsigner()
-        output = jarsigner.resign(
+        output = Jarsigner().resign(
             tmp_demo_apk_v10_rebuild_path,
             os.path.join(
                 os.path.dirname(__file__),
@@ -70,9 +138,44 @@ class TestJarsigner(object):
         )
         assert "jar signed" in output.lower()
 
-    def test_sign_wrong_apk(self):
+    def test_resign_error_generic(
+        self, tmp_demo_apk_v10_original_path: str, monkeypatch
+    ):
+        def mock(*args, **kwargs):
+            raise Exception
+
+        monkeypatch.setattr("subprocess.check_output", mock)
+
+        with pytest.raises(Exception):
+            Jarsigner().resign(
+                tmp_demo_apk_v10_original_path, "ignore", "ignore", "ignore"
+            )
+
+    def test_resign_error_signature_removal_error(
+        self, tmp_demo_apk_v10_original_path: str, monkeypatch
+    ):
+        def mock(*args, **kwargs):
+            raise Exception
+
+        monkeypatch.setattr("zipfile.ZipFile", mock)
+
+        with pytest.raises(Exception):
+            Jarsigner().resign(
+                tmp_demo_apk_v10_original_path, "ignore", "ignore", "ignore"
+            )
+
+    def test_sign_error_invalid_apk_path(self):
         with pytest.raises(FileNotFoundError):
-            Jarsigner().sign("wrong.apk.path", "ignore", "ignore", "ignore")
+            Jarsigner().sign("invalid.apk.path", "ignore", "ignore", "ignore")
+
+    def test_sign_error_invalid_file(self, tmp_working_directory_path: str):
+        invalid_file_path = os.path.join(tmp_working_directory_path, "invalid.apk")
+
+        with open(invalid_file_path, "w") as invalid_file:
+            invalid_file.write("This is not an apk file\n")
+
+        with pytest.raises(subprocess.CalledProcessError):
+            Jarsigner().sign(invalid_file_path, "ignore", "ignore", "ignore")
 
 
 class TestZipalign(object):
@@ -85,15 +188,32 @@ class TestZipalign(object):
         assert "usage: zipalign" in e.value.output.decode().lower()
 
     def test_zipalign_wrong_path(self, monkeypatch):
-        monkeypatch.setenv("ZIPALIGN_PATH", "wrong.zipalign.path")
+        monkeypatch.setenv("ZIPALIGN_PATH", "invalid.zipalign.path")
         with pytest.raises(RuntimeError):
             Zipalign()
 
     def test_align_valid_apk(self, tmp_demo_apk_v10_rebuild_path: str):
-        zipalign = Zipalign()
-        output = zipalign.align(tmp_demo_apk_v10_rebuild_path)
+        output = Zipalign().align(tmp_demo_apk_v10_rebuild_path)
         assert "verification succes" in output.lower()
 
-    def test_align_wrong_apk(self):
+    def test_align_error_invalid_apk_path(self):
         with pytest.raises(FileNotFoundError):
-            Zipalign().align("wrong.apk.path")
+            Zipalign().align("invalid.apk.path")
+
+    def test_align_error_invalid_file(self, tmp_working_directory_path: str):
+        invalid_file_path = os.path.join(tmp_working_directory_path, "invalid.apk")
+
+        with open(invalid_file_path, "w") as invalid_file:
+            invalid_file.write("This is not an apk file\n")
+
+        with pytest.raises(subprocess.CalledProcessError):
+            Zipalign().align(invalid_file_path)
+
+    def test_align_error_generic(self, tmp_demo_apk_v10_rebuild_path: str, monkeypatch):
+        def mock(*args, **kwargs):
+            raise Exception
+
+        monkeypatch.setattr("subprocess.check_output", mock)
+
+        with pytest.raises(Exception):
+            Zipalign().align(tmp_demo_apk_v10_rebuild_path)

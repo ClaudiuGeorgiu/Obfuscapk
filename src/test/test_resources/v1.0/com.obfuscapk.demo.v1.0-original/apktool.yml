@@ -1,0 +1,25 @@
+!!brut.androlib.meta.MetaInfo
+apkFileName: com.obfuscapk.demo.v1.0-original.apk
+compressionType: false
+doNotCompress:
+- resources.arsc
+- assets/message.txt
+- lib/x86/libnative-lib.so
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: null
+sdkInfo:
+  minSdkVersion: '24'
+  targetSdkVersion: '29'
+sharedLibrary: false
+sparseResources: false
+unknownFiles: {}
+usesFramework:
+  ids:
+  - 1
+  tag: null
+version: 2.4.1
+versionInfo:
+  versionCode: '1'
+  versionName: '1.0'

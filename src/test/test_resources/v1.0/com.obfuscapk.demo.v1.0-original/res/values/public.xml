@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public type="color" name="buttonBackground" id="0x7f010000" />
+    <public type="color" name="colorAccent" id="0x7f010001" />
+    <public type="color" name="textForeground" id="0x7f010002" />
+    <public type="drawable" name="$ic_launcher_foreground__0" id="0x7f020000" />
+    <public type="drawable" name="ic_launcher_background" id="0x7f020001" />
+    <public type="drawable" name="ic_launcher_foreground" id="0x7f020002" />
+    <public type="id" name="start_button" id="0x7f030000" />
+    <public type="id" name="start_password" id="0x7f030001" />
+    <public type="layout" name="activity_main" id="0x7f040000" />
+    <public type="mipmap" name="ic_launcher" id="0x7f050000" />
+    <public type="mipmap" name="ic_launcher_round" id="0x7f050001" />
+    <public type="string" name="app_description" id="0x7f060000" />
+    <public type="string" name="app_name" id="0x7f060001" />
+    <public type="style" name="AppTheme" id="0x7f070000" />
+</resources>
