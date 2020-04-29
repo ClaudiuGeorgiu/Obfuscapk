@@ -88,8 +88,8 @@ def main():
     A full command to obfuscate an application:
 
     python3 -m obfuscapk.cli -p -i -w /working/dir/path -d /path/to/obfuscated.apk \
-    -o DebugRemoval -o CallIndirection -o MethodRename \
-    -o LibEncryption -o AssetEncryption -o MethodOverload -o ConstStringEncryption \
+    -o DebugRemoval -o LibEncryption -o CallIndirection -o MethodRename \
+    -o AssetEncryption -o MethodOverload -o ConstStringEncryption \
     -o ResStringEncryption -o ArithmeticBranch -o FieldRename -o Nop -o Goto \
     -o ClassRename -o Reflection -o AdvancedReflection -o Reorder -o RandomManifest \
     -o Rebuild -o NewSignature -o NewAlignment \
