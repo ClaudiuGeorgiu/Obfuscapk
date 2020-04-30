@@ -1,5 +1,5 @@
 pycryptodome==3.9.7
-pytest==5.4.1
+pytest-cov==2.8.1
 tqdm==4.45.0
 virustotal-api==1.1.11
 Yapsy==1.12.2

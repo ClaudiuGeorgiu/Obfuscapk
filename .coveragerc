@@ -1,0 +1,11 @@
+[run]
+branch = True
+omit =
+    # Omit virtualenv directory.
+    venv/*
+    # Omit test directory.
+    src/test/*
+
+[report]
+exclude_lines =
+    if __name__ == .__main__.:

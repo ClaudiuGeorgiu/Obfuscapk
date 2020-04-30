@@ -111,15 +111,14 @@ def perform_obfuscation(
     )
 
     for obfuscator_name in obfuscator_progress:
-        if obfuscator_name in obfuscator_name_to_function:
-            try:
-                if interactive:
-                    obfuscator_progress.set_description(
-                        "Running obfuscators ({0})".format(obfuscator_name)
-                    )
-                (obfuscator_name_to_function[obfuscator_name])(obfuscation)
-            except Exception as e:
-                logger.critical(
-                    "Error during obfuscation: {0}".format(e), exc_info=True
+        try:
+            if interactive:
+                obfuscator_progress.set_description(
+                    "Running obfuscators ({0})".format(obfuscator_name)
                 )
-                raise
+            (obfuscator_name_to_function[obfuscator_name])(obfuscation)
+        except Exception as e:
+            logger.critical(
+                "Error during obfuscation: {0}".format(e), exc_info=True
+            )
+            raise
