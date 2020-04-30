@@ -132,3 +132,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Test resources
+!**/test_resources/**/*

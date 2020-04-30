@@ -1,0 +1,1 @@
+This is a message contained into an asset file

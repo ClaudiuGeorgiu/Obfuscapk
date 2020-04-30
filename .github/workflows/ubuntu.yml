@@ -1,0 +1,57 @@
+name: Ubuntu
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: Test on Python ${{ matrix.python-version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+        os: [ubuntu-latest]
+    env:
+      APKTOOL_VERSION: 2.4.1
+      BUILD_TOOLS_VERSION: 29.0.3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r ./src/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          # Install Apktool.
+          sudo wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O /usr/local/bin/apktool
+          sudo chmod a+x /usr/local/bin/apktool
+          sudo wget -q "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_${APKTOOL_VERSION}.jar" -O /usr/local/bin/apktool.jar
+          sudo chmod a+x /usr/local/bin/apktool.jar
+
+      - name: Run tests
+        run: |
+          export PATH="${PATH}:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
+          pytest --verbose --cov=./ --cov-report xml
+
+      - name: Upload tests coverage to Codacy
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run: |
+          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Python -r ./coverage.xml
+
+      - name: Upload tests coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: false

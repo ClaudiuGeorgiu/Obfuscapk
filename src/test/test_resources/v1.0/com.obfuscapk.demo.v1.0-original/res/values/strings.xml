@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_description">This is a very basic Android application used to test the obfuscation techniques implemented in Obfuscapk.</string>
+    <string name="app_name">Obfuscapk Demo</string>
+</resources>

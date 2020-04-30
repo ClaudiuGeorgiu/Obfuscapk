@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableRow android:layout_marginTop="70.0dip">
+        <TextView android:textSize="35.0sp" android:textStyle="bold" android:textColor="@color/colorAccent" android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/app_name" android:textAlignment="center" />
+    </TableRow>
+    <TableRow android:layout_marginTop="50.0dip">
+        <TextView android:textSize="18.0sp" android:textColor="@color/textForeground" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/app_description" android:paddingStart="20.0dip" android:paddingEnd="20.0dip" />
+    </TableRow>
+    <TableRow android:layout_marginTop="20.0dip">
+        <EditText android:textColor="@color/textForeground" android:id="@id/start_password" android:padding="20.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent" android:hint="Password" android:singleLine="true" android:inputType="textPassword" android:drawableStart="@android:drawable/ic_lock_lock" android:layout_marginStart="20.0dip" android:layout_marginEnd="20.0dip" />
+    </TableRow>
+    <TableRow android:layout_marginTop="20.0dip">
+        <Button android:textSize="25.0sp" android:textStyle="bold" android:textColor="@color/colorAccent" android:id="@id/start_button" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="Start" android:layout_marginStart="20.0dip" android:layout_marginEnd="20.0dip" android:backgroundTint="@color/buttonBackground" />
+    </TableRow>
+</TableLayout>
