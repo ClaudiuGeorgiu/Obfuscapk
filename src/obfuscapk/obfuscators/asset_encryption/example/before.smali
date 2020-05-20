@@ -1,4 +1,4 @@
-.class public Lobfuscapk/demo/AssetDemo;
+.class public Lcom/obfuscapk/demo/AssetDemo;
 .super Ljava/lang/Object;
 .source "AssetDemo.java"
 
@@ -87,7 +87,7 @@
     .local v0, "assetInputStream":Ljava/io/InputStream;
     new-instance v1, Ljava/lang/String;
 
-    invoke-static {v0}, Lobfuscapk/demo/AssetDemo;->readBytes(Ljava/io/InputStream;)[B
+    invoke-static {v0}, Lcom/obfuscapk/demo/AssetDemo;->readBytes(Ljava/io/InputStream;)[B
 
     move-result-object v2
 

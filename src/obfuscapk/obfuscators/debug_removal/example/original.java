@@ -1,4 +1,4 @@
-package obfuscapk.demo;
+package com.obfuscapk.demo;
 
 import android.support.annotation.NonNull;
 

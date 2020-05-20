@@ -1,17 +1,15 @@
-<manifest xmlns:obfuscation="http://schemas.android.com/apk/res/android" package="obfuscapk.demo" platformBuildVersionCode="1" platformBuildVersionName="1.0">
+<manifest xmlns:obfuscation="http://schemas.android.com/apk/res/android" obfuscation:compileSdkVersion="29" obfuscation:compileSdkVersionCodename="10" package="com.obfuscapk.demo" platformBuildVersionCode="29" platformBuildVersionName="10">
+    <uses-permission obfuscation:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission obfuscation:name="android.permission.VIBRATE" />
-    <uses-feature obfuscation:name="android.hardware.location" />
     <uses-permission obfuscation:name="android.permission.ACCESS_NETWORK_STATE" />
-    <application obfuscation:allowBackup="true" obfuscation:debuggable="true" obfuscation:icon="@mipmap/ic_launcher" obfuscation:label="@string/app_name" obfuscation:roundIcon="@mipmap/ic_launcher_round" obfuscation:supportsRtl="true" obfuscation:theme="@style/AppTheme">
-        <meta-data obfuscation:name="android.arch.lifecycle.VERSION" obfuscation:value="27.0.0-SNAPSHOT" />
-        <meta-data obfuscation:name="android.support.VERSION" obfuscation:value="26.1.0" />
-        <activity obfuscation:name="obfuscapk.demo.MainActivity">
+    <uses-feature obfuscation:name="android.hardware.location" />
+    <uses-permission obfuscation:name="android.permission.INTERNET" />
+    <application obfuscation:allowBackup="true" obfuscation:debuggable="true" obfuscation:extractNativeLibs="false" obfuscation:icon="@mipmap/ic_launcher" obfuscation:label="@string/app_name" obfuscation:roundIcon="@mipmap/ic_launcher_round" obfuscation:theme="@style/AppTheme">
+        <activity obfuscation:name="com.obfuscapk.demo.MainActivity">
             <intent-filter>
                 <category obfuscation:name="android.intent.category.LAUNCHER" />
                 <action obfuscation:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
     </application>
-    <uses-permission obfuscation:name="android.permission.INTERNET" />
-    <uses-permission obfuscation:name="android.permission.ACCESS_COARSE_LOCATION" />
 </manifest>

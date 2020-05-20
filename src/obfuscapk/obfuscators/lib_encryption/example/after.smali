@@ -1,4 +1,4 @@
-.class public Lobfuscapk/demo/NativeLibraryDemo;
+.class public Lcom/obfuscapk/demo/NativeLibraryDemo;
 .super Ljava/lang/Object;
 .source "NativeLibraryDemo.java"
 
@@ -11,7 +11,7 @@
     .line 8
     const-string/jumbo v0, "native-lib"
 
-    const-class v1, Lobfuscapk/demo/NativeLibraryDemo;
+    const-class v1, Lcom/obfuscapk/demo/NativeLibraryDemo;
 
     invoke-static {v1, v0}, Lcom/decryptassetmanager/DecryptAsset;->loadEncryptedLibrary(Ljava/lang/Class;Ljava/lang/String;)V
 
@@ -39,7 +39,7 @@
 
     .prologue
     .line 14
-    invoke-direct {p0}, Lobfuscapk/demo/NativeLibraryDemo;->stringFromJNI()Ljava/lang/String;
+    invoke-direct {p0}, Lcom/obfuscapk/demo/NativeLibraryDemo;->stringFromJNI()Ljava/lang/String;
 
     move-result-object v0
 

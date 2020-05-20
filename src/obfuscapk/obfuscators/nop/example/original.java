@@ -1,4 +1,4 @@
-package obfuscapk.demo;
+package com.obfuscapk.demo;
 
 public class NopDemo {
     public static String getNopMessage(String from) {

@@ -1,4 +1,4 @@
-.class public Lobfuscapk/demo/NativeLibraryDemo;
+.class public Lcom/obfuscapk/demo/NativeLibraryDemo;
 .super Ljava/lang/Object;
 .source "NativeLibraryDemo.java"
 
@@ -37,7 +37,7 @@
 
     .prologue
     .line 14
-    invoke-direct {p0}, Lobfuscapk/demo/NativeLibraryDemo;->stringFromJNI()Ljava/lang/String;
+    invoke-direct {p0}, Lcom/obfuscapk/demo/NativeLibraryDemo;->stringFromJNI()Ljava/lang/String;
 
     move-result-object v0
 

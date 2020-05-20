@@ -1,4 +1,4 @@
-.class public Lobfuscapk/demo/OrderDemo;
+.class public Lcom/obfuscapk/demo/OrderDemo;
 .super Ljava/lang/Object;
 .source "OrderDemo.java"
 

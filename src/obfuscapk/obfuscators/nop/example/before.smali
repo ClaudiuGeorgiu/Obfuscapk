@@ -1,4 +1,4 @@
-.class public Lobfuscapk/demo/NopDemo;
+.class public Lcom/obfuscapk/demo/NopDemo;
 .super Ljava/lang/Object;
 .source "NopDemo.java"
 

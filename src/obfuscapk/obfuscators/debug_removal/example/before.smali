@@ -1,4 +1,4 @@
-.class public Lobfuscapk/demo/DebugInfoDemo;
+.class public Lcom/obfuscapk/demo/DebugInfoDemo;
 .super Ljava/lang/Object;
 .source "DebugInfoDemo.java"
 

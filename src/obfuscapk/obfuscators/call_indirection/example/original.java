@@ -1,4 +1,4 @@
-package obfuscapk.demo;
+package com.obfuscapk.demo;
 
 import java.util.ArrayList;
 import java.util.Arrays;

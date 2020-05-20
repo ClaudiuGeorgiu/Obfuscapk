@@ -1,4 +1,4 @@
-.class public Lobfuscapk/demo/OrderDemo;
+.class public Lcom/obfuscapk/demo/OrderDemo;
 .super Ljava/lang/Object;
 .source "OrderDemo.java"
 
@@ -79,28 +79,28 @@
 
     .line 12
     .local v0, "message1":Ljava/lang/String;
-    invoke-static {v3, v0}, Lobfuscapk/demo/OrderDemo;->CaxLmSVQaEISXHgM(Ljava/util/ArrayList;Ljava/lang/Object;)Z
+    invoke-static {v3, v0}, Lcom/obfuscapk/demo/OrderDemo;->CaxLmSVQaEISXHgM(Ljava/util/ArrayList;Ljava/lang/Object;)Z
 
     .line 14
     const-string/jumbo v1, "message2"
 
     .line 15
     .local v1, "message2":Ljava/lang/String;
-    invoke-static {v3, v1}, Lobfuscapk/demo/OrderDemo;->RFtgxYkkHgZTZAyR(Ljava/util/ArrayList;Ljava/lang/Object;)Z
+    invoke-static {v3, v1}, Lcom/obfuscapk/demo/OrderDemo;->RFtgxYkkHgZTZAyR(Ljava/util/ArrayList;Ljava/lang/Object;)Z
 
     .line 17
     const-string/jumbo v2, "message3"
 
     .line 18
     .local v2, "message3":Ljava/lang/String;
-    invoke-static {v3, v2}, Lobfuscapk/demo/OrderDemo;->uwzJipmHrJxSPOuT(Ljava/util/ArrayList;Ljava/lang/Object;)Z
+    invoke-static {v3, v2}, Lcom/obfuscapk/demo/OrderDemo;->uwzJipmHrJxSPOuT(Ljava/util/ArrayList;Ljava/lang/Object;)Z
 
     .line 20
-    invoke-static {v3}, Lobfuscapk/demo/OrderDemo;->SOrHOqcDYYLsEuaK(Ljava/util/ArrayList;)[Ljava/lang/Object;
+    invoke-static {v3}, Lcom/obfuscapk/demo/OrderDemo;->SOrHOqcDYYLsEuaK(Ljava/util/ArrayList;)[Ljava/lang/Object;
 
     move-result-object v4
 
-    invoke-static {v4}, Lobfuscapk/demo/OrderDemo;->QnaFXsjaPRCCYNho([Ljava/lang/Object;)Ljava/lang/String;
+    invoke-static {v4}, Lcom/obfuscapk/demo/OrderDemo;->QnaFXsjaPRCCYNho([Ljava/lang/Object;)Ljava/lang/String;
 
     move-result-object v4
 
