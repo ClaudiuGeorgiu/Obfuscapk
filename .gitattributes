@@ -1,1 +1,2 @@
-src/obfuscapk/resources/* linguist-vendored
+src/obfuscapk/obfuscators/**/example/** linguist-vendored
+src/obfuscapk/resources/**              linguist-vendored

@@ -18,7 +18,7 @@ to decompile the original apk file and to build a new application, after applyin
 obfuscation techniques on the decompiled `smali` code, resources and manifest. The
 obfuscated app retains the same functionality as the original one, but the differences
 under the hood sometimes make the new application very different from the original
-(e.g., to signature based antivirus software).
+(e.g., to signature-based antivirus software).
 
 
 
@@ -123,7 +123,7 @@ $ docker tag claudiugeorgiu/obfuscapk obfuscapk
 If you downloaded the official image from Docker Hub, you are ready to use the tool so
 go ahead and check the [usage instructions](#-usage), otherwise execute the following
 command in the previously created `Obfuscapk/src/` directory (the folder containing the
-`Dockerfile`) in order to build the Docker image:
+`Dockerfile`) to build the Docker image:
 
 ```Shell
 $ # Make sure to run the command in Obfuscapk/src/ directory.
@@ -152,11 +152,11 @@ information.
 Make sure to have [`apktool`](https://ibotpeaches.github.io/Apktool/),
 [`jarsigner`](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html)
 and [`zipalign`](https://developer.android.com/studio/command-line/zipalign) installed
-and available from command line:
+and available from the command line:
 
 ```Shell
-$ apktool          
-Apktool v2.4.0 - a tool for reengineering Android apk files
+$ apktool
+Apktool v2.4.1 - a tool for reengineering Android apk files
 ...
 ```
 ```Shell
@@ -268,8 +268,8 @@ specified, the final obfuscated file will be saved inside the working directory.
 Note: existing files will be overwritten without any warning.
 
 * `-i` is a flag for ignoring known third party libraries during the obfuscation
-process, in order to use less resources, to increase performances and to reduce the
-risk of errors. The
+process, to use fewer resources, to increase performances and to reduce the risk of
+errors. The
 [list of libraries](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/resources/libs_to_ignore.txt)
 to ignore is adapted from [LiteRadar](https://github.com/pkumza/LiteRadar) project.
 
@@ -295,8 +295,8 @@ When running the above command, this is what happens behind the scenes:
 (`obfuscation_working_dir`) is created in the same location as `original.apk` (this can
 be useful to inspect the `smali` files/manifest/resources in case of errors)
 
-* some checks are performed in order to make sure that all the needed files/executables
-are available
+* some checks are performed to make sure that all the needed files/executables are
+available and ready to be used
 
 * the actual obfuscation process begins: the specified obfuscators are executed
 (in order) one by one until there's no obfuscator left or until an error is encountered
@@ -322,10 +322,14 @@ apk file can be found in `obfuscation_working_dir/original_obfuscated.apk`, sign
 aligned and ready to be installed into a device/emulator
 
 As seen in the previous example, `Rebuild`, `NewSignature` and `NewAlignment`
-obfuscators are always needed to complete an obfuscation operation, in order to build
-the final obfuscated apk. They are not actual obfuscation techniques, but they are
-needed in the build process and so they are included in the list of obfuscators to keep
-the overall architecture modular.
+obfuscators are always needed to complete an obfuscation operation, to build the final
+obfuscated apk. They are not actual obfuscation techniques, but they are needed in the
+build process and so they are included in the list of obfuscators to keep the overall
+architecture modular.
+
+Not working as expected? See
+[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/FAQ.md) and
+[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/TROUBLESHOOTING.md).
 
 
 
@@ -357,14 +361,13 @@ alphabetical order). Please refer to the source code of the project for more det
 
 `NOTE:` not all the obfuscators below correspond to real obfuscation techniques (e.g.,
 `Rebuild`, `NewSignature`, `NewAlignment` and `VirusTotal`), but they are implemented
-as obfuscators in order to keep the architecture modular and easy to extend with new
+as obfuscators to keep the architecture modular and easy to extend with new
 functionality. 
 
 ### [AdvancedReflection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/advanced_reflection) \[Code]
 
-> Uses reflection to invoke dangerous APIs of the Android Framework. In order to find
-> out if a method belongs to the Android Framework, Obfuscapk refers to the mapping
-> discovered by
+> Uses reflection to invoke dangerous APIs of the Android Framework. To find out if a
+> method belongs to the Android Framework, Obfuscapk refers to the mapping discovered by
 > [Backes et al](https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_backes-android.pdf).
 
 ### [ArithmeticBranch](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/arithmetic_branch) \[Code]
@@ -381,8 +384,8 @@ functionality.
 
 > This technique modifies the control-flow graph without impacting the code semantics:
 > it adds new methods that invoke the original ones. For example, an invocation to the
-> method _m1_ will be substituted by a new wrapper method _m2_, that, when invoked, it
-> calls the original method _m1_.
+> method *m1* will be substituted by a new wrapper method *m2*, that, when invoked, it
+> calls the original method *m1*.
 
 ### [ClassRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/class_rename) \[Rename]
 
@@ -432,7 +435,7 @@ functionality.
 
 ### [Nop](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/nop) \[Code]
 
-> Insert junk code. Nop, short for _no-operation_, is a dedicated instruction that does
+> Insert junk code. Nop, short for *no-operation*, is a dedicated instruction that does
 > nothing. This technique just inserts random `nop` instructions within every method
 > implementation.
 
@@ -455,8 +458,8 @@ functionality.
 ### [Reorder](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reorder) \[Code]
 
 > This technique consists of changing the order of basic blocks in the code. When a
-> branch instruction is found, the condition is inverted (e.g., _branch if lower than_,
-> becomes _branch if greater or equal than_) and the target basic blocks are reordered
+> branch instruction is found, the condition is inverted (e.g., *branch if lower than*,
+> becomes *branch if greater or equal than*) and the target basic blocks are reordered
 > accordingly. Furthermore, it also randomly re-arranges the code abusing `goto`
 > instructions.
 
@@ -475,12 +478,17 @@ functionality.
 
 Questions, bug reports and pull requests are welcome on GitHub at
 [https://github.com/ClaudiuGeorgiu/Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk).
+Make sure to also check
+[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/FAQ.md) and
+[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/TROUBLESHOOTING.md),
+since some of the most common questions are already answered there.
 
 
 
 ## ❱ License
 
-You are free to use this code under the [MIT License](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE).
+You are free to use this code under the
+[MIT License](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE).
 
 
 

@@ -12,7 +12,12 @@ from obfuscapk.tool import Apktool, Jarsigner, Zipalign
 if "LOG_LEVEL" in os.environ:
     log_level = os.environ["LOG_LEVEL"]
 else:
+    # By default log only the error messages.
     log_level = logging.ERROR
+
+# For the plugin system log only the error messages and ignore the log level set by
+# the user.
+logging.getLogger("yapsy").level = logging.ERROR
 
 # Logging configuration.
 logger = logging.getLogger(__name__)
@@ -31,6 +36,7 @@ def check_external_tool_dependencies():
     # used to specify the location of the external tools (make sure they have the
     # execute permission). If there is a problem with any of the executables below,
     # an exception will be thrown by the corresponding constructor.
+    logger.debug("Checking external tool dependencies")
     Apktool()
     Jarsigner()
     Zipalign()
