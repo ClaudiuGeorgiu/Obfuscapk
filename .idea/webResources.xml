@@ -18,6 +18,16 @@
             <path value="file://$PROJECT_DIR$/src/obfuscapk/resources/smali" />
             <path value="file://$PROJECT_DIR$/src/test/test_resources" />
             <path value="file://$PROJECT_DIR$/src/test/test_resources/v1.0" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/arithmetic_branch/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/asset_encryption/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/call_indirection/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/debug_removal/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/goto/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/lib_encryption/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/method_overload/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/nop/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/random_manifest/example" />
+            <path value="file://$PROJECT_DIR$/src/obfuscapk/obfuscators/reorder/example" />
           </resourceRoots>
         </entryData>
       </entry>

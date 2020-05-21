@@ -25,6 +25,10 @@ class Obfuscation(object):
         ignore_libs: bool = False,
         interactive: bool = False,
         virus_total_api_key: List[str] = None,
+        keystore_file: str = None,
+        keystore_password: str = None,
+        key_alias: str = None,
+        key_password: str = None,
     ):
         self.logger = logging.getLogger(__name__)
 
@@ -34,6 +38,10 @@ class Obfuscation(object):
         self.ignore_libs: bool = ignore_libs
         self.interactive: bool = interactive
         self.virus_total_api_key: List[str] = virus_total_api_key
+        self.keystore_file: str = keystore_file
+        self.keystore_password: str = keystore_password
+        self.key_alias: str = key_alias
+        self.key_password: str = key_password
 
         # Random string (32 chars long) generation with ASCII letters and digits
         self.encryption_secret = "".join(
@@ -503,14 +511,36 @@ class Obfuscation(object):
         # The obfuscated apk will be signed with jarsigner.
         jarsigner: Jarsigner = Jarsigner()
 
+        # If a custom keystore file is not provided, use the default one bundled with
+        # the tool. Otherwise check that the keystore password and a key alias are
+        # provided along with the custom keystore.
+        if not self.keystore_file:
+            self.keystore_file = os.path.join(
+                os.path.dirname(__file__), "resources", "obfuscation_keystore.jks"
+            )
+            self.keystore_password = "obfuscation_password"
+            self.key_alias = "obfuscation_key"
+        else:
+            if not os.path.isfile(self.keystore_file):
+                self.logger.error(
+                    'Unable to find keystore file "{0}"'.format(self.keystore_file)
+                )
+                raise FileNotFoundError(
+                    'Unable to find keystore file "{0}"'.format(self.keystore_file)
+                )
+            if not self.keystore_password or not self.key_alias:
+                raise ValueError(
+                    "When using a custom keystore file, keystore password and key "
+                    "alias must be provided too"
+                )
+
         try:
             jarsigner.resign(
                 self.obfuscated_apk_path,
-                os.path.join(
-                    os.path.dirname(__file__), "resources", "obfuscation_keystore.jks"
-                ),
-                "obfuscation_password",
-                "obfuscation_key",
+                self.keystore_file,
+                self.keystore_password,
+                self.key_alias,
+                self.key_password,
             )
         except Exception as e:
             self.logger.error("Error during apk signing: {0}".format(e))

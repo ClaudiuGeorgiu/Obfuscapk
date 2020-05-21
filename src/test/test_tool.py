@@ -177,6 +177,22 @@ class TestJarsigner(object):
         with pytest.raises(subprocess.CalledProcessError):
             Jarsigner().sign(invalid_file_path, "ignore", "ignore", "ignore")
 
+    def test_sign_error_invalid_key_password(self, tmp_demo_apk_v10_rebuild_path: str):
+        with pytest.raises(subprocess.CalledProcessError):
+            Jarsigner().sign(
+                tmp_demo_apk_v10_rebuild_path,
+                os.path.join(
+                    os.path.dirname(__file__),
+                    os.path.pardir,
+                    "obfuscapk",
+                    "resources",
+                    "obfuscation_keystore.jks",
+                ),
+                "obfuscation_password",
+                "obfuscation_key",
+                "invalid.key.password",
+            )
+
 
 class TestZipalign(object):
     def test_zipalign_valid_path(self):

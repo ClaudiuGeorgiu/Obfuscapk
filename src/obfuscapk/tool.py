@@ -197,6 +197,7 @@ class Jarsigner(object):
         keystore_file_path: str,
         keystore_password: str,
         key_alias: str,
+        key_password: str = None,
     ) -> str:
 
         # Check if the apk file to sign is a valid file.
@@ -220,6 +221,10 @@ class Jarsigner(object):
             key_alias,
         ]
 
+        if key_password:
+            sign_cmd.insert(-2, "-keypass")
+            sign_cmd.insert(-2, key_password)
+
         try:
             self.logger.info('Running sign command "{0}"'.format(" ".join(sign_cmd)))
             output = subprocess.check_output(sign_cmd, stderr=subprocess.STDOUT).strip()
@@ -241,6 +246,7 @@ class Jarsigner(object):
         keystore_file_path: str,
         keystore_password: str,
         key_alias: str,
+        key_password: str = None,
     ) -> str:
 
         # If present, delete the old signature of the apk and then sign it with the
@@ -282,7 +288,9 @@ class Jarsigner(object):
             )
             raise
 
-        return self.sign(apk_path, keystore_file_path, keystore_password, key_alias)
+        return self.sign(
+            apk_path, keystore_file_path, keystore_password, key_alias, key_password
+        )
 
 
 class Zipalign(object):

@@ -248,7 +248,10 @@ Let's start by looking at the help message:
 
 ```Shell
 $ obfuscapk --help
-obfuscapk [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK] [-i] [-p] [-k VT_API_KEY] <APK_FILE>
+obfuscapk [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK] [-i] [-p] [-k VT_API_KEY]
+          [--keystore-file KEYSTORE_FILE] [--keystore-password KEYSTORE_PASSWORD]
+          [--key-alias KEY_ALIAS] [--key-password KEY_PASSWORD]
+          <APK_FILE>
 ```
 
 There are two mandatory parameters: `<APK_FILE>`, the path (relative or absolute) to
@@ -283,6 +286,15 @@ key(s) to be used when communicating with Virus Total. Can be set multiple times
 cycle through the API keys during the requests (e.g.,
 `-k VALID_VT_KEY_1 -k VALID_VT_KEY_2`).
 
+* `--keystore-file KEYSTORE_FILE`, `--keystore-password KEYSTORE_PASSWORD`,
+`--key-alias KEY_ALIAS` and `--key-password KEY_PASSWORD` can be used to specify a
+custom keystore (needed for the apk signing). If `--keystore-file` is used,
+`--keystore-password` and `--key-alias` must be specified too, while `--key-password`
+is needed only if the chosen key has a different password from the keystore password.
+By default (when `--keystore-file` is not specified), a
+[keystore bundled with Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/resources/obfuscation_keystore.jks)
+is used for the signing operations.
+
 Let's consider now a simple working example to see how Obfuscapk works:
 
 ```Shell
@@ -313,8 +325,9 @@ available and ready to be used
     apk file is saved in the working directory created before
 
     - `NewSignature` obfuscator signs the newly created apk file with a custom
-    certificate contained in
-    [this keystore](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/resources/obfuscation_keystore.jks)
+    certificate contained in a
+    [keystore bundled with Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/resources/obfuscation_keystore.jks)
+    (though a different keystore can be specified with the `--keystore-file` parameter)
 
     - `NewAlignment` obfuscator uses `zipalign` tool to align the resulting apk file
 

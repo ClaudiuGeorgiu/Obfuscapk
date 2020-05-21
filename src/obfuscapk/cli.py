@@ -80,6 +80,34 @@ def get_cmd_args(args: list = None):
         "Can be specified multiple times to use a different API key for each request "
         "(cycling through the API keys)",
     )
+    parser.add_argument(
+        "--keystore-file",
+        type=str,
+        metavar="KEYSTORE_FILE",
+        help="The path to a custom keystore file to be used for signing the obfuscated "
+        ".apk file. By default a keystore bundled with this tool will be used",
+    )
+    parser.add_argument(
+        "--keystore-password",
+        type=str,
+        metavar="KEYSTORE_PASSWORD",
+        help="The password of the custom keystore used for signing the obfuscated .apk "
+        "file (needed only when specifying a custom keystore file)",
+    )
+    parser.add_argument(
+        "--key-alias",
+        type=str,
+        metavar="KEY_ALIAS",
+        help="The key alias for signing the obfuscated .apk file (needed only when "
+        "specifying a custom keystore file)",
+    )
+    parser.add_argument(
+        "--key-password",
+        type=str,
+        metavar="KEY_PASSWORD",
+        help="The key password for signing the obfuscated .apk file (needed only when "
+        "specifying a custom keystore file)",
+    )
     return parser.parse_args(args)
 
 
@@ -118,6 +146,18 @@ def main():
             key.strip(" '\"") for key in arguments.virus_total_key
         ]
 
+    if arguments.keystore_file:
+        arguments.keystore_file = arguments.keystore_file.strip(" '\"")
+
+    if arguments.keystore_password:
+        arguments.keystore_password = arguments.keystore_password.strip(" '\"")
+
+    if arguments.key_alias:
+        arguments.key_alias = arguments.key_alias.strip(" '\"")
+
+    if arguments.key_password:
+        arguments.key_password = arguments.key_password.strip(" '\"")
+
     perform_obfuscation(
         arguments.apk_file,
         arguments.obfuscator,
@@ -126,6 +166,10 @@ def main():
         arguments.interactive,
         arguments.ignore_libs,
         arguments.virus_total_key,
+        arguments.keystore_file,
+        arguments.keystore_password,
+        arguments.key_alias,
+        arguments.key_password,
     )
 
 

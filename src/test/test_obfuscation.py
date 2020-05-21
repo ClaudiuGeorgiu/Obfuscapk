@@ -220,16 +220,59 @@ class TestObfuscation(object):
         )
         obfuscation.obfuscated_apk_path = tmp_demo_apk_v10_rebuild_path
 
-        # In case of errors an exception would be thrown.
+        # In case of errors an exception would be thrown and the test would fail.
         obfuscation.sign_obfuscated_apk()
 
-    def test_obfuscation_sign_obfuscated_apk_error(
+    def test_obfuscation_sign_obfuscated_apk_error_invalid_apk(
         self, tmp_demo_apk_v10_original_path: str
     ):
         obfuscation = Obfuscation(tmp_demo_apk_v10_original_path)
         obfuscation.obfuscated_apk_path = "invalid.apk.path"
 
         with pytest.raises(Exception):
+            obfuscation.sign_obfuscated_apk()
+
+    def test_obfuscation_sign_obfuscated_apk_error_missing_keystore_file(
+        self,
+        tmp_working_directory_path: str,
+        tmp_demo_apk_v10_original_path: str,
+        tmp_demo_apk_v10_rebuild_path: str,
+    ):
+        obfuscated_apk_path = os.path.join(tmp_working_directory_path, "obfuscated.apk")
+        obfuscation = Obfuscation(
+            tmp_demo_apk_v10_original_path,
+            tmp_working_directory_path,
+            obfuscated_apk_path,
+            keystore_file="invalid.keystore.path",
+        )
+        obfuscation.obfuscated_apk_path = tmp_demo_apk_v10_rebuild_path
+
+        with pytest.raises(FileNotFoundError):
+            obfuscation.sign_obfuscated_apk()
+
+    def test_obfuscation_sign_obfuscated_apk_error_missing_keystore_password(
+        self,
+        tmp_working_directory_path: str,
+        tmp_demo_apk_v10_original_path: str,
+        tmp_demo_apk_v10_rebuild_path: str,
+    ):
+        obfuscated_apk_path = os.path.join(tmp_working_directory_path, "obfuscated.apk")
+        obfuscation = Obfuscation(
+            tmp_demo_apk_v10_original_path,
+            tmp_working_directory_path,
+            obfuscated_apk_path,
+            keystore_file=os.path.join(
+                os.path.dirname(__file__),
+                os.path.pardir,
+                "obfuscapk",
+                "resources",
+                "obfuscation_keystore.jks",
+            ),
+            key_password=None,
+        )
+        obfuscation.obfuscated_apk_path = tmp_demo_apk_v10_rebuild_path
+
+        with pytest.raises(ValueError):
             obfuscation.sign_obfuscated_apk()
 
     def test_obfuscation_align_obfuscated_apk_success(

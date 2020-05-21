@@ -3,6 +3,7 @@ android/content/
 android/opengl/
 android/support/
 android/widget/
+androidx/
 anet/channel/
 anetwork/channel/
 anywheresoftware/

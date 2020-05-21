@@ -50,6 +50,10 @@ def perform_obfuscation(
     interactive: bool = False,
     ignore_libs: bool = False,
     virus_total_api_key: List[str] = None,
+    keystore_file: str = None,
+    keystore_password: str = None,
+    key_alias: str = None,
+    key_password: str = None,
 ):
     """
     Apply the obfuscation techniques to an input application and generate an obfuscated
@@ -69,6 +73,17 @@ def perform_obfuscation(
                         obfuscation operations.
     :param virus_total_api_key: A list containing Virus Total API keys, needed only
                                 when using Virus Total obfuscator.
+    :param keystore_file: The path to a custom keystore file to be used for signing the
+                          resulting obfuscated application. If not provided, a default
+                          keystore bundled with this tool will be used instead.
+    :param keystore_password: The password of the custom keystore used for signing the
+                              resulting obfuscated application (needed only when
+                              specifying a custom keystore file).
+    :param key_alias: The key alias for signing the resulting obfuscated application
+                      (needed only when specifying a custom keystore file).
+    :param key_password: The key password for signing the resulting obfuscated
+                         application (needed only when specifying a custom keystore
+                         file).
     """
 
     check_external_tool_dependencies()
@@ -83,9 +98,13 @@ def perform_obfuscation(
         input_apk_path,
         working_dir_path,
         obfuscated_apk_path,
-        interactive=interactive,
-        ignore_libs=ignore_libs,
-        virus_total_api_key=virus_total_api_key,
+        interactive,
+        ignore_libs,
+        virus_total_api_key,
+        keystore_file,
+        keystore_password,
+        key_alias,
+        key_password,
     )
 
     manager = ObfuscatorManager()
@@ -124,7 +143,5 @@ def perform_obfuscation(
                 )
             (obfuscator_name_to_function[obfuscator_name])(obfuscation)
         except Exception as e:
-            logger.critical(
-                "Error during obfuscation: {0}".format(e), exc_info=True
-            )
+            logger.critical("Error during obfuscation: {0}".format(e), exc_info=True)
             raise
