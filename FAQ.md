@@ -134,5 +134,3 @@ as expected.
 
 **:white_check_mark:** Open a new issue on GitHub and ask your question(s) in
 understandable language.
-
-----------------------------------------------------------------------------------------

@@ -149,7 +149,8 @@ information.
 
 #### Prerequisites
 
-Make sure to have [`apktool`](https://ibotpeaches.github.io/Apktool/),
+Make sure to have a recent version of
+[`apktool`](https://ibotpeaches.github.io/Apktool/),
 [`jarsigner`](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html)
 and [`zipalign`](https://developer.android.com/studio/command-line/zipalign) installed
 and available from the command line:

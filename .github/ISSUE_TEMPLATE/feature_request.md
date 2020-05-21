@@ -10,6 +10,10 @@ assignees: ""
 Thank you for your interest in improving Obfuscapk.
 
 Please describe the new feature(s) you would like to see in Obfuscapk.
+
+NOTE:
+    * if you're including code snippets/logs, please format them properly (see https://help.github.com/github/writing-on-github/basic-writing-and-formatting-syntax#quoting-code);
+    * blocks starting with `< !--` and ending with `-- >` (without spaces) are treated as comments and won't be rendered, so please don't edit the text inside these blocks since your modifications won't be visible. If you want the text to be visible, remove `< !--` and `-- >` tags.
 -->
 
 
@@ -20,7 +24,7 @@ Please describe the new feature(s) you would like to see in Obfuscapk.
 
 
 
-### Describe your proposed solution
+### Proposed solution
 
 <!-- A clear and concise description of what you want to happen (describe your solution below this line) -->
 

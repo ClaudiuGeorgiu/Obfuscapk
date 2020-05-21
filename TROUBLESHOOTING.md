@@ -19,7 +19,7 @@ the source code is your friend :wink:.
 It might seem obvious, but unless you just cloned the repository, make sure to be using
 the latest version of Obfuscapk from the
 [master branch](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master). If you are
-using Docker, make sure do pull the latest
+using Docker, make sure to pull the latest
 [official Obfuscapk Docker image](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
 from Docker Hub.
 
@@ -31,7 +31,10 @@ If you are not using the Docker image, make sure to install and setup properly t
 additional tools needed for Obfuscapk to work:
 [`apktool`](https://ibotpeaches.github.io/Apktool/),
 [`jarsigner`](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html)
-and [`zipalign`](https://developer.android.com/studio/command-line/zipalign). Check the
+and [`zipalign`](https://developer.android.com/studio/command-line/zipalign). Please
+ensure to be using a recent release of
+[`apktool`](https://ibotpeaches.github.io/Apktool/) (some systems, like Kali Linux,
+have an old version of `apktool` pre-installed by default). Check the
 [readme](https://github.com/ClaudiuGeorgiu/Obfuscapk#from-source) for more information.
 
 

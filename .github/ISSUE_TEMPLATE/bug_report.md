@@ -10,6 +10,10 @@ assignees: ""
 Thank you for reporting a problem with Obfuscapk.
 
 Please fill in as much of the template below as you can and, if possible, please provide code and apk file(s) needed to replicate the issue. If you leave out information, we can't help you as well.
+
+NOTE:
+    * if you're including code snippets/logs, please format them properly (see https://help.github.com/github/writing-on-github/basic-writing-and-formatting-syntax#quoting-code);
+    * blocks starting with `< !--` and ending with `-- >` (without spaces) are treated as comments and won't be rendered, so please don't edit the text inside these blocks since your modifications won't be visible. If you want the text to be visible, remove `< !--` and `-- >` tags.
 -->
 
 
@@ -18,7 +22,7 @@ Please fill in as much of the template below as you can and, if possible, please
 
 Before opening this issue, I tried the following steps:
 
-<!-- Please put an x between the brackets of each line that applies below, so that [ ] becomes [x] -->
+<!-- Please put an x between the brackets of each line that applies below, so that [ ] becomes [x] (without leaving spaces around the x) -->
 
 * [ ] Installed the tool in a way [described in the readme](https://github.com/ClaudiuGeorgiu/Obfuscapk#-installation) and ran `python3 -m obfuscapk.cli --help` without any errors
 
@@ -43,7 +47,6 @@ Before opening this issue, I tried the following steps:
 1. <!-- First Step -->
 2. <!-- Second Step -->
 3. <!-- And so on… -->
-4. <!-- See Error -->
 
 
 **Expected behavior:**
