@@ -104,7 +104,7 @@ class Apktool(object):
             if b"Exception in thread " in output:
                 # Report exception raised in Apktool.
                 raise subprocess.CalledProcessError(1, decode_cmd, output)
-            return output.decode()
+            return output.decode(errors="replace")
         except subprocess.CalledProcessError as e:
             self.logger.error(
                 "Error during decode command: {0}".format(
@@ -130,21 +130,24 @@ class Apktool(object):
         # If no output apk path is specified, the new apk will be saved in the
         # default path: <source_dir_path>/dist/<source_dir_name>.apk
         if not output_apk_path:
+            output_apk_path = os.path.join(
+                source_dir_path,
+                "dist",
+                "{0}.apk".format(os.path.basename(source_dir_path)),
+            )
             self.logger.debug(
                 "No output apk path provided, the new apk will be saved in the "
-                'default path: "{0}.apk"'.format(
-                    os.path.join(
-                        source_dir_path,
-                        "dist",
-                        os.path.basename(os.path.normpath(source_dir_path)),
-                    )
-                )
+                'default path: "{0}"'.format(output_apk_path)
             )
 
-        build_cmd: List[str] = [self.apktool_path, "b", "--force-all", source_dir_path]
-
-        if output_apk_path:
-            build_cmd.extend(["-o", output_apk_path])
+        build_cmd: List[str] = [
+            self.apktool_path,
+            "b",
+            "--force-all",
+            source_dir_path,
+            "-o",
+            output_apk_path,
+        ]
 
         try:
             self.logger.info('Running build command "{0}"'.format(" ".join(build_cmd)))
@@ -153,10 +156,21 @@ class Apktool(object):
             output = subprocess.check_output(
                 build_cmd, stderr=subprocess.STDOUT, input=b"\n"
             ).strip()
-            if b"brut.directory.PathNotExist: " in output:
+            if (
+                b"brut.directory.PathNotExist: " in output
+                or b"Exception in thread " in output
+            ):
                 # Report exception raised in Apktool.
                 raise subprocess.CalledProcessError(1, build_cmd, output)
-            return output.decode()
+
+            if not os.path.isfile(output_apk_path):
+                raise FileNotFoundError(
+                    '"{0}" was not built correctly. Apktool output:\n{1}'.format(
+                        output_apk_path, output.decode(errors="replace")
+                    )
+                )
+
+            return output.decode(errors="replace")
         except subprocess.CalledProcessError as e:
             self.logger.error(
                 "Error during build command: {0}".format(
@@ -228,7 +242,7 @@ class Jarsigner(object):
         try:
             self.logger.info('Running sign command "{0}"'.format(" ".join(sign_cmd)))
             output = subprocess.check_output(sign_cmd, stderr=subprocess.STDOUT).strip()
-            return output.decode()
+            return output.decode(errors="replace")
         except subprocess.CalledProcessError as e:
             self.logger.error(
                 "Error during sign command: {0}".format(
@@ -339,7 +353,7 @@ class Zipalign(object):
             output = subprocess.check_output(
                 align_cmd, stderr=subprocess.STDOUT
             ).strip()
-            return output.decode()
+            return output.decode(errors="replace")
         except subprocess.CalledProcessError as e:
             self.logger.error(
                 "Error during align command: {0}".format(

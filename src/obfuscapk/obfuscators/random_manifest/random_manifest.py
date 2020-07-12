@@ -1,5 +1,4 @@
-#!/usr/bin/env python3.7
-# coding: utf-8
+#!/usr/bin/env python3
 
 import logging
 import random
@@ -11,17 +10,18 @@ from obfuscapk.obfuscation import Obfuscation
 
 
 class RandomManifest(obfuscator_category.IResourcesObfuscator):
-
     def __init__(self):
-        self.logger = logging.getLogger('{0}.{1}'.format(__name__, self.__class__.__name__))
+        self.logger = logging.getLogger(
+            "{0}.{1}".format(__name__, self.__class__.__name__)
+        )
         super().__init__()
 
     # http://effbot.org/zone/element-lib.htm#prettyprint
     def indent_xml(self, element: Element, level=0):
-        indentation = '\n' + level * '    '
+        indentation = "\n" + level * "    "
         if len(element):
             if not element.text or not element.text.strip():
-                element.text = indentation + '    '
+                element.text = indentation + "    "
             if not element.tail or not element.tail.strip():
                 element.tail = indentation
             for element in element:
@@ -102,20 +102,28 @@ class RandomManifest(obfuscator_category.IResourcesObfuscator):
 
         try:
             # Change default namespace.
-            Xml.register_namespace('obfuscation', 'http://schemas.android.com/apk/res/android')
+            Xml.register_namespace(
+                "obfuscation", "http://schemas.android.com/apk/res/android"
+            )
 
-            xml_parser = Xml.XMLParser(encoding='utf-8')
-            manifest_tree = Xml.parse(obfuscation_info.get_manifest_file(), parser=xml_parser)
+            xml_parser = Xml.XMLParser(encoding="utf-8")
+            manifest_tree = Xml.parse(
+                obfuscation_info.get_manifest_file(), parser=xml_parser
+            )
             manifest_root = manifest_tree.getroot()
             self.remove_xml_duplicates(manifest_root)
             self.scramble_xml_element(manifest_root)
             self.indent_xml(manifest_root)
 
             # Write the changes into the manifest file.
-            manifest_tree.write(obfuscation_info.get_manifest_file(), encoding='utf-8')
+            manifest_tree.write(obfuscation_info.get_manifest_file(), encoding="utf-8")
 
         except Exception as e:
-            self.logger.error('Error during execution of "{0}" obfuscator: {1}'.format(self.__class__.__name__, e))
+            self.logger.error(
+                'Error during execution of "{0}" obfuscator: {1}'.format(
+                    self.__class__.__name__, e
+                )
+            )
             raise
 
         finally:
