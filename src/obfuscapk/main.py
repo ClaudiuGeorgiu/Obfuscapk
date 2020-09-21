@@ -47,8 +47,8 @@ def perform_obfuscation(
     obfuscator_list: List[str],
     working_dir_path: str = None,
     obfuscated_apk_path: str = None,
-    interactive: bool = False,
     ignore_libs: bool = False,
+    interactive: bool = False,
     virus_total_api_key: List[str] = None,
     keystore_file: str = None,
     keystore_password: str = None,
@@ -68,9 +68,9 @@ def perform_obfuscation(
                              directory doesn't exist, it will be created.
     :param obfuscated_apk_path: The path where to save the obfuscated apk file. By
                                 default the file will be saved in the working directory.
-    :param interactive: If True, show a progress bar with the obfuscation progress.
     :param ignore_libs: If True, exclude known third party libraries from the
                         obfuscation operations.
+    :param interactive: If True, show a progress bar with the obfuscation progress.
     :param virus_total_api_key: A list containing Virus Total API keys, needed only
                                 when using Virus Total obfuscator.
     :param keystore_file: The path to a custom keystore file to be used for signing the
@@ -98,8 +98,8 @@ def perform_obfuscation(
         input_apk_path,
         working_dir_path,
         obfuscated_apk_path,
-        interactive,
         ignore_libs,
+        interactive,
         virus_total_api_key,
         keystore_file,
         keystore_password,
