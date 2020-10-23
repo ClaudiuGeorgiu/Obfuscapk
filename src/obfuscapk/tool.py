@@ -5,6 +5,7 @@ import logging
 import os
 import shutil
 import subprocess
+import tempfile
 import zipfile
 from typing import List
 
@@ -83,6 +84,8 @@ class Apktool(object):
 
         decode_cmd: List[str] = [
             self.apktool_path,
+            "--frame-path",
+            tempfile.gettempdir(),
             "d",
             apk_path,
             "-o",
@@ -90,7 +93,7 @@ class Apktool(object):
         ]
 
         if force:
-            decode_cmd.insert(2, "--force")
+            decode_cmd.insert(4, "--force")
 
         try:
             self.logger.info(
@@ -142,6 +145,8 @@ class Apktool(object):
 
         build_cmd: List[str] = [
             self.apktool_path,
+            "--frame-path",
+            tempfile.gettempdir(),
             "b",
             "--force-all",
             source_dir_path,
