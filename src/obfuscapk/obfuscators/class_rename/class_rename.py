@@ -51,10 +51,9 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
         return dot_rename_transformations
 
     def transform_package_name(self, manifest_xml_root: Element):
-        # self.encrypted_package_name = ".".join(
-        #     [self.encrypt_identifier(token) for token in self.package_name.split(".")]
-        # )
-        self.encrypted_package_name = self.package_name
+        self.encrypted_package_name = ".".join(
+            [self.encrypt_identifier(token) for token in self.package_name.split(".")]
+        )
         
         # Rename package name in manifest file.
         manifest_xml_root.set("package", self.encrypted_package_name)
