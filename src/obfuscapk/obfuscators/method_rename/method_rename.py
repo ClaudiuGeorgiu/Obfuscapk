@@ -236,7 +236,7 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
                 renamed_methods,
                 android_class_names,
                 util.get_libs_to_ignore(),
-                obfuscation_info.interactive
+                obfuscation_info.interactive,
             )
 
         except Exception as e:
