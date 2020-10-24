@@ -1,0 +1,30 @@
+name: Style
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  auto-format:
+    name: Format code with Black
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+          architecture: x64
+
+      - run: pip install black
+
+      - name: Format code with Black and commit any changes
+        run: |
+          black .
+          git config --global user.name 'Auto Black Formatter'
+          git config --global user.email 'claudiugeorgiu@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git checkout ${GITHUB_REF#refs/heads/}
+          git diff --quiet || git commit -am "Format code with Black [auto]" && git push

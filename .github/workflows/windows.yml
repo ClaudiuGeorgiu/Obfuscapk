@@ -46,6 +46,7 @@ jobs:
           pytest --verbose --cov=./ --cov-report xml
 
       - name: Upload tests coverage to Codacy
+        if: contains(github.event_name, 'pull_request') == false
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: |
