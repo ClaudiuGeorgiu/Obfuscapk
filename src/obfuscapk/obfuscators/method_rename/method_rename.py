@@ -166,6 +166,7 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
         smali_files: List[str],
         methods_to_rename: Set[str],
         android_class_names: Set[str],
+        classes_to_ignore: List[str],
         interactive: bool = False,
     ):
         for smali_file in util.show_list_progress(
@@ -192,6 +193,7 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
                             ("direct" in invoke_type or "static" in invoke_type)
                             and method in methods_to_rename
                             and class_name not in android_class_names
+                            and not any(cls in class_name for cls in classes_to_ignore)
                         ):
                             method_name = invoke_match.group("invoke_method")
                             out_file.write(
@@ -233,7 +235,8 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
                 obfuscation_info.get_smali_files(),
                 renamed_methods,
                 android_class_names,
-                obfuscation_info.interactive,
+                util.get_libs_to_ignore(),
+                obfuscation_info.interactive
             )
 
         except Exception as e:

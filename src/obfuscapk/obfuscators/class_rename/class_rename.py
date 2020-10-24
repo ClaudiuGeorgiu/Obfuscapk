@@ -51,10 +51,11 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
         return dot_rename_transformations
 
     def transform_package_name(self, manifest_xml_root: Element):
-        self.encrypted_package_name = ".".join(
-            [self.encrypt_identifier(token) for token in self.package_name.split(".")]
-        )
-
+        # self.encrypted_package_name = ".".join(
+        #     [self.encrypt_identifier(token) for token in self.package_name.split(".")]
+        # )
+        self.encrypted_package_name = self.package_name
+        
         # Rename package name in manifest file.
         manifest_xml_root.set("package", self.encrypted_package_name)
         manifest_xml_root.set(
@@ -314,7 +315,7 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
                     obfuscation_info.get_resource_directory()
                 )
                 for file_name in file_names
-                if file_name.endswith(".xml") and "layout" in root  # Only layout files.
+                if file_name.endswith(".xml") and ("layout" in root or "xml" in root)  # Only res/layout-*/ and res/xml-*/ folders.
             )
             xml_files.add(obfuscation_info.get_manifest_file())
 
