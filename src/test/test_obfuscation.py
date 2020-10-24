@@ -23,7 +23,9 @@ class TestObfuscation(object):
         check_external_tool_dependencies()
 
     def test_perform_full_obfuscation_valid_apk(
-        self, tmp_working_directory_path: str, tmp_demo_apk_v10_original_path: str,
+        self,
+        tmp_working_directory_path: str,
+        tmp_demo_apk_v10_original_path: str,
     ):
         obfuscated_apk_path = os.path.join(tmp_working_directory_path, "obfuscated.apk")
         perform_obfuscation(
@@ -68,11 +70,13 @@ class TestObfuscation(object):
             perform_obfuscation("invalid.apk.path", [])
 
     def test_perform_obfuscation_error_invalid_obfuscator_name(
-        self, tmp_demo_apk_v10_original_path: str,
+        self,
+        tmp_demo_apk_v10_original_path: str,
     ):
         with pytest.raises(ValueError):
             perform_obfuscation(
-                tmp_demo_apk_v10_original_path, ["invalid.obfuscator.name"],
+                tmp_demo_apk_v10_original_path,
+                ["invalid.obfuscator.name"],
             )
 
     def test_perform_obfuscation_error_generic_obfuscator_error(
@@ -181,7 +185,9 @@ class TestObfuscation(object):
         )
 
     def test_obfuscation_build_obfuscated_apk_success(
-        self, tmp_working_directory_path: str, tmp_demo_apk_v10_original_path: str,
+        self,
+        tmp_working_directory_path: str,
+        tmp_demo_apk_v10_original_path: str,
     ):
         obfuscated_apk_path = os.path.join(tmp_working_directory_path, "obfuscated.apk")
         obfuscation = Obfuscation(

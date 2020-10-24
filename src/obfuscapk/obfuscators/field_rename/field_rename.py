@@ -156,9 +156,9 @@ class FieldRename(obfuscator_category.IRenameObfuscator):
                         description="Processing multidex",
                     )
                 ):
-                    self.max_fields_to_add = obfuscation_info.get_remaining_fields_per_obfuscator()[
-                        index
-                    ]
+                    self.max_fields_to_add = (
+                        obfuscation_info.get_remaining_fields_per_obfuscator()[index]
+                    )
                     self.added_fields = 0
                     renamed_field_declarations.update(
                         self.rename_field_declarations(

@@ -236,9 +236,9 @@ class CallIndirection(obfuscator_category.ICodeObfuscator):
                         description="Processing multidex",
                     )
                 ):
-                    max_methods_to_add = obfuscation_info.get_remaining_methods_per_obfuscator()[
-                        index
-                    ]
+                    max_methods_to_add = (
+                        obfuscation_info.get_remaining_methods_per_obfuscator()[index]
+                    )
                     self.add_call_indirections(
                         dex_smali_files,
                         max_methods_to_add,

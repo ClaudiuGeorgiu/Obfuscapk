@@ -80,7 +80,8 @@ class TestApktool(object):
     ):
         output_apk_path = os.path.join(tmp_working_directory_path, "output.apk")
         output = Apktool().build(
-            tmp_demo_apk_v10_decoded_files_directory_path, output_apk_path,
+            tmp_demo_apk_v10_decoded_files_directory_path,
+            output_apk_path,
         )
         assert "using apktool" in output.lower()
         assert os.path.isfile(output_apk_path)
