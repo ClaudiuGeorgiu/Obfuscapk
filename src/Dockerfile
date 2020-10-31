@@ -1,8 +1,8 @@
-FROM python:3.8.3-slim-buster
+FROM python:3.9.0-slim-buster
 
 ENV APKTOOL_VERSION="2.4.1"
 ENV ANDROID_HOME="/android-sdk-linux"
-ENV BUILD_TOOLS_VERSION="29.0.3"
+ENV BUILD_TOOLS_VERSION="30.0.2"
 ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
 
 # Install the needed tools.
