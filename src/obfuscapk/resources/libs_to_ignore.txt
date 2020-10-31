@@ -126,6 +126,7 @@ com/google/android/apps/dashclock/api/
 com/google/android/exoplayer/
 com/google/android/gcm/
 com/google/android/gms/
+com/google/android/material/
 com/google/android/net/
 com/google/android/vending/
 com/google/android/youtube/
