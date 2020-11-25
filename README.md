@@ -102,7 +102,7 @@ This is the suggested way of installing Obfuscapk, since the only requirement is
 have a recent version of Docker installed:
 
 ```Shell
-$ docker --version             
+$ docker --version
 Docker version 19.03.0, build aeac949
 ```
 
