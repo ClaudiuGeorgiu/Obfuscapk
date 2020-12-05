@@ -32,7 +32,7 @@ COPY ./obfuscapk/ /Obfuscapk/obfuscapk/
 
 # Set the working directory (to be used when mounting files from the host).
 WORKDIR /workdir
-VOLUME /workidr
+VOLUME /workdir
 
 # Set the entrypoint to Obfuscapk command line interface.
 ENV PYTHONPATH="/Obfuscapk"
