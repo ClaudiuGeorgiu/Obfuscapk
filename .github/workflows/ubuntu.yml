@@ -15,7 +15,7 @@ jobs:
         os: [ ubuntu-latest ]
     env:
       APKTOOL_VERSION: 2.5.0
-      BUILD_TOOLS_VERSION: 30.0.3
+      BUILD_TOOLS_VERSION: 30.0.2
 
     steps:
       - name: Checkout repository
