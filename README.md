@@ -157,7 +157,7 @@ and available from the command line:
 
 ```Shell
 $ apktool
-Apktool v2.4.1 - a tool for reengineering Android apk files
+Apktool v2.5.0 - a tool for reengineering Android apk files
 ...
 ```
 ```Shell
@@ -376,7 +376,7 @@ alphabetical order). Please refer to the source code of the project for more det
 `NOTE:` not all the obfuscators below correspond to real obfuscation techniques (e.g.,
 `Rebuild`, `NewSignature`, `NewAlignment` and `VirusTotal`), but they are implemented
 as obfuscators to keep the architecture modular and easy to extend with new
-functionality. 
+functionality.
 
 ### [AdvancedReflection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/advanced_reflection) \[Code]
 
@@ -509,7 +509,7 @@ You are free to use this code under the
 ## ❱ Credits
 
 [![Unige](https://intranet.dibris.unige.it/img/logo_unige.gif)](https://unige.it/en/)
-[![Dibris](https://intranet.dibris.unige.it/img/logo_dibris.gif)](https://www.dibris.unige.it/en/) 
+[![Dibris](https://intranet.dibris.unige.it/img/logo_dibris.gif)](https://www.dibris.unige.it/en/)
 
 This software was developed for research purposes at the Computer Security Lab
 ([CSecLab](https://csec.it/)), hosted at DIBRIS, University of Genoa.

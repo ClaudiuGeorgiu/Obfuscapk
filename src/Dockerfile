@@ -1,15 +1,15 @@
 FROM python:3.9.0-slim-buster
 
-ENV APKTOOL_VERSION="2.4.1"
+ENV APKTOOL_VERSION="2.5.0"
 ENV ANDROID_HOME="/android-sdk-linux"
-ENV BUILD_TOOLS_VERSION="30.0.2"
+ENV BUILD_TOOLS_VERSION="30.0.3"
 ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
 
 # Install the needed tools.
 RUN bash -c 'for i in {1..8}; do mkdir -p "/usr/share/man/man$i"; done' && \
-    # Java JDK (needed for apktool and jarsigner).
+    # Java JDK (needed for apktool).
     apt update && apt install --no-install-recommends -y openjdk-11-jdk-headless wget unzip && \
-    # Android SDK (needed for zipalign).
+    # Android SDK (needed for zipalign and apksigner).
     mkdir -p "${ANDROID_HOME}" && \
     wget -q "https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip" -O android-sdk.zip && \
     unzip -q android-sdk.zip -d "${ANDROID_HOME}" && rm android-sdk.zip && \

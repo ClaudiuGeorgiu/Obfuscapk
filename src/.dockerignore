@@ -1,0 +1,4 @@
+**/*.pyc
+**/__pycache__
+obfuscapk/obfuscators/**/example/
+test/
