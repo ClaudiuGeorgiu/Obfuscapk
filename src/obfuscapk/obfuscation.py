@@ -29,6 +29,7 @@ class Obfuscation(object):
         keystore_password: str = None,
         key_alias: str = None,
         key_password: str = None,
+        ignore_packages_file: str = None
     ):
         self.logger = logging.getLogger(__name__)
 
@@ -42,6 +43,7 @@ class Obfuscation(object):
         self.keystore_password: str = keystore_password
         self.key_alias: str = key_alias
         self.key_password: str = key_password
+        self.ignore_packages_file: str = ignore_packages_file
 
         # Random string (32 chars long) generation with ASCII letters and digits
         self.encryption_secret = "".join(
@@ -610,3 +612,12 @@ class Obfuscation(object):
 
         # '.join(x, "")' is used to add a trailing slash.
         return os.path.join(self._decoded_apk_path, "res", "")
+
+    def get_ignore_package_names(self) -> List[str]:
+        ignore_package_list = []
+
+        # normalize package names into smali format
+        for item in util.get_non_empty_lines_from_file(os.path.join(self.ignore_packages_file)):
+            ignore_package_list.append("L{0}".format(item))
+
+        return ignore_package_list

@@ -29,6 +29,7 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
 
         self.package_name: Union[str, None] = None
         self.encrypted_package_name: Union[str, None] = None
+        self.ignore_package_names = []
 
         # Will be populated before running the class rename obfuscator.
         self.class_name_to_smali_file: dict = {}
@@ -90,6 +91,8 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
                         if class_match:
                             class_name = class_match.group("class_name")
 
+                            ignore_class = class_name.startswith(tuple(self.ignore_package_names))
+
                             # Split class name to its components and encrypt them.
                             class_tokens = self.split_class_pattern.split(
                                 class_name[1:-1]
@@ -105,7 +108,7 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
                                     encrypted_class_name += (
                                         token + class_name[separator_index]
                                     )
-                                elif not r_class:
+                                elif not r_class and not ignore_class:
                                     encrypted_class_name += (
                                         self.encrypt_identifier(token)
                                         + class_name[separator_index]
@@ -334,6 +337,9 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
             # class_rename_transformations = self.rename_class_declarations(
             #     list(package_smali_files), obfuscation_info.interactive
             # )
+
+            # Get user defined ignore package list
+            self.ignore_package_names = obfuscation_info.get_ignore_package_names()
 
             # Rename all classes declared in smali files.
             class_rename_transformations = self.rename_class_declarations(
