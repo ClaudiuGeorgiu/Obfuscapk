@@ -2,7 +2,7 @@
 
 Here you can find the answers to the most common questions about Obfuscapk. If you're
 having technical issues when running the tool, visit the
-[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/TROUBLESHOOTING.md)
+[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md)
 page.
 
 ----------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ be able to install and use Obfuscapk without any specific prerequisite.
 **:white_check_mark:** By default Obfuscapk shows only error messages, if you only want
 to see progress bars during the obfuscation operations, use `-p/--show-progress` flag.
 You can also
-[enable verbose logging](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/TROUBLESHOOTING.md#enable-verbose-logging).
+[enable verbose logging](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md#enable-verbose-logging).
 
 ----------------------------------------------------------------------------------------
 
@@ -111,7 +111,7 @@ obfuscation, encryption and reflection at the same time);
 slower than the original.
 
 For more information, see also
-[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/TROUBLESHOOTING.md).
+[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md).
 
 ----------------------------------------------------------------------------------------
 

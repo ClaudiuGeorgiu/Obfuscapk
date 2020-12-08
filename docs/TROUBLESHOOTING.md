@@ -2,7 +2,7 @@
 
 In case of problems when running Obfuscapk, here's a list of steps you can try to solve
 the most common errors. For more general questions, see the
-[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/FAQ.md).
+[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md).
 
 
 
@@ -101,7 +101,7 @@ on (`Rebuild`, `NewSignature` and `NewAlignment` were omitted in this example).
 
 After you found which obfuscator is causing the problem, you have three choices: ignore
 it and use other obfuscators that work, open a
-[bug report issue on GitHub](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/.github/ISSUE_TEMPLATE/bug_report.md)
+[bug report issue on GitHub](https://github.com/ClaudiuGeorgiu/Obfuscapk/issues/new?template=bug_report.md)
 or try to find a solution by modifying the obfuscator's source code.
 
 
@@ -110,6 +110,8 @@ or try to find a solution by modifying the obfuscator's source code.
 
 If you couldn't solve the errors with the above steps, or if you have a different
 problem not covered here, then check the
-[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/FAQ.md) and the
+[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md) and the
 [existing issues on GitHub](https://github.com/issues?utf8=✓&q=is%3Aissue+repo%3AClaudiuGeorgiu/Obfuscapk).
-If you still can't find an answer then submit a new issue on GitHub.
+If you still can't find an answer then
+[submit a new issue](https://github.com/ClaudiuGeorgiu/Obfuscapk/issues/new/choose)
+on GitHub.

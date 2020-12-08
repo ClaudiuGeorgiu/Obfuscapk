@@ -342,8 +342,8 @@ build process and so they are included in the list of obfuscators to keep the ov
 architecture modular.
 
 Not working as expected? See
-[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/FAQ.md) and
-[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/TROUBLESHOOTING.md).
+[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md) and
+[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md).
 
 
 
@@ -491,10 +491,11 @@ functionality.
 ## ❱ Contributing
 
 Questions, bug reports and pull requests are welcome on GitHub at
-[https://github.com/ClaudiuGeorgiu/Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk).
+[https://github.com/ClaudiuGeorgiu/Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk)
+(see [contributing](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/CONTRIBUTING.md)).
 Make sure to also check
-[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/FAQ.md) and
-[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/TROUBLESHOOTING.md),
+[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md) and
+[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md),
 since some of the most common questions are already answered there.
 
 

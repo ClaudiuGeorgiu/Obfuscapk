@@ -20,7 +20,7 @@ NOTE:
 
 ### Is this feature request related to a problem?
 
-<!-- A clear and concise description of what the problem is, e.g., I have an issue when... (write your answer below this line) -->
+<!-- A clear and concise description of what the problem is, e.g., I have an issue when... (insert text below this line) -->
 
 
 
@@ -32,10 +32,10 @@ NOTE:
 
 ### Additional context
 
-<!-- Is there anything else you can add about the feature proposal? (write your answer below this line) -->
+<!-- Is there anything else you can add about the feature proposal? (insert text below this line) -->
 
 
 
 ### Would you like to submit a pull request for this feature?
 
-<!-- Yes/No/I would like to submit a PR but I need further assistance with... (write your answer below this line) -->
+<!-- Yes/No/I would like to submit a PR but I need further assistance with... (insert text below this line) -->

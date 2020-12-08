@@ -30,7 +30,7 @@ Before opening this issue, I tried the following steps:
 
 * [ ] Ran the tool using `--ignore-libs` flag to exclude third party libraries from the obfuscation
 
-* [ ] Checked [FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/FAQ.md) and [troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/TROUBLESHOOTING.md)
+* [ ] Checked [FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md) and [troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md)
 
 * [ ] Checked for [existing similar issues on GitHub](https://github.com/issues?utf8=✓&q=is%3Aissue+repo%3AClaudiuGeorgiu/Obfuscapk)
 
@@ -68,11 +68,11 @@ paste here the complete error message, including the command that generated the 
 
 <!-- Please fill all the applicable fields below to help us replicate the problem -->
 
-- **Installation mode** (e.g., from source or with Docker):
-- **Obufscapk version** (e.g., commit 0676488):
-- **OS** (e.g., Ubuntu 16.04):
-- **Python version** (e.g., 3.7.4):
-- **Apktool version** (e.g., v2.4.0):
+* **Installation mode** (e.g., from source or with Docker):
+* **Obufscapk version** (e.g., commit 0676488):
+* **OS** (e.g., Ubuntu 16.04):
+* **Python version** (e.g., 3.7.4):
+* **Apktool version** (e.g., v2.4.0):
 
 
 

@@ -9,7 +9,7 @@ assignees: ""
 <!--
 Thank you for your interest in Obfuscapk.
 
-You can use this issue for anything other than bug reports and feature requests. Please provide as much information as needed to help us answer your question(s). Please make sure to also check the FAQ at https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/FAQ.md as you may find an answer for the most common questions.
+You can use this issue for anything other than bug reports and feature requests. Please provide as much information as needed to help us answer your question(s). Please make sure to also check the FAQ at https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md as you may find an answer for the most common questions.
 
 NOTE:
     * if you're including code snippets/logs, please format them properly (see https://help.github.com/github/writing-on-github/basic-writing-and-formatting-syntax#quoting-code);
