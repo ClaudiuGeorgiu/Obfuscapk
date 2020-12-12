@@ -74,7 +74,7 @@ def get_cmd_args(args: list = None):
     parser.add_argument(
         "-k",
         "--virus-total-key",
-        action="append",
+        type=str,
         metavar="VT_API_KEY",
         help="When using Virus Total obfuscator, a valid API key has to be provided. "
         "Can be specified multiple times to use a different API key for each request "
@@ -121,7 +121,7 @@ def main():
     -o ResStringEncryption -o ArithmeticBranch -o FieldRename -o Nop -o Goto \
     -o ClassRename -o Reflection -o AdvancedReflection -o Reorder -o RandomManifest \
     -o Rebuild -o NewSignature -o NewAlignment \
-    -o VirusTotal -k virus_total_key_1 -k virus_total_key_2 \
+    -o VirusTotal -k virus_total_key \
     /path/to/original.apk
     """
 
@@ -142,9 +142,7 @@ def main():
         arguments.destination = arguments.destination.strip(" '\"")
 
     if arguments.virus_total_key:
-        arguments.virus_total_key = [
-            key.strip(" '\"") for key in arguments.virus_total_key
-        ]
+        arguments.virus_total_key = arguments.virus_total_key.strip(" '\"")
 
     if arguments.keystore_file:
         arguments.keystore_file = arguments.keystore_file.strip(" '\"")

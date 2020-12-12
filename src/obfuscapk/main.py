@@ -49,7 +49,7 @@ def perform_obfuscation(
     obfuscated_apk_path: str = None,
     ignore_libs: bool = False,
     interactive: bool = False,
-    virus_total_api_key: List[str] = None,
+    virus_total_api_key: str = None,
     keystore_file: str = None,
     keystore_password: str = None,
     key_alias: str = None,
@@ -71,7 +71,7 @@ def perform_obfuscation(
     :param ignore_libs: If True, exclude known third party libraries from the
                         obfuscation operations.
     :param interactive: If True, show a progress bar with the obfuscation progress.
-    :param virus_total_api_key: A list containing Virus Total API keys, needed only
+    :param virus_total_api_key: A string containing Virus Total API keys, needed only
                                 when using Virus Total obfuscator.
     :param keystore_file: The path to a custom keystore file to be used for signing the
                           resulting obfuscated application. If not provided, a default

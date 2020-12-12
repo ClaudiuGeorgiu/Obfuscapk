@@ -4,11 +4,10 @@ import json
 import logging
 import os
 import time
-from http import HTTPStatus
-from itertools import cycle
-from pprint import pformat
+from typing import Optional, Dict
 
-from virus_total_apis import PublicApi as VirusTotalPublicApi
+import vt
+from pprint import pformat
 
 from obfuscapk import obfuscator_category
 from obfuscapk.obfuscation import Obfuscation
@@ -21,85 +20,34 @@ class VirusTotal(obfuscator_category.IOtherObfuscator):
             "{0}.{1}".format(__name__, self.__class__.__name__)
         )
         super().__init__()
+        self.vt_session = None
 
-        self.vt_sessions = None
+    @staticmethod
+    def get_positives(report: Dict) -> int:
+        return report['data']['attributes']['last_analysis_stats']['malicious']
 
-    def get_vt_session(self):
-        # Cycle through the Virus Total sessions (one session for each key):
-        return next(self.vt_sessions)
-
-    def get_report(self, sha256_hash: str) -> dict:
-        sleep_interval = 8  # In seconds.
-        attempt = 1
-        max_attempts = 16
-
-        for attempt in range(1, max_attempts + 1):
-            report = self.get_vt_session().get_file_report(sha256_hash)
-
-            if "response_code" in report and report["response_code"] == HTTPStatus.OK:
-                report_results_rc = report["results"]["response_code"]
-                if report_results_rc == 1:
-                    return report
-
-            # Exponential backoff.
-            sleep_interval *= attempt
-            self.logger.warning(
-                "Attempt {0}/{1} (retrying in {2} s), complete result not yet "
-                "available: {3}".format(attempt, max_attempts, sleep_interval, report)
-            )
-            time.sleep(sleep_interval)
-
-        self.logger.error(
-            'Maximum number of {0} attempts reached for "{1}"'.format(
-                attempt, sha256_hash
-            )
-        )
-        raise Exception("Maximum number of attempts reached")
+    def get_report_or_none(self, sha256_hash: str) -> Optional[dict]:
+        try:
+            report = self.vt_session.get_json(f'/files/{sha256_hash}')
+            return report
+        except vt.error.APIError:
+            return None
 
     def scan_apk_file(self, apk_file_path: str) -> dict:
         self.logger.info('Scanning file "{0}"'.format(apk_file_path))
+        sha256_hash = sha256sum(apk_file_path)
+        report = self.get_report_or_none(sha256_hash)
+        if report is not None:
+            return report
 
-        report = self.get_vt_session().get_file_report(sha256sum(apk_file_path))
-        if "error" in report:
-            self.logger.error(
-                'Error while retrieving scan for file "{0}": {1}'.format(
-                    apk_file_path, report
-                )
-            )
-            raise Exception(
-                'Error while retrieving scan for file "{0}"'.format(apk_file_path)
-            )
+        with open(apk_file_path, "rb") as f:
+            self.logger.info(f"Uploading '{apk_file_path}' to VirusTotal...")
+            analysis = self.vt_session.scan_file(f, wait_for_completion=True)
+            assert analysis.status == 'completed'
 
-        rc = report["results"]["response_code"]
-
-        if rc == 0:
-            # The requested resource is not among the finished, queued or pending scans.
-            # The apk file needs to be uploaded to Virus Total.
-            scan_report = self.get_vt_session().scan_file(apk_file_path)
-            if scan_report["response_code"] != HTTPStatus.OK:
-                self.logger.error(
-                    'Error while uploading file "{0}": {1}'.format(
-                        apk_file_path, scan_report
-                    )
-                )
-                raise Exception(
-                    'Error while uploading file "{0}"'.format(apk_file_path)
-                )
-
-            report = self.get_report(scan_report["results"]["sha256"])
-
-        elif rc != 1:
-            # response_code is 1 when Virus Total has a complete result.
-            err_msg = report["results"]["verbose_msg"]
-            self.logger.error(
-                'Error while retrieving scan for file "{0}": {1}'.format(
-                    apk_file_path, err_msg
-                )
-            )
-            raise Exception(
-                'Error while retrieving scan for file "{0}"'.format(apk_file_path)
-            )
-
+        report = self.get_report_or_none(sha256_hash)
+        if report is None:
+            raise Exception('Error while retrieving scan for file "{0}"'.format(apk_file_path))
         return report
 
     def obfuscate(self, obfuscation_info: Obfuscation):
@@ -112,29 +60,24 @@ class VirusTotal(obfuscator_category.IOtherObfuscator):
                     "obfuscator?"
                 )
 
-            if not obfuscation_info.virus_total_api_key:
+            if obfuscation_info.virus_total_api_key is None:
                 raise ValueError(
                     "A valid API key has to be provided in order to submit the "
                     "obfuscated application to Virus Total"
                 )
 
-            self.vt_sessions = iter(
-                cycle(
-                    VirusTotalPublicApi(key)
-                    for key in obfuscation_info.virus_total_api_key
-                )
-            )
+            self.vt_session = vt.Client(obfuscation_info.virus_total_api_key)
 
             original_report = self.scan_apk_file(obfuscation_info.apk_path)
             self.logger.info(
                 "Original apk scan result ({0} positives): {1}".format(
-                    original_report["results"]["positives"], pformat(original_report)
+                    self.get_positives(original_report), pformat(original_report)
                 )
             )
             obfuscated_report = self.scan_apk_file(obfuscation_info.obfuscated_apk_path)
             self.logger.info(
                 "Obfuscated apk scan result ({0} positives): {1}".format(
-                    obfuscated_report["results"]["positives"],
+                    self.get_positives(obfuscated_report),
                     pformat(obfuscated_report),
                 )
             )
@@ -181,4 +124,5 @@ class VirusTotal(obfuscator_category.IOtherObfuscator):
             raise
 
         finally:
+            self.vt_session.close()
             obfuscation_info.used_obfuscators.append(self.__class__.__name__)

@@ -24,7 +24,7 @@ class Obfuscation(object):
         obfuscated_apk_path: str = None,
         ignore_libs: bool = False,
         interactive: bool = False,
-        virus_total_api_key: List[str] = None,
+        virus_total_api_key: str = None,
         keystore_file: str = None,
         keystore_password: str = None,
         key_alias: str = None,
@@ -37,7 +37,7 @@ class Obfuscation(object):
         self.obfuscated_apk_path: str = obfuscated_apk_path
         self.ignore_libs: bool = ignore_libs
         self.interactive: bool = interactive
-        self.virus_total_api_key: List[str] = virus_total_api_key
+        self.virus_total_api_key: str = virus_total_api_key
         self.keystore_file: str = keystore_file
         self.keystore_password: str = keystore_password
         self.key_alias: str = key_alias
