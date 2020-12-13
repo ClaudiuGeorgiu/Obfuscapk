@@ -24,11 +24,11 @@ class VirusTotal(obfuscator_category.IOtherObfuscator):
 
     @staticmethod
     def get_positives(report: Dict) -> int:
-        return report['data']['attributes']['last_analysis_stats']['malicious']
+        return report["data"]["attributes"]["last_analysis_stats"]["malicious"]
 
     def get_report_or_none(self, sha256_hash: str) -> Optional[dict]:
         try:
-            report = self.vt_session.get_json(f'/files/{sha256_hash}')
+            report = self.vt_session.get_json(f"/files/{sha256_hash}")
             return report
         except vt.error.APIError:
             return None
@@ -43,11 +43,13 @@ class VirusTotal(obfuscator_category.IOtherObfuscator):
         with open(apk_file_path, "rb") as f:
             self.logger.info(f"Uploading '{apk_file_path}' to VirusTotal...")
             analysis = self.vt_session.scan_file(f, wait_for_completion=True)
-            assert analysis.status == 'completed'
+            assert analysis.status == "completed"
 
         report = self.get_report_or_none(sha256_hash)
         if report is None:
-            raise Exception('Error while retrieving scan for file "{0}"'.format(apk_file_path))
+            raise Exception(
+                'Error while retrieving scan for file "{0}"'.format(apk_file_path)
+            )
         return report
 
     def obfuscate(self, obfuscation_info: Obfuscation):
