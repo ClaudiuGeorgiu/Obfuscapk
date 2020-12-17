@@ -295,6 +295,16 @@ By default (when `--keystore-file` is not specified), a
 [keystore bundled with Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/resources/obfuscation_keystore.jks)
 is used for the signing operations.
 
+* `---ignore-packages-file IGNORE_PACKAGES_FILE` is a path to a file which includes 
+package names to be ignored.
+All the classes inside those packages will not be obfuscated when this option is used.
+The file should have one package name per line as shown in the example below.
+`ignore.txt` file contents:
+    ```Object
+    com.mycompany.dontobfuscate
+    com.mycompany.ignore
+    ``` 
+
 Let's consider now a simple working example to see how Obfuscapk works:
 
 ```Shell

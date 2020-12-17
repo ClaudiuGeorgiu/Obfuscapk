@@ -15,6 +15,8 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
         )
         super().__init__()
 
+        self.ignore_package_names = []
+
     def rename_method(self, method_name: str) -> str:
         method_md5 = util.get_string_md5(method_name)
         return "m{0}".format(method_md5.lower()[:8])
@@ -52,7 +54,7 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
                             continue
                         elif class_match:
                             class_name = class_match.group("class_name")
-                            if class_name in class_names_to_ignore:
+                            if class_name in class_names_to_ignore or class_name.startswith(tuple(self.ignore_package_names)):
                                 # The methods of this class should be ignored when
                                 # renaming, so proceed with the next class.
                                 skip_remaining_lines = True
@@ -151,6 +153,9 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
 
     def obfuscate(self, obfuscation_info: Obfuscation):
         self.logger.info('Running "{0}" obfuscator'.format(self.__class__.__name__))
+
+        # Get user defined ignore package list
+        self.ignore_package_names = obfuscation_info.get_ignore_package_names()
 
         try:
             # NOTE: only direct methods (methods that are by nature non-overridable,

@@ -15,6 +15,8 @@ class FieldRename(obfuscator_category.IRenameObfuscator):
         )
         super().__init__()
 
+        self.ignore_package_names = []
+
         self.is_adding_fields = True
 
         self.max_fields_to_add = 0
@@ -53,14 +55,25 @@ class FieldRename(obfuscator_category.IRenameObfuscator):
             description="Renaming field declarations",
         ):
             with util.inplace_edit_file(smali_file) as (in_file, out_file):
+                class_name = None
                 for line in in_file:
+                    ignore = False
+
+                    if not class_name:
+                        class_match = util.class_pattern.match(line)
+                        if class_match:
+                            class_name = class_match.group('class_name')
+
                     # Field declared in class.
                     field_match = util.field_pattern.match(line)
 
+                    if class_name.startswith(tuple(self.ignore_package_names)):
+                        ignore = True
+
                     if field_match:
                         field_name = field_match.group("field_name")
-                        # Avoid sub-fields.
-                        if "$" not in field_name:
+                        # Avoid sub-fields and user defined packages.
+                        if not ignore and "$" not in field_name:
                             # Rename field declaration (usages of this field will be
                             # renamed later) and add some random fields.
                             line = line.replace(
@@ -134,6 +147,9 @@ class FieldRename(obfuscator_category.IRenameObfuscator):
 
     def obfuscate(self, obfuscation_info: Obfuscation):
         self.logger.info('Running "{0}" obfuscator'.format(self.__class__.__name__))
+
+        # Get user defined ignore package list
+        self.ignore_package_names = obfuscation_info.get_ignore_package_names()
 
         try:
             sdk_class_declarations = self.get_sdk_class_names(
