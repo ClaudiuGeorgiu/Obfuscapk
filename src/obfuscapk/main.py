@@ -54,7 +54,7 @@ def perform_obfuscation(
     keystore_password: str = None,
     key_alias: str = None,
     key_password: str = None,
-    ignore_packages_file: str = None
+    ignore_packages_file: str = None,
 ):
     """
     Apply the obfuscation techniques to an input application and generate an obfuscated
@@ -108,7 +108,7 @@ def perform_obfuscation(
         keystore_password,
         key_alias,
         key_password,
-        ignore_packages_file
+        ignore_packages_file,
     )
 
     manager = ObfuscatorManager()

@@ -113,7 +113,7 @@ def get_cmd_args(args: list = None):
         type=str,
         metavar="IGNORE_PACKAGES_FILE",
         help="The file including package names to be ignored "
-             "(one package name per line)",
+        "(one package name per line)",
     )
     return parser.parse_args(args)
 
@@ -164,7 +164,7 @@ def main():
         arguments.key_password = arguments.key_password.strip(" '\"")
 
     if arguments.ignore_packages_file:
-        arguments.ignore_packages_file = arguments.ignore_packages_file.strip(" \"")
+        arguments.ignore_packages_file = arguments.ignore_packages_file.strip(' "')
 
     perform_obfuscation(
         arguments.apk_file,
@@ -178,7 +178,7 @@ def main():
         arguments.keystore_password,
         arguments.key_alias,
         arguments.key_password,
-        arguments.ignore_packages_file
+        arguments.ignore_packages_file,
     )
 
 

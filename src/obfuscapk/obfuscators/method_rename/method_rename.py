@@ -54,7 +54,12 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
                             continue
                         elif class_match:
                             class_name = class_match.group("class_name")
-                            if class_name in class_names_to_ignore or class_name.startswith(tuple(self.ignore_package_names)):
+                            if (
+                                class_name in class_names_to_ignore
+                                or class_name.startswith(
+                                    tuple(self.ignore_package_names)
+                                )
+                            ):
                                 # The methods of this class should be ignored when
                                 # renaming, so proceed with the next class.
                                 skip_remaining_lines = True

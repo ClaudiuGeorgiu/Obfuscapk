@@ -62,7 +62,7 @@ class FieldRename(obfuscator_category.IRenameObfuscator):
                     if not class_name:
                         class_match = util.class_pattern.match(line)
                         if class_match:
-                            class_name = class_match.group('class_name')
+                            class_name = class_match.group("class_name")
 
                     # Field declared in class.
                     field_match = util.field_pattern.match(line)

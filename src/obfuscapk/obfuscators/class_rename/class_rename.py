@@ -91,7 +91,9 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
                         if class_match:
                             class_name = class_match.group("class_name")
 
-                            ignore_class = class_name.startswith(tuple(self.ignore_package_names))
+                            ignore_class = class_name.startswith(
+                                tuple(self.ignore_package_names)
+                            )
 
                             # Split class name to its components and encrypt them.
                             class_tokens = self.split_class_pattern.split(
