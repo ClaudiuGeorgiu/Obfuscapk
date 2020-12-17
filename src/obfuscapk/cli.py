@@ -108,6 +108,13 @@ def get_cmd_args(args: list = None):
         help="The key password for signing the obfuscated .apk file (needed only when "
         "specifying a custom keystore file)",
     )
+    parser.add_argument(
+        "--ignore-packages-file",
+        type=str,
+        metavar="IGNORE_PACKAGES_FILE",
+        help="The file including package names to be ignored "
+             "(one package name per line)",
+    )
     return parser.parse_args(args)
 
 
@@ -158,6 +165,9 @@ def main():
     if arguments.key_password:
         arguments.key_password = arguments.key_password.strip(" '\"")
 
+    if arguments.ignore_packages_file:
+        arguments.ignore_packages_file = arguments.ignore_packages_file.strip(" \"")
+
     perform_obfuscation(
         arguments.apk_file,
         arguments.obfuscator,
@@ -170,6 +180,7 @@ def main():
         arguments.keystore_password,
         arguments.key_alias,
         arguments.key_password,
+        arguments.ignore_packages_file
     )
 
 

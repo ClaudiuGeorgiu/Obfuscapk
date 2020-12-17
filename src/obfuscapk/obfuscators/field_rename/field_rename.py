@@ -55,8 +55,8 @@ class FieldRename(obfuscator_category.IRenameObfuscator):
             description="Renaming field declarations",
         ):
             with util.inplace_edit_file(smali_file) as (in_file, out_file):
+                class_name = None
                 for line in in_file:
-
                     ignore = False
 
                     if not class_name:

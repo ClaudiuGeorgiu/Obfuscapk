@@ -54,6 +54,7 @@ def perform_obfuscation(
     keystore_password: str = None,
     key_alias: str = None,
     key_password: str = None,
+    ignore_packages_file: str = None
 ):
     """
     Apply the obfuscation techniques to an input application and generate an obfuscated
@@ -84,6 +85,8 @@ def perform_obfuscation(
     :param key_password: The key password for signing the resulting obfuscated
                          application (needed only when specifying a custom keystore
                          file).
+    :param ignore_packages_file: "The file including package names to be ignored
+                                 (one package name per line)
     """
 
     check_external_tool_dependencies()
@@ -105,6 +108,7 @@ def perform_obfuscation(
         keystore_password,
         key_alias,
         key_password,
+        ignore_packages_file
     )
 
     manager = ObfuscatorManager()

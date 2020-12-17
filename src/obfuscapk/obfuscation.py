@@ -616,8 +616,11 @@ class Obfuscation(object):
     def get_ignore_package_names(self) -> List[str]:
         ignore_package_list = []
 
+        if self.ignore_packages_file is None:
+            return ignore_package_list
+
         # normalize package names into smali format
         for item in util.get_non_empty_lines_from_file(os.path.join(self.ignore_packages_file)):
-            ignore_package_list.append("L{0}".format(item))
+            ignore_package_list.append("L{0}".format(item).replace('.', '/'))
 
         return ignore_package_list
