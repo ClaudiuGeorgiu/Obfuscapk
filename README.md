@@ -299,11 +299,11 @@ is used for the signing operations.
 package names to be ignored.
 All the classes inside those packages will not be obfuscated when this option is used.
 The file should have one package name per line as shown in the example below.
-`ignore_txt file` contents: 
-```
-com.mycompany.dontobfuscate
-com.mycompany.ignore
-```
+`ignore.txt` file contents:
+    ```Object
+    com.mycompany.dontobfuscate
+    com.mycompany.ignore
+    ``` 
 
 Let's consider now a simple working example to see how Obfuscapk works:
 
