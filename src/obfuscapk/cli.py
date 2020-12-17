@@ -76,9 +76,7 @@ def get_cmd_args(args: list = None):
         "--virus-total-key",
         type=str,
         metavar="VT_API_KEY",
-        help="When using Virus Total obfuscator, a valid API key has to be provided. "
-        "Can be specified multiple times to use a different API key for each request "
-        "(cycling through the API keys)",
+        help="When using Virus Total obfuscator, a valid API key has to be provided",
     )
     parser.add_argument(
         "--keystore-file",
@@ -112,8 +110,8 @@ def get_cmd_args(args: list = None):
         "--ignore-packages-file",
         type=str,
         metavar="IGNORE_PACKAGES_FILE",
-        help="The file including package names to be ignored "
-        "(one package name per line)",
+        help="The file containing the package names to be ignored during the "
+        "obfuscation (one package name per line)",
     )
     return parser.parse_args(args)
 
@@ -164,7 +162,7 @@ def main():
         arguments.key_password = arguments.key_password.strip(" '\"")
 
     if arguments.ignore_packages_file:
-        arguments.ignore_packages_file = arguments.ignore_packages_file.strip(' "')
+        arguments.ignore_packages_file = arguments.ignore_packages_file.strip(" '\"")
 
     perform_obfuscation(
         arguments.apk_file,

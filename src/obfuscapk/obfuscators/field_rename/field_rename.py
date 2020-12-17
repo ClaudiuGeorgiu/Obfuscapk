@@ -148,7 +148,7 @@ class FieldRename(obfuscator_category.IRenameObfuscator):
     def obfuscate(self, obfuscation_info: Obfuscation):
         self.logger.info('Running "{0}" obfuscator'.format(self.__class__.__name__))
 
-        # Get user defined ignore package list
+        # Get user defined ignore package list.
         self.ignore_package_names = obfuscation_info.get_ignore_package_names()
 
         try:

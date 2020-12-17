@@ -340,7 +340,7 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
             #     list(package_smali_files), obfuscation_info.interactive
             # )
 
-            # Get user defined ignore package list
+            # Get user defined ignore package list.
             self.ignore_package_names = obfuscation_info.get_ignore_package_names()
 
             # Rename all classes declared in smali files.

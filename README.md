@@ -282,9 +282,7 @@ using the tool in batch operations/automatic builds it's convenient to have prog
 bars disabled, otherwise this flag should be enabled to see the obfuscation progress.
 
 * `-k VT_API_KEY` is needed only when using `VirusTotal` obfuscator, to set the API
-key(s) to be used when communicating with Virus Total. Can be set multiple times to
-cycle through the API keys during the requests (e.g.,
-`-k VALID_VT_KEY_1 -k VALID_VT_KEY_2`).
+key to be used when communicating with Virus Total.
 
 * `--keystore-file KEYSTORE_FILE`, `--keystore-password KEYSTORE_PASSWORD`,
 `--key-alias KEY_ALIAS` and `--key-password KEY_PASSWORD` can be used to specify a
@@ -295,14 +293,14 @@ By default (when `--keystore-file` is not specified), a
 [keystore bundled with Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/resources/obfuscation_keystore.jks)
 is used for the signing operations.
 
-* `---ignore-packages-file IGNORE_PACKAGES_FILE` is a path to a file which includes 
-package names to be ignored.
-All the classes inside those packages will not be obfuscated when this option is used.
-The file should have one package name per line as shown in the example below.
-`ignore.txt` file contents:
-    ```Object
+* `--ignore-packages-file IGNORE_PACKAGES_FILE` is a path to a file which includes
+package names to be ignored. All the classes inside those packages will not be
+obfuscated when this option is used. The file should have one package name per line as
+shown in the example below:
+    ```
     com.mycompany.dontobfuscate
     com.mycompany.ignore
+    ...
     ``` 
 
 Let's consider now a simple working example to see how Obfuscapk works:

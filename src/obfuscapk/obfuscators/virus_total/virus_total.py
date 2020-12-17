@@ -3,11 +3,10 @@
 import json
 import logging
 import os
-import time
+from pprint import pformat
 from typing import Optional, Dict
 
 import vt
-from pprint import pformat
 
 from obfuscapk import obfuscator_category
 from obfuscapk.obfuscation import Obfuscation

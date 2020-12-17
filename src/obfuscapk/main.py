@@ -72,7 +72,7 @@ def perform_obfuscation(
     :param ignore_libs: If True, exclude known third party libraries from the
                         obfuscation operations.
     :param interactive: If True, show a progress bar with the obfuscation progress.
-    :param virus_total_api_key: A string containing Virus Total API keys, needed only
+    :param virus_total_api_key: A string containing Virus Total API key, needed only
                                 when using Virus Total obfuscator.
     :param keystore_file: The path to a custom keystore file to be used for signing the
                           resulting obfuscated application. If not provided, a default
@@ -85,8 +85,8 @@ def perform_obfuscation(
     :param key_password: The key password for signing the resulting obfuscated
                          application (needed only when specifying a custom keystore
                          file).
-    :param ignore_packages_file: "The file including package names to be ignored
-                                 (one package name per line)
+    :param ignore_packages_file: The file containing the package names to be ignored
+                                 during the obfuscation (one package name per line).
     """
 
     check_external_tool_dependencies()
