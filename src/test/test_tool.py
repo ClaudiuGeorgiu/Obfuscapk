@@ -109,7 +109,7 @@ class TestApktool(object):
             Apktool().build(tmp_demo_apk_v10_decoded_files_directory_path)
 
 
-class ApkSigner(object):
+class TestApkSigner(object):
     def test_apksigner_valid_path(self):
         apksigner = ApkSigner()
         assert os.path.isfile(apksigner.apksigner_path)
