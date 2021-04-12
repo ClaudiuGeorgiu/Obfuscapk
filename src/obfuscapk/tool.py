@@ -308,7 +308,6 @@ class ApkSigner(object):
             apk_path,
         ]
 
-        self.logger.error(sign_cmd)
         if key_password:
             sign_cmd.insert(-1, "--key-pass")
             sign_cmd.insert(-1, f"pass:{key_password}")
