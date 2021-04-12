@@ -117,7 +117,7 @@ class TestApkSigner(object):
         output = subprocess.check_output(
             apksigner.apksigner_path, stderr=subprocess.STDOUT
         ).decode()
-        assert "USAGE: apksigner" in output.lower()
+        assert "usage: apksigner" in output.lower()
 
     def test_apksigner_wrong_path(self, monkeypatch):
         monkeypatch.setenv("APKSIGNER_PATH", "invalid.apksigner.path")
