@@ -228,7 +228,15 @@ class Zipalign(object):
         try:
             apk_copy_path = shutil.copy2(apk_path, apk_copy_path)
 
-            align_cmd = [self.zipalign_path, "-p", "-v", "-f", "4", apk_copy_path, apk_path]
+            align_cmd = [
+                self.zipalign_path,
+                "-p",
+                "-v",
+                "-f",
+                "4",
+                apk_copy_path,
+                apk_path,
+            ]
 
             self.logger.info('Running align command "{0}"'.format(" ".join(align_cmd)))
             output = subprocess.check_output(
@@ -299,9 +307,11 @@ class ApkSigner(object):
             f"pass:{keystore_password}",
             apk_path,
         ]
+
+        self.logger.error(sign_cmd)
         if key_password:
-            sign_cmd.insert(-2, " --key-pass ")
-            sign_cmd.insert(-2, f"pass:{key_password} ")
+            sign_cmd.insert(-1, "--key-pass")
+            sign_cmd.insert(-1, f"pass:{key_password}")
 
         try:
             self.logger.info('Running sign command "{0}"'.format(" ".join(sign_cmd)))
