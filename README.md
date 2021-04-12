@@ -251,7 +251,7 @@ Let's start by looking at the help message:
 $ obfuscapk --help
 obfuscapk [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK] [-i] [-p] [-k VT_API_KEY]
           [--keystore-file KEYSTORE_FILE] [--keystore-password KEYSTORE_PASSWORD]
-          [--key-alias KEY_ALIAS] [--key-password KEY_PASSWORD]
+          [--key-alias KEY_ALIAS] [--key-password KEY_PASSWORD] [--use-aapt2]
           <APK_FILE>
 ```
 
@@ -303,6 +303,7 @@ shown in the example below:
     com.mycompany.ignore
     ...
     ``` 
+* `--use-aapt2` is a flag for use aapt2 option to rebuild app when using apktool.
 
 Let's consider now a simple working example to see how Obfuscapk works:
 

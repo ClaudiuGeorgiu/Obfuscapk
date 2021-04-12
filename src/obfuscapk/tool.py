@@ -119,7 +119,7 @@ class Apktool(object):
             self.logger.error("Error during decoding: {0}".format(e))
             raise
 
-    def build(self, source_dir_path: str, output_apk_path: str = None) -> str:
+    def build(self, source_dir_path: str, output_apk_path: str = None, use_aapt2: bool = False) -> str:
 
         # Check if the input directory exists.
         if not os.path.isdir(source_dir_path):
@@ -143,6 +143,7 @@ class Apktool(object):
                 'default path: "{0}"'.format(output_apk_path)
             )
 
+
         build_cmd: List[str] = [
             self.apktool_path,
             "--frame-path",
@@ -153,6 +154,9 @@ class Apktool(object):
             "-o",
             output_apk_path,
         ]
+
+        if use_aapt2:
+            build_cmd.insert(-2, "--use-aapt2")
 
         try:
             self.logger.info('Running build command "{0}"'.format(" ".join(build_cmd)))

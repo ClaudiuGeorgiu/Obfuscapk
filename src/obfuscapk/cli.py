@@ -72,6 +72,11 @@ def get_cmd_args(args: list = None):
         help="Show obfuscation progress (as a progress bar)",
     )
     parser.add_argument(
+        "--use-aapt2",
+        action="store_true",
+        help="Use aapt2 for rebuild app"
+    )
+    parser.add_argument(
         "-k",
         "--virus-total-key",
         type=str,
@@ -120,7 +125,7 @@ def main():
     """
     A full command to obfuscate an application:
 
-    python3 -m obfuscapk.cli -p -i -w /working/dir/path -d /path/to/obfuscated.apk \
+    python3 -m obfuscapk.cli -p -i -w /working/dir/path --use-aapt2 -d /path/to/obfuscated.apk \
     -o DebugRemoval -o LibEncryption -o CallIndirection -o MethodRename \
     -o AssetEncryption -o MethodOverload -o ConstStringEncryption \
     -o ResStringEncryption -o ArithmeticBranch -o FieldRename -o Nop -o Goto \
@@ -177,6 +182,7 @@ def main():
         arguments.key_alias,
         arguments.key_password,
         arguments.ignore_packages_file,
+        arguments.use_aapt2,
     )
 
 
