@@ -119,7 +119,9 @@ class Apktool(object):
             self.logger.error("Error during decoding: {0}".format(e))
             raise
 
-    def build(self, source_dir_path: str, output_apk_path: str = None, use_aapt2: bool = False) -> str:
+    def build(
+        self, source_dir_path: str, output_apk_path: str = None, use_aapt2: bool = False
+    ) -> str:
 
         # Check if the input directory exists.
         if not os.path.isdir(source_dir_path):
@@ -142,7 +144,6 @@ class Apktool(object):
                 "No output apk path provided, the new apk will be saved in the "
                 'default path: "{0}"'.format(output_apk_path)
             )
-
 
         build_cmd: List[str] = [
             self.apktool_path,

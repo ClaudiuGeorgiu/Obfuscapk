@@ -72,9 +72,7 @@ def get_cmd_args(args: list = None):
         help="Show obfuscation progress (as a progress bar)",
     )
     parser.add_argument(
-        "--use-aapt2",
-        action="store_true",
-        help="Use aapt2 for rebuild app"
+        "--use-aapt2", action="store_true", help="Use aapt2 for rebuild app"
     )
     parser.add_argument(
         "-k",

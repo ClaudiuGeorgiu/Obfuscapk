@@ -503,7 +503,9 @@ class Obfuscation(object):
         apktool: Apktool = Apktool()
 
         try:
-            apktool.build(self._decoded_apk_path, self.obfuscated_apk_path, self.use_aapt2)
+            apktool.build(
+                self._decoded_apk_path, self.obfuscated_apk_path, self.use_aapt2
+            )
         except Exception as e:
             self.logger.error("Error during apk building: {0}".format(e))
             raise

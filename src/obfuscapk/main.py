@@ -55,7 +55,7 @@ def perform_obfuscation(
     key_alias: str = None,
     key_password: str = None,
     ignore_packages_file: str = None,
-    use_aapt2: bool = False
+    use_aapt2: bool = False,
 ):
     """
     Apply the obfuscation techniques to an input application and generate an obfuscated
@@ -111,7 +111,7 @@ def perform_obfuscation(
         key_alias,
         key_password,
         ignore_packages_file,
-        use_aapt2
+        use_aapt2,
     )
 
     manager = ObfuscatorManager()
