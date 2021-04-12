@@ -137,7 +137,7 @@ class ApkSigner(object):
             "obfuscation_password",
             "obfuscation_key",
         )
-        assert "jar signed" in output.lower()
+        assert "Signed" in output.lower()
 
     def test_resign_error_generic(
         self, tmp_demo_apk_v10_original_path: str, monkeypatch

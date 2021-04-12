@@ -290,6 +290,7 @@ class ApkSigner(object):
         sign_cmd: List[str] = [
             self.apksigner_path,
             "sign",
+            "-v"
             "--ks",
             keystore_file_path,
             "--ks-key-alias",
