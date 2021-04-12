@@ -175,7 +175,7 @@ Copyright (C) 2009 The Android Open Source Project
 ```
 
 To install and use `apktool` you need a recent version of Java. 
-`zipalign` and `apksigner` is included in the Android SDK. The location of the
+`zipalign` and `apksigner` are included in the Android SDK. The location of the
 executables can also be specified through the following environment variables:
 `APKTOOL_PATH`, `APKSIGNER_PATH` and `ZIPALIGN_PATH` (e.g., in Ubuntu, run
 `export APKTOOL_PATH=/custom/location/apktool` before running Obfuscapk in the same
