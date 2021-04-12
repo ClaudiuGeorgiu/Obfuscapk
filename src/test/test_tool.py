@@ -5,7 +5,7 @@ import subprocess
 
 import pytest
 
-from obfuscapk.tool import Apktool, Jarsigner, Zipalign
+from obfuscapk.tool import Apktool, ApkSigner, Zipalign
 
 # noinspection PyUnresolvedReferences
 from test.test_fixtures import (

@@ -32,7 +32,7 @@ def check_external_tool_dependencies():
     """
     Make sure all the external needed tools are available and ready to be used.
     """
-    # APKTOOL_PATH, JARSIGNER_PATH and ZIPALIGN_PATH environment variables can be
+    # APKTOOL_PATH, APKSIGNER_PATH and ZIPALIGN_PATH environment variables can be
     # used to specify the location of the external tools (make sure they have the
     # execute permission). If there is a problem with any of the executables below,
     # an exception will be thrown by the corresponding constructor.
