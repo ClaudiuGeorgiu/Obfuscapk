@@ -30,6 +30,7 @@ class Obfuscation(object):
         key_alias: str = None,
         key_password: str = None,
         ignore_packages_file: str = None,
+        use_aapt2: bool = False,
     ):
         self.logger = logging.getLogger(__name__)
 
@@ -44,6 +45,7 @@ class Obfuscation(object):
         self.key_alias: str = key_alias
         self.key_password: str = key_password
         self.ignore_packages_file: str = ignore_packages_file
+        self.use_aapt2 = use_aapt2
 
         # Random string (32 chars long) generation with ASCII letters and digits
         self.encryption_secret = "".join(
@@ -501,7 +503,7 @@ class Obfuscation(object):
         apktool: Apktool = Apktool()
 
         try:
-            apktool.build(self._decoded_apk_path, self.obfuscated_apk_path)
+            apktool.build(self._decoded_apk_path, self.obfuscated_apk_path, self.use_aapt2)
         except Exception as e:
             self.logger.error("Error during apk building: {0}".format(e))
             raise
