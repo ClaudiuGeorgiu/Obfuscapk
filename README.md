@@ -151,7 +151,7 @@ information.
 
 Make sure to have a recent version of
 [`apktool`](https://ibotpeaches.github.io/Apktool/),
-[`jarsigner`](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html)
+[`apksigner`](https://developer.android.com/studio/command-line/apksigner)
 and [`zipalign`](https://developer.android.com/studio/command-line/zipalign) installed
 and available from the command line:
 
@@ -161,9 +161,10 @@ Apktool v2.5.0 - a tool for reengineering Android apk files
 ...
 ```
 ```Shell
-$ jarsigner
-Usage: jarsigner [options] jar-file alias
-       jarsigner -verify [options] jar-file [alias...]
+$ apksigner
+Usage:  apksigner <command> [options]
+        apksigner --version
+        apksigner --help
 ...
 ```
 ```Shell
@@ -173,10 +174,10 @@ Copyright (C) 2009 The Android Open Source Project
 ...
 ```
 
-To install and use `apktool` you need a recent version of Java, which should also have
-`jarsigner` bundled. `zipalign` is included in the Android SDK. The location of the
+To install and use `apktool` you need a recent version of Java. 
+`zipalign` and `apksigner` are included in the Android SDK. The location of the
 executables can also be specified through the following environment variables:
-`APKTOOL_PATH`, `JARSIGNER_PATH` and `ZIPALIGN_PATH` (e.g., in Ubuntu, run
+`APKTOOL_PATH`, `APKSIGNER_PATH` and `ZIPALIGN_PATH` (e.g., in Ubuntu, run
 `export APKTOOL_PATH=/custom/location/apktool` before running Obfuscapk in the same
 terminal).
 
@@ -257,7 +258,7 @@ obfuscapk [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK] [-i] [-p] [-k VT_API_KEY]
 There are two mandatory parameters: `<APK_FILE>`, the path (relative or absolute) to
 the apk file to obfuscate and the list with the names of the obfuscation techniques to
 apply (specified with a `-o` option that can be used multiple times, e.g.,
-`-o Rebuild -o NewSignature -o NewAlignment`). The other optional arguments are as
+`-o Rebuild -o NewAlignment -o NewSignature`). The other optional arguments are as
 follows:
 
 * `-w DIR` is used to set the working directory where to save the intermediate files
@@ -307,7 +308,7 @@ Let's consider now a simple working example to see how Obfuscapk works:
 
 ```Shell
 $ # original.apk is a valid Android apk file.
-$ obfuscapk -o RandomManifest -o Rebuild -o NewSignature -o NewAlignment original.apk
+$ obfuscapk -o RandomManifest -o Rebuild -o NewAlignment -o NewSignature original.apk
 ```
 
 When running the above command, this is what happens behind the scenes:
@@ -332,18 +333,18 @@ available and ready to be used
     manifest) using `apktool`, and since no output file was specified, the resulting
     apk file is saved in the working directory created before
 
-    - `NewSignature` obfuscator signs the newly created apk file with a custom
-    certificate contained in a
-    [keystore bundled with Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/resources/obfuscation_keystore.jks)
-    (though a different keystore can be specified with the `--keystore-file` parameter)
-
     - `NewAlignment` obfuscator uses `zipalign` tool to align the resulting apk file
+      
+    - `NewSignature` obfuscator signs the newly created apk file with a custom 
+      certificate contained in a
+      [keystore bundled with Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/src/obfuscapk/resources/obfuscation_keystore.jks)
+      (though a different keystore can be specified with the `--keystore-file` parameter)
 
 * when all the obfuscators have been executed without errors, the resulting obfuscated
 apk file can be found in `obfuscation_working_dir/original_obfuscated.apk`, signed,
 aligned and ready to be installed into a device/emulator
 
-As seen in the previous example, `Rebuild`, `NewSignature` and `NewAlignment`
+As seen in the previous example, `Rebuild`, `NewAlignment` and `NewSignature` 
 obfuscators are always needed to complete an obfuscation operation, to build the final
 obfuscated apk. They are not actual obfuscation techniques, but they are needed in the
 build process and so they are included in the list of obfuscators to keep the overall

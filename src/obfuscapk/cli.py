@@ -125,7 +125,7 @@ def main():
     -o AssetEncryption -o MethodOverload -o ConstStringEncryption \
     -o ResStringEncryption -o ArithmeticBranch -o FieldRename -o Nop -o Goto \
     -o ClassRename -o Reflection -o AdvancedReflection -o Reorder -o RandomManifest \
-    -o Rebuild -o NewSignature -o NewAlignment \
+    -o Rebuild -o NewAlignment -o NewSignature \
     -o VirusTotal -k virus_total_key \
     /path/to/original.apk
     """

@@ -188,27 +188,98 @@ class Apktool(object):
             raise
 
 
-class Jarsigner(object):
+class Zipalign(object):
     def __init__(self):
         self.logger = logging.getLogger(
             "{0}.{1}".format(__name__, self.__class__.__name__)
         )
 
-        if "JARSIGNER_PATH" in os.environ:
-            self.jarsigner_path: str = os.environ["JARSIGNER_PATH"]
+        if "ZIPALIGN_PATH" in os.environ:
+            self.zipalign_path: str = os.environ["ZIPALIGN_PATH"]
         else:
-            self.jarsigner_path: str = "jarsigner"
+            self.zipalign_path: str = "zipalign"
 
-        full_jarsigner_path = shutil.which(self.jarsigner_path)
+        full_zipalign_path = shutil.which(self.zipalign_path)
 
         # Make sure to use the full path of the executable (needed for cross-platform
         # compatibility).
-        if full_jarsigner_path is None:
+        if full_zipalign_path is None:
             raise RuntimeError(
-                'Something is wrong with executable "{0}"'.format(self.jarsigner_path)
+                'Something is wrong with executable "{0}"'.format(self.zipalign_path)
             )
         else:
-            self.jarsigner_path = full_jarsigner_path
+            self.zipalign_path = full_zipalign_path
+
+    def align(self, apk_path: str) -> str:
+
+        # Check if the apk file to align is a valid file.
+        if not os.path.isfile(apk_path):
+            self.logger.error('Unable to find file "{0}"'.format(apk_path))
+            raise FileNotFoundError('Unable to find file "{0}"'.format(apk_path))
+
+        # Since zipalign cannot be run inplace, a temp file will be created.
+        apk_copy_path = "{0}.copy.apk".format(
+            os.path.join(
+                os.path.dirname(apk_path),
+                os.path.splitext(os.path.basename(apk_path))[0],
+            )
+        )
+
+        try:
+            apk_copy_path = shutil.copy2(apk_path, apk_copy_path)
+
+            align_cmd = [
+                self.zipalign_path,
+                "-p",
+                "-v",
+                "-f",
+                "4",
+                apk_copy_path,
+                apk_path,
+            ]
+
+            self.logger.info('Running align command "{0}"'.format(" ".join(align_cmd)))
+            output = subprocess.check_output(
+                align_cmd, stderr=subprocess.STDOUT
+            ).strip()
+            return output.decode(errors="replace")
+        except subprocess.CalledProcessError as e:
+            self.logger.error(
+                "Error during align command: {0}".format(
+                    e.output.decode(errors="replace") if e.output else e
+                )
+            )
+            raise
+        except Exception as e:
+            self.logger.error("Error during aligning: {0}".format(e))
+            raise
+        finally:
+            # Remove the temp file used for zipalign.
+            if os.path.isfile(apk_copy_path):
+                os.remove(apk_copy_path)
+
+
+class ApkSigner(object):
+    def __init__(self):
+        self.logger = logging.getLogger(
+            "{0}.{1}".format(__name__, self.__class__.__name__)
+        )
+
+        if "APKSIGNER_PATH" in os.environ:
+            self.apksigner_path: str = os.environ["APKSIGNER_PATH"]
+        else:
+            self.apksigner_path: str = "apksigner"
+
+        full_apksigner_path = shutil.which(self.apksigner_path)
+
+        # Make sure to use the full path of the executable (needed for cross-platform
+        # compatibility).
+        if full_apksigner_path is None:
+            raise RuntimeError(
+                'Something is wrong with executable "{0}"'.format(self.apksigner_path)
+            )
+        else:
+            self.apksigner_path = full_apksigner_path
 
     def sign(
         self,
@@ -225,24 +296,21 @@ class Jarsigner(object):
             raise FileNotFoundError('Unable to find file "{0}"'.format(apk_path))
 
         sign_cmd: List[str] = [
-            self.jarsigner_path,
-            "-tsa",
-            "http://timestamp.comodoca.com/rfc3161",
-            "-sigalg",
-            "SHA1withRSA",
-            "-digestalg",
-            "SHA1",
-            "-keystore",
+            self.apksigner_path,
+            "sign",
+            "-v",
+            "--ks",
             keystore_file_path,
-            "-storepass",
-            keystore_password,
-            apk_path,
+            "--ks-key-alias",
             key_alias,
+            "--ks-pass",
+            f"pass:{keystore_password}",
+            apk_path,
         ]
 
         if key_password:
-            sign_cmd.insert(-2, "-keypass")
-            sign_cmd.insert(-2, key_password)
+            sign_cmd.insert(-1, "--key-pass")
+            sign_cmd.insert(-1, f"pass:{key_password}")
 
         try:
             self.logger.info('Running sign command "{0}"'.format(" ".join(sign_cmd)))
@@ -310,66 +378,3 @@ class Jarsigner(object):
         return self.sign(
             apk_path, keystore_file_path, keystore_password, key_alias, key_password
         )
-
-
-class Zipalign(object):
-    def __init__(self):
-        self.logger = logging.getLogger(
-            "{0}.{1}".format(__name__, self.__class__.__name__)
-        )
-
-        if "ZIPALIGN_PATH" in os.environ:
-            self.zipalign_path: str = os.environ["ZIPALIGN_PATH"]
-        else:
-            self.zipalign_path: str = "zipalign"
-
-        full_zipalign_path = shutil.which(self.zipalign_path)
-
-        # Make sure to use the full path of the executable (needed for cross-platform
-        # compatibility).
-        if full_zipalign_path is None:
-            raise RuntimeError(
-                'Something is wrong with executable "{0}"'.format(self.zipalign_path)
-            )
-        else:
-            self.zipalign_path = full_zipalign_path
-
-    def align(self, apk_path: str) -> str:
-
-        # Check if the apk file to align is a valid file.
-        if not os.path.isfile(apk_path):
-            self.logger.error('Unable to find file "{0}"'.format(apk_path))
-            raise FileNotFoundError('Unable to find file "{0}"'.format(apk_path))
-
-        # Since zipalign cannot be run inplace, a temp file will be created.
-        apk_copy_path = "{0}.copy.apk".format(
-            os.path.join(
-                os.path.dirname(apk_path),
-                os.path.splitext(os.path.basename(apk_path))[0],
-            )
-        )
-
-        try:
-            apk_copy_path = shutil.copy2(apk_path, apk_copy_path)
-
-            align_cmd = [self.zipalign_path, "-v", "-f", "4", apk_copy_path, apk_path]
-
-            self.logger.info('Running align command "{0}"'.format(" ".join(align_cmd)))
-            output = subprocess.check_output(
-                align_cmd, stderr=subprocess.STDOUT
-            ).strip()
-            return output.decode(errors="replace")
-        except subprocess.CalledProcessError as e:
-            self.logger.error(
-                "Error during align command: {0}".format(
-                    e.output.decode(errors="replace") if e.output else e
-                )
-            )
-            raise
-        except Exception as e:
-            self.logger.error("Error during aligning: {0}".format(e))
-            raise
-        finally:
-            # Remove the temp file used for zipalign.
-            if os.path.isfile(apk_copy_path):
-                os.remove(apk_copy_path)

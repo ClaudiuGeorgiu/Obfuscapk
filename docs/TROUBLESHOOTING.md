@@ -30,7 +30,7 @@ from Docker Hub.
 If you are not using the Docker image, make sure to install and setup properly the
 additional tools needed for Obfuscapk to work:
 [`apktool`](https://ibotpeaches.github.io/Apktool/),
-[`jarsigner`](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jarsigner.html)
+[`apksigner`](https://developer.android.com/studio/command-line/apksigner)
 and [`zipalign`](https://developer.android.com/studio/command-line/zipalign). Please
 ensure to be using a recent release of
 [`apktool`](https://ibotpeaches.github.io/Apktool/) (some systems, like Kali Linux,
