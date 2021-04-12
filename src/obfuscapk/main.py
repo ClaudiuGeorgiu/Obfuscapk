@@ -7,7 +7,7 @@ from typing import List
 from obfuscapk import util
 from obfuscapk.obfuscation import Obfuscation
 from obfuscapk.obfuscator_manager import ObfuscatorManager
-from obfuscapk.tool import Apktool, Jarsigner, Zipalign
+from obfuscapk.tool import Apktool, Zipalign, ApkSigner
 
 if "LOG_LEVEL" in os.environ:
     log_level = os.environ["LOG_LEVEL"]
@@ -38,7 +38,7 @@ def check_external_tool_dependencies():
     # an exception will be thrown by the corresponding constructor.
     logger.debug("Checking external tool dependencies")
     Apktool()
-    Jarsigner()
+    ApkSigner()
     Zipalign()
 
 

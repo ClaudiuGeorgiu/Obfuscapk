@@ -25,7 +25,7 @@ class TestCommandLine(object):
         # Mock the command line parser.
         arguments = cli.get_cmd_args(
             "-w {working_dir} -d {destination} "
-            "-o Rebuild -o NewSignature -o NewAlignment {apk_file}".format(
+            "-o Rebuild -o NewAlignment -o NewSignature {apk_file}".format(
                 working_dir=tmp_working_directory_path,
                 destination=obfuscated_apk_path,
                 apk_file=tmp_demo_apk_v10_original_path,

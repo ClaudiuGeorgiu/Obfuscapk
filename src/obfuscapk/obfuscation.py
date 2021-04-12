@@ -7,7 +7,7 @@ import string
 from typing import List, Union
 
 from obfuscapk import util
-from obfuscapk.tool import Apktool, Jarsigner, Zipalign
+from obfuscapk.tool import Apktool, Jarsigner, Zipalign, ApkSigner
 
 
 class Obfuscation(object):
@@ -511,7 +511,7 @@ class Obfuscation(object):
         # This method must be called AFTER the obfuscated apk has been built.
 
         # The obfuscated apk will be signed with jarsigner.
-        jarsigner: Jarsigner = Jarsigner()
+        apksigner: ApkSigner = ApkSigner()
 
         # If a custom keystore file is not provided, use the default one bundled with
         # the tool. Otherwise check that the keystore password and a key alias are
@@ -537,7 +537,7 @@ class Obfuscation(object):
                 )
 
         try:
-            jarsigner.resign(
+            apksigner.resign(
                 self.obfuscated_apk_path,
                 self.keystore_file,
                 self.keystore_password,

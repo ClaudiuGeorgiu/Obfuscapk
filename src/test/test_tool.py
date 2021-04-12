@@ -109,23 +109,23 @@ class TestApktool(object):
             Apktool().build(tmp_demo_apk_v10_decoded_files_directory_path)
 
 
-class TestJarsigner(object):
-    def test_jarsigner_valid_path(self):
-        jarsigner = Jarsigner()
-        assert os.path.isfile(jarsigner.jarsigner_path)
+class ApkSigner(object):
+    def test_apksigner_valid_path(self):
+        apksigner = ApkSigner()
+        assert os.path.isfile(apksigner.apksigner_path)
 
         output = subprocess.check_output(
-            jarsigner.jarsigner_path, stderr=subprocess.STDOUT
+            apksigner.apksigner_path, stderr=subprocess.STDOUT
         ).decode()
-        assert "usage: jarsigner" in output.lower()
+        assert "USAGE: apksigner" in output.lower()
 
-    def test_jarsigner_wrong_path(self, monkeypatch):
-        monkeypatch.setenv("JARSIGNER_PATH", "invalid.jarsigner.path")
+    def test_apksigner_wrong_path(self, monkeypatch):
+        monkeypatch.setenv("APKSIGNER_PATH", "invalid.apksigner.path")
         with pytest.raises(RuntimeError):
-            Jarsigner()
+            ApkSigner()
 
     def test_resign_valid_apk(self, tmp_demo_apk_v10_rebuild_path: str):
-        output = Jarsigner().resign(
+        output = ApkSigner().resign(
             tmp_demo_apk_v10_rebuild_path,
             os.path.join(
                 os.path.dirname(__file__),
@@ -148,7 +148,7 @@ class TestJarsigner(object):
         monkeypatch.setattr("subprocess.check_output", mock)
 
         with pytest.raises(Exception):
-            Jarsigner().resign(
+            ApkSigner().resign(
                 tmp_demo_apk_v10_original_path, "ignore", "ignore", "ignore"
             )
 
@@ -161,13 +161,13 @@ class TestJarsigner(object):
         monkeypatch.setattr("zipfile.ZipFile", mock)
 
         with pytest.raises(Exception):
-            Jarsigner().resign(
+            ApkSigner().resign(
                 tmp_demo_apk_v10_original_path, "ignore", "ignore", "ignore"
             )
 
     def test_sign_error_invalid_apk_path(self):
         with pytest.raises(FileNotFoundError):
-            Jarsigner().sign("invalid.apk.path", "ignore", "ignore", "ignore")
+            ApkSigner().sign("invalid.apk.path", "ignore", "ignore", "ignore")
 
     def test_sign_error_invalid_file(self, tmp_working_directory_path: str):
         invalid_file_path = os.path.join(tmp_working_directory_path, "invalid.apk")
@@ -176,11 +176,11 @@ class TestJarsigner(object):
             invalid_file.write("This is not an apk file\n")
 
         with pytest.raises(subprocess.CalledProcessError):
-            Jarsigner().sign(invalid_file_path, "ignore", "ignore", "ignore")
+            ApkSigner().sign(invalid_file_path, "ignore", "ignore", "ignore")
 
     def test_sign_error_invalid_key_password(self, tmp_demo_apk_v10_rebuild_path: str):
         with pytest.raises(subprocess.CalledProcessError):
-            Jarsigner().sign(
+            ApkSigner().sign(
                 tmp_demo_apk_v10_rebuild_path,
                 os.path.join(
                     os.path.dirname(__file__),
