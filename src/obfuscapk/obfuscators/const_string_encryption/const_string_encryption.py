@@ -196,37 +196,38 @@ class ConstStringEncryption(obfuscator_category.IEncryptionObfuscator):
 
                     encrypted_strings.add(static_string_value[string_number])
 
-                if static_constructor_line != -1:
-                    # Add static string encryption to the existing static constructor.
-                    local_match = util.locals_pattern.match(
-                        lines[static_constructor_line + 1]
-                    )
-                    if local_match:
-                        # At least one register is needed.
-                        local_count = int(local_match.group("local_count"))
-                        if local_count == 0:
-                            lines[static_constructor_line + 1] = "\t.locals 1\n"
-                        lines[static_constructor_line + 2] = "\n{0}".format(
-                            static_string_encryption_code
+                if static_string_encryption_code != "":
+                    if static_constructor_line != -1:
+                        # Add static string encryption to the existing static constructor.
+                        local_match = util.locals_pattern.match(
+                            lines[static_constructor_line + 1]
                         )
-                else:
-                    # Add a new static constructor for the static string encryption.
-                    if direct_methods_line != -1:
-                        new_constructor_line = direct_methods_line
+                        if local_match:
+                            # At least one register is needed.
+                            local_count = int(local_match.group("local_count"))
+                            if local_count == 0:
+                                lines[static_constructor_line + 1] = "\t.locals 1\n"
+                            lines[static_constructor_line + 2] = "\n{0}".format(
+                                static_string_encryption_code
+                            )
                     else:
-                        new_constructor_line = len(lines) - 1
+                        # Add a new static constructor for the static string encryption.
+                        if direct_methods_line != -1:
+                            new_constructor_line = direct_methods_line
+                        else:
+                            new_constructor_line = len(lines) - 1
 
-                    lines[new_constructor_line] = (
-                        "{original}"
-                        ".method static constructor <clinit>()V\n"
-                        "\t.locals 1\n\n"
-                        "{encryption_code}"
-                        "\treturn-void\n"
-                        ".end method\n\n".format(
-                            original=lines[new_constructor_line],
-                            encryption_code=static_string_encryption_code,
+                        lines[new_constructor_line] = (
+                            "{original}"
+                            ".method static constructor <clinit>()V\n"
+                            "\t.locals 1\n\n"
+                            "{encryption_code}"
+                            "\treturn-void\n"
+                            ".end method\n\n".format(
+                                original=lines[new_constructor_line],
+                                encryption_code=static_string_encryption_code,
+                            )
                         )
-                    )
 
                 with open(smali_file, "w", encoding="utf-8") as current_file:
                     current_file.writelines(lines)
