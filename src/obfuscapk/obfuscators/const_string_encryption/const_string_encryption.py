@@ -110,7 +110,9 @@ class ConstStringEncryption(obfuscator_category.IEncryptionObfuscator):
                         direct_methods_line = line_number
                         continue
 
-                    if line.startswith(".method") and line.strip().endswith("static constructor <clinit>()V"):
+                    if line.startswith(".method") and line.strip().endswith(
+                        "static constructor <clinit>()V"
+                    ):
                         static_constructor_line = line_number
                         continue
 
