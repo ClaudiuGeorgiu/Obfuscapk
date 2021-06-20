@@ -63,17 +63,29 @@
     invoke-virtual {p0, p1, p2}, Ljava/lang/reflect/Method;->invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;
 
     move-result-object p0
+    
     :try_end_0
-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
-
+    .catch Ljava/lang/IllegalAccessException; {:try_start_0 .. :try_end_0} :catch_1
+    .catch Ljava/lang/reflect/InvocationTargetException; {:try_start_0 .. :try_end_0} :catch_0
     return-object p0
 
     :catch_0
-    move-exception p0
+    move-exception v0
 
-    invoke-virtual {p0}, Ljava/lang/Exception;->printStackTrace()V
+    invoke-virtual {v0}, Ljava/lang/reflect/InvocationTargetException;->getCause()Ljava/lang/Throwable;
 
-    const/4 p0, 0x0
+    move-result-object v0
 
-    return-object p0
+    check-cast v0, Ljava/lang/Exception;
+
+    throw v0
+
+    :catch_1
+    move-exception v0
+
+    invoke-virtual {v0}, Ljava/lang/IllegalAccessException;->printStackTrace()V
+    
+    const/4 v0, 0x0
+
+    return-object v0
 .end method
