@@ -1,4 +1,5 @@
 afzkl/development/
+android/arch/
 android/content/
 android/opengl/
 android/support/
