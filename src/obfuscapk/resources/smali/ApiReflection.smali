@@ -74,18 +74,18 @@
 
     invoke-virtual {v0}, Ljava/lang/reflect/InvocationTargetException;->getCause()Ljava/lang/Throwable;
 
-    move-result-object v1
+    move-result-object v0
 
-    check-cast v1, Ljava/lang/Exception;
+    check-cast v0, Ljava/lang/Exception;
 
-    throw v1
+    throw v0
 
     :catch_1
     move-exception v0
 
     invoke-virtual {v0}, Ljava/lang/IllegalAccessException;->printStackTrace()V
     
-    const/4 v1, 0x0
+    const/4 v0, 0x0
 
-    return-object v1
+    return-object v0
 .end method
