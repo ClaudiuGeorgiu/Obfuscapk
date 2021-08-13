@@ -97,7 +97,7 @@ causing the error(s): e.g., instead of running
 `-o ConstStringEncryption -o ResStringEncryption -o LibEncryption` all at once, try
 only `-o ConstStringEncryption` and check if the resulting application still works as
 expected, then continue with `-o ConstStringEncryption -o ResStringEncryption` an so
-on (`Rebuild`, `NewSignature` and `NewAlignment` were omitted in this example).
+on (`Rebuild`, `NewAlignment` and `NewSignature` were omitted in this example).
 
 After you found which obfuscator is causing the problem, you have three choices: ignore
 it and use other obfuscators that work, open a
