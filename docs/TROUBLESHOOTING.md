@@ -89,8 +89,8 @@ party libraries (the code belonging to such libraries won't be modified);
 
 * the order of the obfuscators matters, so if something is not working as expected, try
 changing the order in which the obfuscators are passed as parameters with
-`-o/--obfuscator` (but preserve the order of `Rebuild`, `NewSignature` and
-`NewAlignment` and always put them at the end of the list);
+`-o/--obfuscator` (but preserve the order of `Rebuild`, `NewAlignment` and
+`NewSignature` and always put them at the end of the list);
 
 * if the error persists, try adding the obfuscators one by one until you find which is
 causing the error(s): e.g., instead of running
