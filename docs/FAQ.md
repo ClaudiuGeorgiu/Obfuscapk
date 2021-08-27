@@ -56,7 +56,7 @@ Android obfuscation. For more information, you can also check the following link
 
 * [A study on obfuscation techniques for Android malware](http://midlab.diag.uniroma1.it/articoli/matteo_pomilia_master_thesis.pdf)
 
-* [How I Defeated an Obfuscated and Anti-Tamper APK](https://www.evilsocket.net/2016/04/18/how-i-defeated-an-obfuscated-and-anti-tamper-apk-with-some-python-and-a-home-made-smali-emulator/)
+* [How I Defeated an Obfuscated and Anti-Tamper APK](https://www.evilsocket.net/2016/04/18/How-I-defeated-an-obfuscated-and-anti-tamper-APK-with-some-Python-and-a-home-made-Smali-emulator/)
 
 * [Android Deobfuscation Tools and Techniques](https://www.slideshare.net/tekproxy/tetcon-2016)
 
