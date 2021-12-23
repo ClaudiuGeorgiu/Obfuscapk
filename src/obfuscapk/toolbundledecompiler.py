@@ -26,7 +26,7 @@ class BundleDecompiler(object):
 	# Make sure bundle decompiler is available
         if not os.path.isfile(full_bundledecompiler_path):
             raise RuntimeError(
-                'Cannot find BundleDecompiler with executable "{0}"'.format(self.full_bundledecompiler_path)
+                'Cannot find BundleDecompiler with executable "{0}"'.format(full_bundledecompiler_path)
             )
 
         # Make sure to use the full path of the executable (needed for cross-platform

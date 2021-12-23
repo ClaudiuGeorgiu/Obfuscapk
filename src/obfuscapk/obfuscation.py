@@ -7,7 +7,7 @@ import string
 from typing import List, Union
 
 from obfuscapk import util
-from obfuscapk.toolbundledecompiler import BundleDecompiler, JarsignerBundle
+from obfuscapk.toolbundledecompiler import BundleDecompiler, AABSigner
 from obfuscapk.tool import Apktool, ApkSigner, Zipalign
 
 
