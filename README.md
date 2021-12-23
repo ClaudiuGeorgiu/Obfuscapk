@@ -80,6 +80,14 @@ plugins bundled with the tool).
 
 
 
+## ❱ Android App Bundle Support
+
+In this version, Obfuscapk is supporting obfuscation of [Bundle files](https://developer.android.com/guide/app-bundle) (aab) by a tool from [TamilanPeriyasamy](https://github.com/TamilanPeriyasamy) named [BundleDecompiler](https://github.com/TamilanPeriyasamy/BundleDecompiler). This repository is for decompiling bundle to smali and resource files. Since obfuscapk is working with smali and other resource files, it does not matter how the files are decompiled.
+
+**The BundleDecompiler works only in Linux. Therefore, this version of obfuscapk will only work in Linux.** You should download the `BundleDecompiler-x.x.x.jar` and save it as `BundleDecompiler.jar` in `/usr/bin` directory (or anywhere else and set the `BUNDLE_DECOMPILER_PATH` local variable).
+
+This version is the first release. If you have faced any problems, please refer to **Contributing** section.
+
 ## ❱ Installation
 
 There are two ways of getting a working copy of Obfuscapk on your own computer: either
@@ -175,9 +183,8 @@ Copyright (C) 2009 The Android Open Source Project
 ```
 
 To install and use `apktool` you need a recent version of Java. 
-`zipalign` and `apksigner` are included in the Android SDK. The location of the
-executables can also be specified through the following environment variables:
-`APKTOOL_PATH`, `APKSIGNER_PATH` and `ZIPALIGN_PATH` (e.g., in Ubuntu, run
+`zipalign` and `apksigner` are included in the Android SDK. `bundledecompiler` is a tool created by  [TamilanPeriyasamy](https://github.com/TamilanPeriyasamy) which you can download it from [BundleDecompiler](https://github.com/TamilanPeriyasamy/BundleDecompiler) repository. The downloaded file should be placed in `/usr/bin` with the name of `BundleDecompiler.jar` if `BUNDLE_DECOMPILER_PATH` variable is not set. The location of the executables can also be specified through the following environment variables:
+`APKTOOL_PATH`, `APKSIGNER_PATH` , `ZIPALIGN_PATH`, and `BUNDLE_DECOMPILER_PATH` (e.g., in Ubuntu, run
 `export APKTOOL_PATH=/custom/location/apktool` before running Obfuscapk in the same
 terminal).
 
@@ -209,7 +216,7 @@ $ cd src/
 $ # The following command has to be executed always from Obfuscapk/src/ directory
 $ # or by adding Obfuscapk/src/ directory to PYTHONPATH environment variable.
 $ python3 -m obfuscapk.cli --help
-usage: python3 -m obfuscapk.cli [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK]
+usage: python3 -m obfuscapk.cli [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK_OR_AAB]
 ...
 ```
 
@@ -223,9 +230,9 @@ information.
 From now on, Obfuscapk will be considered as an executable available as `obfuscapk`,
 so you need to adapt the commands according to how you installed the tool:
 
-* **Docker image**: a local directory containing the application to obfuscate has to be
-mounted to `/workdir` in the container (e.g., the current directory `"${PWD}"`), so the
-command:
+* **Docker image**: a local directory containing the application to obfuscate has to be mounted to `/workdir` in the container (e.g., the current directory `"${PWD}"`), so the
+  command:
+
     ```Shell
     $ obfuscapk [params...]
     ```
@@ -235,8 +242,9 @@ command:
     ```
 
 * **From source**: every instruction has to be executed from the `Obfuscapk/src/`
-directory (or by adding `Obfuscapk/src/` directory to `PYTHONPATH` environment
-variable) and the command:
+  directory (or by adding `Obfuscapk/src/` directory to `PYTHONPATH` environment
+  variable) and the command:
+  
     ```Shell
     $ obfuscapk [params...]
     ```
@@ -249,14 +257,14 @@ Let's start by looking at the help message:
 
 ```Shell
 $ obfuscapk --help
-obfuscapk [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK] [-i] [-p] [-k VT_API_KEY]
+obfuscapk [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK_OR_AAB] [-i] [-p] [-k VT_API_KEY]
           [--keystore-file KEYSTORE_FILE] [--keystore-password KEYSTORE_PASSWORD]
           [--key-alias KEY_ALIAS] [--key-password KEY_PASSWORD] [--use-aapt2]
-          <APK_FILE>
+          <APK_OR_BUNDLE_FILE>
 ```
 
-There are two mandatory parameters: `<APK_FILE>`, the path (relative or absolute) to
-the apk file to obfuscate and the list with the names of the obfuscation techniques to
+There are two mandatory parameters: `<APK_OR_BUNDLE_FILE>`, the path (relative or absolute) to
+the apk or bundle file to obfuscate and the list with the names of the obfuscation techniques to
 apply (specified with a `-o` option that can be used multiple times, e.g.,
 `-o Rebuild -o NewAlignment -o NewSignature`). The other optional arguments are as
 follows:
@@ -267,8 +275,8 @@ is created in the same directory as the input application. This can be useful fo
 debugging purposes, but if it's not needed it can be set to a temporary directory
 (e.g., `-w /tmp/`).
 
-* `-d OUT_APK` is used to set the path of the destination file: the apk file generated
-by the obfuscation process (e.g., `-d /home/user/Desktop/obfuscated.apk`). If not
+* `-d OUT_APK_OR_AAB` is used to set the path of the destination file: the apk file generated
+by the obfuscation process (e.g., `-d /home/user/Desktop/obfuscated.apk` or `-d /home/user/Desktop/obfuscated.aab`). If not
 specified, the final obfuscated file will be saved inside the working directory.
 Note: existing files will be overwritten without any warning.
 
@@ -295,14 +303,15 @@ By default (when `--keystore-file` is not specified), a
 is used for the signing operations.
 
 * `--ignore-packages-file IGNORE_PACKAGES_FILE` is a path to a file which includes
-package names to be ignored. All the classes inside those packages will not be
-obfuscated when this option is used. The file should have one package name per line as
-shown in the example below:
+  package names to be ignored. All the classes inside those packages will not be
+  obfuscated when this option is used. The file should have one package name per line as
+  shown in the example below:
+  
     ```
     com.mycompany.dontobfuscate
     com.mycompany.ignore
     ...
-    ``` 
+    ```
 * `--use-aapt2` is a flag for use aapt2 option to rebuild app when using apktool.
 
 Let's consider now a simple working example to see how Obfuscapk works:
@@ -325,14 +334,14 @@ available and ready to be used
 (in order) one by one until there's no obfuscator left or until an error is encountered
 
     - when running the first obfuscator, `original.apk` is decompiled with `apktool`
-    and the results are stored into the working directory
+      and the results are stored into the working directory
 
     - since the first obfuscator is `RandomManifest`, the entries in the decompiled
-    Android manifest are reordered randomly (without breaking the `xml` structures)
+      Android manifest are reordered randomly (without breaking the `xml` structures)
 
     - `Rebuild` obfuscator simply rebuilds the application (now with the modified
-    manifest) using `apktool`, and since no output file was specified, the resulting
-    apk file is saved in the working directory created before
+      manifest) using `apktool`, and since no output file was specified, the resulting
+      apk file is saved in the working directory created before
 
     - `NewAlignment` obfuscator uses `zipalign` tool to align the resulting apk file
       
