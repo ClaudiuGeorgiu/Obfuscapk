@@ -7,8 +7,8 @@ import string
 from typing import List, Union
 
 from obfuscapk import util
-from obfuscapk.toolbundledecompiler import BundleDecompiler, AABSigner
 from obfuscapk.tool import Apktool, ApkSigner, Zipalign
+from obfuscapk.toolbundledecompiler import BundleDecompiler, AABSigner
 
 
 class Obfuscation(object):
@@ -32,7 +32,6 @@ class Obfuscation(object):
         key_password: str = None,
         ignore_packages_file: str = None,
         use_aapt2: bool = False,
-        is_bundle: bool = False,
     ):
         self.logger = logging.getLogger(__name__)
 
