@@ -47,7 +47,7 @@ class Obfuscation(object):
         self.key_password: str = key_password
         self.ignore_packages_file: str = ignore_packages_file
         self.use_aapt2 = use_aapt2
-        if apk_path.endswith('aab'):
+        if apk_path.endswith("aab"):
             self.is_bundle = True
         else:
             self.is_bundle = False
@@ -119,7 +119,7 @@ class Obfuscation(object):
         # If the path of the output obfuscated apk is not specified, save it in the
         # working directory.
         if not self.obfuscated_apk_path:
-            if (self.is_bundle):
+            if self.is_bundle:
                 self.obfuscated_apk_path = "{0}_obfuscated.aab".format(
                     os.path.join(
                         self.working_dir_path,
@@ -352,21 +352,25 @@ class Obfuscation(object):
                 os.path.splitext(os.path.basename(self.apk_path))[0],
             )
             try:
-                if (self.is_bundle):
-                    bundledecompiler.decode(self.apk_path, self._decoded_apk_path, force=False)
+                if self.is_bundle:
+                    bundledecompiler.decode(
+                        self.apk_path, self._decoded_apk_path, force=False
+                    )
                 else:
                     apktool.decode(self.apk_path, self._decoded_apk_path, force=True)
-                
 
                 # Path to the decoded manifest file.
-                if (self.is_bundle):
+                if self.is_bundle:
                     self._manifest_file = os.path.join(
-                        self._decoded_apk_path, "base", "manifest", "AndroidManifest.xml",
+                        self._decoded_apk_path,
+                        "base",
+                        "manifest",
+                        "AndroidManifest.xml",
                     )
                 else:
                     self._manifest_file = os.path.join(
-                    self._decoded_apk_path, "AndroidManifest.xml"
-                )
+                        self._decoded_apk_path, "AndroidManifest.xml"
+                    )
 
                 # A list containing the paths to all the smali files obtained with
                 # apktool or bundledecompiler.
@@ -412,9 +416,11 @@ class Obfuscation(object):
                 self._smali_files.sort()
 
                 # Check if multidex.
-                if (self.is_bundle):
+                if self.is_bundle:
                     if os.path.isdir(
-                        os.path.join(self._decoded_apk_path, "base", "dex", "smali_classes2")
+                        os.path.join(
+                            self._decoded_apk_path, "base", "dex", "smali_classes2"
+                        )
                     ):
                         self._is_multidex = True
                 else:
@@ -423,15 +429,19 @@ class Obfuscation(object):
                     ):
                         self._is_multidex = True
 
-                if (self._is_multidex):
+                if self._is_multidex:
                     smali_directories = ["smali"]
                     for i in range(2, 15):
                         smali_directories.append("smali_classes{0}".format(i))
 
                     for smali_directory in smali_directories:
-                        if (self.is_bundle):
+                        if self.is_bundle:
                             current_directory = os.path.join(
-                                self._decoded_apk_path, "base", "dex", smali_directory, ""
+                                self._decoded_apk_path,
+                                "base",
+                                "dex",
+                                smali_directory,
+                                "",
                             )
                         else:
                             current_directory = os.path.join(
@@ -539,7 +549,7 @@ class Obfuscation(object):
         bundledecompiler: BundleDecompiler = BundleDecompiler()
 
         try:
-            if (self.is_bundle):
+            if self.is_bundle:
                 bundledecompiler.build(self._decoded_apk_path, self.obfuscated_apk_path)
             else:
                 apktool.build(self._decoded_apk_path, self.obfuscated_apk_path)
@@ -579,7 +589,7 @@ class Obfuscation(object):
                 )
 
         try:
-            if (self.is_bundle):
+            if self.is_bundle:
                 aabsigner.sign(
                     self.obfuscated_apk_path,
                 )
@@ -601,7 +611,7 @@ class Obfuscation(object):
 
         # The obfuscated apk will be aligned with zipalign.
         zipalign: Zipalign = Zipalign()
-        if (self.is_bundle):
+        if self.is_bundle:
             return
 
         try:
@@ -652,7 +662,7 @@ class Obfuscation(object):
             self.decode_apk()
 
         # '.join(x, "")' is used to add a trailing slash.
-        if (self.is_bundle):
+        if self.is_bundle:
             return os.path.join(self._decoded_apk_path, "base", "assets", "")
         else:
             return os.path.join(self._decoded_apk_path, "assets", "")
@@ -663,11 +673,10 @@ class Obfuscation(object):
             self.decode_apk()
 
         # '.join(x, "")' is used to add a trailing slash.
-        if (self.is_bundle):
+        if self.is_bundle:
             return os.path.join(self._decoded_apk_path, "base", "res", "")
         else:
             return os.path.join(self._decoded_apk_path, "res", "")
-        
 
     def get_ignore_package_names(self) -> List[str]:
         ignore_package_list = []

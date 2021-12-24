@@ -15,7 +15,9 @@ class BundleDecompiler(object):
         )
 
         if platform.system() == "Windows":
-            self.logger.warning("BundleDecompiler is not yet available on Windows platform")
+            self.logger.warning(
+                "BundleDecompiler is not yet available on Windows platform"
+            )
             return
 
         if "BUNDLE_DECOMPILER_PATH" in os.environ:
@@ -28,14 +30,18 @@ class BundleDecompiler(object):
         # Make sure bundle decompiler is available
         if not os.path.isfile(full_bundledecompiler_path):
             raise RuntimeError(
-                'Cannot find BundleDecompiler with executable "{0}"'.format(full_bundledecompiler_path)
+                'Cannot find BundleDecompiler with executable "{0}"'.format(
+                    full_bundledecompiler_path
+                )
             )
 
         # Make sure to use the full path of the executable (needed for cross-platform
         # compatibility).
         if full_bundledecompiler_path is None:
             raise RuntimeError(
-                'Something is wrong with executable "{0}"'.format(self.bundledecompiler_path)
+                'Something is wrong with executable "{0}"'.format(
+                    self.bundledecompiler_path
+                )
             )
         else:
             self.bundledecompiler_path = full_bundledecompiler_path
@@ -44,7 +50,9 @@ class BundleDecompiler(object):
         self, aab_path: str, output_dir_path: str = None, force: bool = False
     ) -> str:
         if platform.system() == "Windows":
-            raise NotImplementedError("BundleDecompiler is not yet available on Windows platform")
+            raise NotImplementedError(
+                "BundleDecompiler is not yet available on Windows platform"
+            )
 
         # Check if the aab file to decode is a valid file.
         if not os.path.isfile(aab_path):
@@ -102,9 +110,7 @@ class BundleDecompiler(object):
         ]
 
         if force:
-            self.logger.warning(
-                'Bundle Decompiler does not support force'
-            )
+            self.logger.warning("Bundle Decompiler does not support force")
 
         try:
             self.logger.info(
@@ -132,7 +138,9 @@ class BundleDecompiler(object):
 
     def build(self, source_dir_path: str, output_aab_path: str = None) -> str:
         if platform.system() == "Windows":
-            raise NotImplementedError("BundleDecompiler is not yet available on Windows platform")
+            raise NotImplementedError(
+                "BundleDecompiler is not yet available on Windows platform"
+            )
 
         # Check if the input directory exists.
         if not os.path.isdir(source_dir_path):
@@ -206,7 +214,9 @@ class AABSigner(object):
         )
 
         if platform.system() == "Windows":
-            self.logger.warning("BundleDecompiler is not yet available on Windows platform")
+            self.logger.warning(
+                "BundleDecompiler is not yet available on Windows platform"
+            )
             return
 
         if "BUNDLE_DECOMPILER_PATH" in os.environ:
@@ -230,7 +240,9 @@ class AABSigner(object):
         aab_path: str,
     ) -> str:
         if platform.system() == "Windows":
-            raise NotImplementedError("BundleDecompiler is not yet available on Windows platform")
+            raise NotImplementedError(
+                "BundleDecompiler is not yet available on Windows platform"
+            )
 
         # Check if the aab file to sign is a valid file.
         if not os.path.isfile(aab_path):
@@ -243,12 +255,12 @@ class AABSigner(object):
             self.aabsigner_path,
             "sign-bundle",
             "--in=" + aab_path,
-            "--out=" + aab_path.replace(".aab","_signed.aab")
+            "--out=" + aab_path.replace(".aab", "_signed.aab"),
         ]
 
         try:
             self.logger.info('Running sign command "{0}"'.format(" ".join(sign_cmd)))
-            output = subprocess.check_output(sign_cmd, stderr=subprocess.STDOUT).strip()           
+            output = subprocess.check_output(sign_cmd, stderr=subprocess.STDOUT).strip()
             return output.decode(errors="replace")
         except subprocess.CalledProcessError as e:
             self.logger.error(
