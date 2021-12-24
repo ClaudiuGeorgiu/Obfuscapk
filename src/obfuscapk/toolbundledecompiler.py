@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 
-import io
 import logging
 import os
+import platform
 import shutil
 import subprocess
-import tempfile
-import zipfile
 from typing import List
 
 
@@ -16,14 +14,18 @@ class BundleDecompiler(object):
             "{0}.{1}".format(__name__, self.__class__.__name__)
         )
 
+        if platform.system() == "Windows":
+            self.logger.warning("BundleDecompiler is not yet available on Windows platform")
+            return
+
         if "BUNDLE_DECOMPILER_PATH" in os.environ:
             self.bundledecompiler_path: str = os.environ["BUNDLE_DECOMPILER_PATH"]
         else:
             self.bundledecompiler_path: str = "BundleDecompiler.jar"
 
-        full_bundledecompiler_path = "/usr/bin/BundleDecompiler.jar" #shutil.which(self.bundledecompiler_path)
+        full_bundledecompiler_path = shutil.which(self.bundledecompiler_path)
 
-	# Make sure bundle decompiler is available
+        # Make sure bundle decompiler is available
         if not os.path.isfile(full_bundledecompiler_path):
             raise RuntimeError(
                 'Cannot find BundleDecompiler with executable "{0}"'.format(full_bundledecompiler_path)
@@ -41,6 +43,8 @@ class BundleDecompiler(object):
     def decode(
         self, aab_path: str, output_dir_path: str = None, force: bool = False
     ) -> str:
+        if platform.system() == "Windows":
+            raise NotImplementedError("BundleDecompiler is not yet available on Windows platform")
 
         # Check if the aab file to decode is a valid file.
         if not os.path.isfile(aab_path):
@@ -127,6 +131,8 @@ class BundleDecompiler(object):
             raise
 
     def build(self, source_dir_path: str, output_aab_path: str = None) -> str:
+        if platform.system() == "Windows":
+            raise NotImplementedError("BundleDecompiler is not yet available on Windows platform")
 
         # Check if the input directory exists.
         if not os.path.isdir(source_dir_path):
@@ -199,12 +205,16 @@ class AABSigner(object):
             "{0}.{1}".format(__name__, self.__class__.__name__)
         )
 
+        if platform.system() == "Windows":
+            self.logger.warning("BundleDecompiler is not yet available on Windows platform")
+            return
+
         if "BUNDLE_DECOMPILER_PATH" in os.environ:
             self.aabsigner_path: str = os.environ["BUNDLE_DECOMPILER_PATH"]
         else:
             self.aabsigner_path: str = "BundleDecompiler.jar"
 
-        full_aabsigner_path = "/usr/bin/BundleDecompiler.jar" #shutil.which(self.aabsigner_path)
+        full_aabsigner_path = shutil.which(self.aabsigner_path)
 
         # Make sure to use the full path of the executable (needed for cross-platform
         # compatibility).
@@ -219,6 +229,8 @@ class AABSigner(object):
         self,
         aab_path: str,
     ) -> str:
+        if platform.system() == "Windows":
+            raise NotImplementedError("BundleDecompiler is not yet available on Windows platform")
 
         # Check if the aab file to sign is a valid file.
         if not os.path.isfile(aab_path):
