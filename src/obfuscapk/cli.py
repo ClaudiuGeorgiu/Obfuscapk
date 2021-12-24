@@ -21,13 +21,14 @@ def get_cmd_args(args: list = None):
 
     parser = argparse.ArgumentParser(
         prog="python3 -m obfuscapk.cli",
-        description="Obfuscate an application (.apk) without needing its source code.",
+        description="Obfuscate an application (.apk/.aab) without needing its "
+        "source code.",
     )
     parser.add_argument(
         "apk_file",
         type=str,
-        metavar="<APK_FILE>",
-        help="The path to the application (.apk) to obfuscate",
+        metavar="<APK_OR_BUNDLE_FILE>",
+        help="The path to the application (.apk/.aab) to obfuscate",
     )
     parser.add_argument(
         "-o",
@@ -54,9 +55,9 @@ def get_cmd_args(args: list = None):
         "-d",
         "--destination",
         type=str,
-        metavar="OUT_APK",
-        help="The path where to save the obfuscated .apk file. By default the file "
-        "will be saved in the working directory",
+        metavar="OUT_APK_OR_AAB",
+        help="The path where to save the obfuscated .apk/.aab file. By default the "
+        "file will be saved in the working directory",
     )
     parser.add_argument(
         "-i",

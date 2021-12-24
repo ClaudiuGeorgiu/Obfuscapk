@@ -7,7 +7,7 @@
 [![Windows Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Windows/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AWindows)
 [![MacOS Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/MacOS/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AMacOS)
 [![Docker Hub](https://img.shields.io/docker/cloud/build/claudiugeorgiu/obfuscapk)](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
-[![Python Version](https://img.shields.io/badge/Python-3.6%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/Python-3.7%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
 
 
@@ -19,6 +19,22 @@ obfuscation techniques on the decompiled `smali` code, resources and manifest. T
 obfuscated app retains the same functionality as the original one, but the differences
 under the hood sometimes make the new application very different from the original
 (e.g., to signature-based antivirus software).
+
+### :new: Android App Bundle support :new:
+
+Obfuscapk is adding support for
+[Android App Bundles](https://developer.android.com/guide/app-bundle) (aab files) by
+using [BundleDecompiler](https://github.com/TamilanPeriyasamy/BundleDecompiler) (see
+[#121](https://github.com/ClaudiuGeorgiu/Obfuscapk/pull/121)). In order to use this new
+feature, download the latest version of BundleDecompiler available from
+[here](https://github.com/TamilanPeriyasamy/BundleDecompiler/tree/master/build/libs) and
+save it as `BundleDecompiler.jar` in a directory included in `PATH` (e.g., in Ubuntu,
+`/usr/local/bin` or `/usr/bin`).
+
+`NOTE:` BundleDecompiler doesn't work on Windows yet, so app bundle obfuscation is not
+supported by Obfuscapk on Windows platform. Also, app bundle support is still in early
+development, so if you faced any problems or if you want to help us improve, please see
+[contributing](#-contributing).
 
 
 
@@ -109,7 +125,7 @@ Docker version 19.03.0, build aeac949
 #### Official Docker Hub image
 
 The [official Obfuscapk Docker image](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
-is available on Docker Hub (automatically built from this repository):
+is available on Docker Hub:
 
 ```Shell
 $ # Download the Docker image.
@@ -136,7 +152,7 @@ installed correctly:
 
 ```Shell
 $ docker run --rm -it obfuscapk --help
-usage: python3 -m obfuscapk.cli [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK]
+usage: python3 -m obfuscapk.cli [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK_OR_AAB]
 ...
 ```
 
@@ -174,15 +190,22 @@ Copyright (C) 2009 The Android Open Source Project
 ...
 ```
 
-To install and use `apktool` you need a recent version of Java. 
+To support app bundles obfuscation you need
+[BundleDecompiler](https://github.com/TamilanPeriyasamy/BundleDecompiler), so download
+the latest available version from
+[here](https://github.com/TamilanPeriyasamy/BundleDecompiler/tree/master/build/libs) and
+save it as `BundleDecompiler.jar` in a directory included in `PATH` (e.g., in Ubuntu,
+`/usr/local/bin` or `/usr/bin`).
+
+To use BundleDecompiler and `apktool` you also need a recent version of Java. 
 `zipalign` and `apksigner` are included in the Android SDK. The location of the
 executables can also be specified through the following environment variables:
-`APKTOOL_PATH`, `APKSIGNER_PATH` and `ZIPALIGN_PATH` (e.g., in Ubuntu, run
-`export APKTOOL_PATH=/custom/location/apktool` before running Obfuscapk in the same
-terminal).
+`APKTOOL_PATH`, `BUNDLE_DECOMPILER_PATH`, `APKSIGNER_PATH` and `ZIPALIGN_PATH` (e.g.,
+in Ubuntu, run `export APKTOOL_PATH=/custom/location/apktool` before running Obfuscapk
+in the same terminal).
 
 Apart from the above tools, the only requirement of this project is a working
-`Python 3` (at least `3.6`) installation (along with its package manager `pip`).
+`Python 3` (at least `3.7`) installation (along with its package manager `pip`).
 
 #### Install
 
@@ -209,7 +232,7 @@ $ cd src/
 $ # The following command has to be executed always from Obfuscapk/src/ directory
 $ # or by adding Obfuscapk/src/ directory to PYTHONPATH environment variable.
 $ python3 -m obfuscapk.cli --help
-usage: python3 -m obfuscapk.cli [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK]
+usage: python3 -m obfuscapk.cli [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK_OR_AAB]
 ...
 ```
 
@@ -249,17 +272,17 @@ Let's start by looking at the help message:
 
 ```Shell
 $ obfuscapk --help
-obfuscapk [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK] [-i] [-p] [-k VT_API_KEY]
+obfuscapk [-h] -o OBFUSCATOR [-w DIR] [-d OUT_APK_OR_AAB] [-i] [-p] [-k VT_API_KEY]
           [--keystore-file KEYSTORE_FILE] [--keystore-password KEYSTORE_PASSWORD]
           [--key-alias KEY_ALIAS] [--key-password KEY_PASSWORD] [--use-aapt2]
-          <APK_FILE>
+          <APK_OR_BUNDLE_FILE>
 ```
 
-There are two mandatory parameters: `<APK_FILE>`, the path (relative or absolute) to
-the apk file to obfuscate and the list with the names of the obfuscation techniques to
-apply (specified with a `-o` option that can be used multiple times, e.g.,
-`-o Rebuild -o NewAlignment -o NewSignature`). The other optional arguments are as
-follows:
+There are two mandatory parameters: `<APK_OR_BUNDLE_FILE>`, the path (relative or
+absolute) to the apk or app bundle file to obfuscate and the list with the names of the
+obfuscation techniques to apply (specified with a `-o` option that can be used multiple
+times, e.g., `-o Rebuild -o NewAlignment -o NewSignature`). The other optional arguments
+are as follows:
 
 * `-w DIR` is used to set the working directory where to save the intermediate files
 (generated by `apktool`). If not specified, a directory named `obfuscation_working_dir`
@@ -267,10 +290,11 @@ is created in the same directory as the input application. This can be useful fo
 debugging purposes, but if it's not needed it can be set to a temporary directory
 (e.g., `-w /tmp/`).
 
-* `-d OUT_APK` is used to set the path of the destination file: the apk file generated
-by the obfuscation process (e.g., `-d /home/user/Desktop/obfuscated.apk`). If not
-specified, the final obfuscated file will be saved inside the working directory.
-Note: existing files will be overwritten without any warning.
+* `-d OUT_APK_OR_AAB` is used to set the path of the destination file: the apk file
+generated by the obfuscation process (e.g., `-d /home/user/Desktop/obfuscated.apk` or
+`-d /home/user/Desktop/obfuscated.aab`). If not specified, the final obfuscated file
+will be saved inside the working directory. Note: existing files will be overwritten
+without any warning.
 
 * `-i` is a flag for ignoring known third party libraries during the obfuscation
 process, to use fewer resources, to increase performances and to reduce the risk of
@@ -302,8 +326,8 @@ shown in the example below:
     com.mycompany.dontobfuscate
     com.mycompany.ignore
     ...
-    ``` 
-* `--use-aapt2` is a flag for use aapt2 option to rebuild app when using apktool.
+    ```
+* `--use-aapt2` is a flag for using aapt2 option when rebuilding an app with `apktool`.
 
 Let's consider now a simple working example to see how Obfuscapk works:
 

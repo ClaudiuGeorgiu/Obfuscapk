@@ -7,7 +7,8 @@ import string
 from typing import List, Union
 
 from obfuscapk import util
-from obfuscapk.tool import Apktool, Zipalign, ApkSigner
+from obfuscapk.tool import Apktool, ApkSigner, Zipalign
+from obfuscapk.toolbundledecompiler import BundleDecompiler, AABSigner
 
 
 class Obfuscation(object):
@@ -46,6 +47,10 @@ class Obfuscation(object):
         self.key_password: str = key_password
         self.ignore_packages_file: str = ignore_packages_file
         self.use_aapt2 = use_aapt2
+        if apk_path.endswith('aab'):
+            self.is_bundle = True
+        else:
+            self.is_bundle = False
 
         # Random string (32 chars long) generation with ASCII letters and digits
         self.encryption_secret = "".join(
@@ -114,12 +119,20 @@ class Obfuscation(object):
         # If the path of the output obfuscated apk is not specified, save it in the
         # working directory.
         if not self.obfuscated_apk_path:
-            self.obfuscated_apk_path = "{0}_obfuscated.apk".format(
-                os.path.join(
-                    self.working_dir_path,
-                    os.path.splitext(os.path.basename(self.apk_path))[0],
+            if (self.is_bundle):
+                self.obfuscated_apk_path = "{0}_obfuscated.aab".format(
+                    os.path.join(
+                        self.working_dir_path,
+                        os.path.splitext(os.path.basename(self.apk_path))[0],
+                    )
                 )
-            )
+            else:
+                self.obfuscated_apk_path = "{0}_obfuscated.apk".format(
+                    os.path.join(
+                        self.working_dir_path,
+                        os.path.splitext(os.path.basename(self.apk_path))[0],
+                    )
+                )
             self.logger.debug(
                 "No obfuscated apk path provided, the result will be saved "
                 'as "{0}"'.format(self.obfuscated_apk_path)
@@ -329,8 +342,9 @@ class Obfuscation(object):
 
         if not self._is_decoded:
 
-            # The input apk will be decoded with apktool.
+            # The input apk will be decoded with apktool or BundleDecompiler.
             apktool: Apktool = Apktool()
+            bundledecompiler: BundleDecompiler = BundleDecompiler()
 
             # <working_directory>/<apk_path>/
             self._decoded_apk_path = os.path.join(
@@ -338,15 +352,24 @@ class Obfuscation(object):
                 os.path.splitext(os.path.basename(self.apk_path))[0],
             )
             try:
-                apktool.decode(self.apk_path, self._decoded_apk_path, force=True)
+                if (self.is_bundle):
+                    bundledecompiler.decode(self.apk_path, self._decoded_apk_path, force=False)
+                else:
+                    apktool.decode(self.apk_path, self._decoded_apk_path, force=True)
+                
 
                 # Path to the decoded manifest file.
-                self._manifest_file = os.path.join(
+                if (self.is_bundle):
+                    self._manifest_file = os.path.join(
+                        self._decoded_apk_path, "base", "manifest", "AndroidManifest.xml",
+                    )
+                else:
+                    self._manifest_file = os.path.join(
                     self._decoded_apk_path, "AndroidManifest.xml"
                 )
 
                 # A list containing the paths to all the smali files obtained with
-                # apktool.
+                # apktool or bundledecompiler.
                 self._smali_files = [
                     os.path.join(root, file_name)
                     for root, dir_names, file_names in os.walk(self._decoded_apk_path)
@@ -389,19 +412,31 @@ class Obfuscation(object):
                 self._smali_files.sort()
 
                 # Check if multidex.
-                if os.path.isdir(
-                    os.path.join(self._decoded_apk_path, "smali_classes2")
-                ):
-                    self._is_multidex = True
+                if (self.is_bundle):
+                    if os.path.isdir(
+                        os.path.join(self._decoded_apk_path, "base", "dex", "smali_classes2")
+                    ):
+                        self._is_multidex = True
+                else:
+                    if os.path.isdir(
+                        os.path.join(self._decoded_apk_path, "smali_classes2")
+                    ):
+                        self._is_multidex = True
 
+                if (self._is_multidex):
                     smali_directories = ["smali"]
                     for i in range(2, 15):
                         smali_directories.append("smali_classes{0}".format(i))
 
                     for smali_directory in smali_directories:
-                        current_directory = os.path.join(
-                            self._decoded_apk_path, smali_directory, ""
-                        )
+                        if (self.is_bundle):
+                            current_directory = os.path.join(
+                                self._decoded_apk_path, "base", "dex", smali_directory, ""
+                            )
+                        else:
+                            current_directory = os.path.join(
+                                self._decoded_apk_path, smali_directory, ""
+                            )
                         if os.path.isdir(current_directory):
                             self._multidex_smali_files.append(
                                 [
@@ -499,13 +534,15 @@ class Obfuscation(object):
         if not self._is_decoded:
             self.decode_apk()
 
-        # The obfuscated apk will be built with apktool.
+        # The obfuscated apk will be built with apktool or BundleDecompiler.
         apktool: Apktool = Apktool()
+        bundledecompiler: BundleDecompiler = BundleDecompiler()
 
         try:
-            apktool.build(
-                self._decoded_apk_path, self.obfuscated_apk_path, self.use_aapt2
-            )
+            if (self.is_bundle):
+                bundledecompiler.build(self._decoded_apk_path, self.obfuscated_apk_path)
+            else:
+                apktool.build(self._decoded_apk_path, self.obfuscated_apk_path)
         except Exception as e:
             self.logger.error("Error during apk building: {0}".format(e))
             raise
@@ -514,7 +551,8 @@ class Obfuscation(object):
 
         # This method must be called AFTER the obfuscated apk has been built.
 
-        # The obfuscated apk will be signed with apksigner.
+        # The obfuscated apk will be signed with APKSigner or BundleDecompiler.
+        aabsigner: AABSigner = AABSigner()
         apksigner: ApkSigner = ApkSigner()
 
         # If a custom keystore file is not provided, use the default one bundled with
@@ -541,13 +579,18 @@ class Obfuscation(object):
                 )
 
         try:
-            apksigner.resign(
-                self.obfuscated_apk_path,
-                self.keystore_file,
-                self.keystore_password,
-                self.key_alias,
-                self.key_password,
-            )
+            if (self.is_bundle):
+                aabsigner.sign(
+                    self.obfuscated_apk_path,
+                )
+            else:
+                apksigner.resign(
+                    self.obfuscated_apk_path,
+                    self.keystore_file,
+                    self.keystore_password,
+                    self.key_alias,
+                    self.key_password,
+                )
         except Exception as e:
             self.logger.error("Error during apk signing: {0}".format(e))
             raise
@@ -558,6 +601,8 @@ class Obfuscation(object):
 
         # The obfuscated apk will be aligned with zipalign.
         zipalign: Zipalign = Zipalign()
+        if (self.is_bundle):
+            return
 
         try:
             zipalign.align(self.obfuscated_apk_path)
@@ -607,7 +652,10 @@ class Obfuscation(object):
             self.decode_apk()
 
         # '.join(x, "")' is used to add a trailing slash.
-        return os.path.join(self._decoded_apk_path, "assets", "")
+        if (self.is_bundle):
+            return os.path.join(self._decoded_apk_path, "base", "assets", "")
+        else:
+            return os.path.join(self._decoded_apk_path, "assets", "")
 
     def get_resource_directory(self) -> str:
 
@@ -615,7 +663,11 @@ class Obfuscation(object):
             self.decode_apk()
 
         # '.join(x, "")' is used to add a trailing slash.
-        return os.path.join(self._decoded_apk_path, "res", "")
+        if (self.is_bundle):
+            return os.path.join(self._decoded_apk_path, "base", "res", "")
+        else:
+            return os.path.join(self._decoded_apk_path, "res", "")
+        
 
     def get_ignore_package_names(self) -> List[str]:
         ignore_package_list = []
