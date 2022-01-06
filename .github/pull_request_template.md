@@ -12,7 +12,7 @@ NOTE:
 
 ### Description
 
-<!-- Please include relevant motivation and context. If this PR fixes a bug or resolves a feature request, be sure to include a link to that issue (insert text below this line) -->
+<!-- Please include relevant motivation and context. If this PR fixes a bug or implements a feature request, be sure to include a link to that issue (insert text below this line) -->
 
 
 
@@ -29,7 +29,7 @@ NOTE:
 * [ ] Bug fix (non-breaking change which fixes an issue)
 * [ ] New feature (non-breaking change which adds functionality)
 * [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-* [ ] Other (e.g., refactoring, documentation, etc.)
+* [ ] Other (e.g., refactoring, documentation etc.)
 
 
 

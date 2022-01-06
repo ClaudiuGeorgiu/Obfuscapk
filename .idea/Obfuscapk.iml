@@ -27,8 +27,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/res_string_encryption" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/obfuscapk/obfuscators/virus_total" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (Obfuscapk)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">

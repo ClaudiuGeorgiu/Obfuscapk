@@ -6,7 +6,6 @@
 [![Ubuntu Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Ubuntu/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AUbuntu)
 [![Windows Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Windows/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AWindows)
 [![MacOS Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/MacOS/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AMacOS)
-[![Docker Hub](https://img.shields.io/docker/cloud/build/claudiugeorgiu/obfuscapk)](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
 [![Python Version](https://img.shields.io/badge/Python-3.7%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
 
@@ -119,13 +118,13 @@ have a recent version of Docker installed:
 
 ```Shell
 $ docker --version
-Docker version 19.03.0, build aeac949
+Docker version 20.10.7, build f0df350
 ```
 
 #### Official Docker Hub image
 
 The [official Obfuscapk Docker image](https://hub.docker.com/r/claudiugeorgiu/obfuscapk)
-is available on Docker Hub:
+is available on Docker Hub (automatically built from this repository):
 
 ```Shell
 $ # Download the Docker image.
@@ -500,8 +499,8 @@ functionality.
 > This technique analyzes the existing code looking for method invocations of the app,
 > ignoring the calls to the Android framework (see `AdvancedReflection`). If it finds
 > an instruction with a suitable method invocation (i.e., no constructor methods,
-> public visibility, enough free registers, etc.) such invocation is redirected to
-> a custom method that will invoke the original method using the Reflection APIs.
+> public visibility, enough free registers etc.) such invocation is redirected to a
+> custom method that will invoke the original method using the Reflection APIs.
 
 ### [Reorder](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reorder) \[Code]
 

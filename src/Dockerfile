@@ -1,17 +1,17 @@
-FROM python:3.9.0-slim-buster
+FROM python:3.10.1-slim-bullseye
 
-ENV APKTOOL_VERSION="2.5.0"
+ENV APKTOOL_VERSION="2.6.0"
 ENV ANDROID_HOME="/android-sdk-linux"
-ENV BUILD_TOOLS_VERSION="30.0.3"
-ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
+ENV BUILD_TOOLS_VERSION="32.0.0"
+ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/cmdline-tools/bin:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
 
 # Install the needed tools.
-RUN bash -c 'for i in {1..8}; do mkdir -p "/usr/share/man/man$i"; done' && \
+RUN apt update && \
     # Java JDK (needed for apktool).
-    apt update && apt install --no-install-recommends -y openjdk-11-jdk-headless wget unzip && \
+    apt install --no-install-recommends -y openjdk-11-jdk-headless wget unzip && \
     # Android SDK (needed for zipalign and apksigner).
     mkdir -p "${ANDROID_HOME}" && \
-    wget -q "https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip" -O android-sdk.zip && \
+    wget -q "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip" -O android-sdk.zip && \
     unzip -q android-sdk.zip -d "${ANDROID_HOME}" && rm android-sdk.zip && \
     yes | sdkmanager --sdk_root="${ANDROID_HOME}" "build-tools;${BUILD_TOOLS_VERSION}" && \
     # Apktool.
@@ -19,6 +19,9 @@ RUN bash -c 'for i in {1..8}; do mkdir -p "/usr/share/man/man$i"; done' && \
     -O /usr/local/bin/apktool && chmod a+x /usr/local/bin/apktool && \
     wget -q "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_${APKTOOL_VERSION}.jar" \
     -O /usr/local/bin/apktool.jar && chmod a+x /usr/local/bin/apktool.jar && \
+    # BundleDecompiler.
+    wget -q "https://raw.githubusercontent.com/TamilanPeriyasamy/BundleDecompiler/master/build/libs/BundleDecompiler-0.0.2.jar" \
+    -O /usr/local/bin/BundleDecompiler.jar && chmod a+x /usr/local/bin/BundleDecompiler.jar && \
     # Clean.
     apt remove --purge -y wget unzip && \
     apt autoremove --purge -y && apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
