@@ -11,11 +11,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.6, 3.7, 3.8, 3.9 ]
+        python-version: [ 3.7, 3.8, 3.9, '3.10' ]
         os: [ ubuntu-latest ]
     env:
-      APKTOOL_VERSION: 2.5.0
-      BUILD_TOOLS_VERSION: 30.0.2
+      APKTOOL_VERSION: 2.6.0
+      BUILD_TOOLS_VERSION: 32.0.0
 
     steps:
       - name: Checkout repository
@@ -39,7 +39,8 @@ jobs:
           sudo chmod a+x /usr/local/bin/apktool
           sudo wget -q "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_${APKTOOL_VERSION}.jar" -O /usr/local/bin/apktool.jar
           sudo chmod a+x /usr/local/bin/apktool.jar
-          sudo wget -q https://github.com/TamilanPeriyasamy/BundleDecompiler/raw/master/build/libs/BundleDecompiler-0.0.2.jar -O /usr/local/bin/BundleDecompiler.jar
+          # Install BundleDecompiler.
+          sudo wget -q https://raw.githubusercontent.com/TamilanPeriyasamy/BundleDecompiler/master/build/libs/BundleDecompiler-0.0.2.jar -O /usr/local/bin/BundleDecompiler.jar
           sudo chmod a+x /usr/local/bin/BundleDecompiler.jar
 
       - name: Run tests
