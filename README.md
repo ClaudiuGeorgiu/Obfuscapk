@@ -6,6 +6,7 @@
 [![Ubuntu Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Ubuntu/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AUbuntu)
 [![Windows Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Windows/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AWindows)
 [![MacOS Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/MacOS/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AMacOS)
+[![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/Obfuscapk/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/Obfuscapk)
 [![Python Version](https://img.shields.io/badge/Python-3.7%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
 
