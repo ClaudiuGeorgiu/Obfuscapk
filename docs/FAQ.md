@@ -91,7 +91,7 @@ You can also
 sequentially. E.g., if the first obfuscator is encrypting the strings, all the remaining
 obfuscators will see the encrypted strings instead of the original ones, so you can
 obtain different results by just changing the order of the used obfuscators. However,
-remember to preserve the order of `Rebuild`, `NewSignature` and `NewAlignment` and
+remember to preserve the order of `Rebuild`, `NewAlignment` and `NewSignature` and
 always use them *after* the other obfuscators.
 
 ----------------------------------------------------------------------------------------

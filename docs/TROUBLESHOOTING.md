@@ -73,7 +73,7 @@ If you only want to see progress bars during the obfuscation operations, use
 Some applications use anti-repackaging techniques and/or `apktool` is not able to
 decompile/build the application and in such cases Obfuscapk won't work. To check if an
 application can be repackaged (and thus obfuscated) run Obfuscapk using only `Rebuild`,
-`NewSignature` and `NewAlignment` obfuscators. If this operation works without errors,
+`NewAlignment` and `NewSignature` obfuscators. If this operation works without errors,
 then you can continue adding more obfuscators, otherwise, there's an issue that can't
 be solved by just patching Obfuscapk.
 

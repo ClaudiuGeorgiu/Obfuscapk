@@ -26,7 +26,7 @@ Before opening this issue, I tried the following steps:
 
 * [ ] Installed the tool in a way [described in the readme](https://github.com/ClaudiuGeorgiu/Obfuscapk#-installation) and ran `python3 -m obfuscapk.cli --help` without any errors
 
-* [ ] Ran the tool using: `python3 -m obfuscapk.cli -o Rebuild -o NewSignature -o NewAlignment <YOUR_APP.APK>` to verify that the app is not using anti-repackaging techniques
+* [ ] Ran the tool using: `python3 -m obfuscapk.cli -o Rebuild -o NewAlignment -o NewSignature <YOUR_APP.APK>` to verify that the app is not using anti-repackaging techniques
 
 * [ ] Ran the tool using `--ignore-libs` flag to exclude third party libraries from the obfuscation
 

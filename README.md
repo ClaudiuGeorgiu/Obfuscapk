@@ -173,7 +173,7 @@ and available from the command line:
 
 ```Shell
 $ apktool
-Apktool v2.5.0 - a tool for reengineering Android apk files
+Apktool v2.6.0 - a tool for reengineering Android apk files
 ...
 ```
 ```Shell
@@ -190,7 +190,7 @@ Copyright (C) 2009 The Android Open Source Project
 ...
 ```
 
-To support app bundles obfuscation you need
+To support app bundles obfuscation you also need
 [BundleDecompiler](https://github.com/TamilanPeriyasamy/BundleDecompiler), so download
 the latest available version from
 [here](https://github.com/TamilanPeriyasamy/BundleDecompiler/tree/master/build/libs) and
@@ -408,7 +408,7 @@ The obfuscators currently bundled with Obfuscapk are briefly presented below (in
 alphabetical order). Please refer to the source code of the project for more details.
 
 `NOTE:` not all the obfuscators below correspond to real obfuscation techniques (e.g.,
-`Rebuild`, `NewSignature`, `NewAlignment` and `VirusTotal`), but they are implemented
+`Rebuild`, `NewAlignment`, `NewSignature` and `VirusTotal`), but they are implemented
 as obfuscators to keep the architecture modular and easy to extend with new
 functionality.
 

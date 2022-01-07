@@ -71,7 +71,7 @@ class TestCommandLine(object):
         # Mock the command line parser.
         arguments = cli.get_cmd_args(
             "-w {working_dir} -d {destination} "
-            "-o Rebuild -o NewSignature -o NewAlignment "
+            "-o Rebuild -o NewAlignment -o NewSignature "
             "--keystore-file {keystore_file} --keystore-password {keystore_password} "
             "--key-alias {key_alias} --key-password {key_password} {apk_file}".format(
                 working_dir=tmp_working_directory_path,
