@@ -552,7 +552,7 @@ class Obfuscation(object):
             if self.is_bundle:
                 bundledecompiler.build(self._decoded_apk_path, self.obfuscated_apk_path)
             else:
-                apktool.build(self._decoded_apk_path, self.obfuscated_apk_path)
+                apktool.build(self._decoded_apk_path, self.obfuscated_apk_path, self.use_aapt2)
         except Exception as e:
             self.logger.error("Error during apk building: {0}".format(e))
             raise
