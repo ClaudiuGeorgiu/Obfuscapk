@@ -473,11 +473,14 @@ class AdvancedReflection(obfuscator_category.ICodeObfuscator):
                                                 )
                                             )
 
-                                            new_move_result += "\tinvoke-virtual " "{{{result_register}}}, {cast}\n\n".format(
-                                                result_register=tmp_result_register,
-                                                cast=self.reverse_cast_dict[
-                                                    tmp_return_type
-                                                ],
+                                            new_move_result += (
+                                                "\tinvoke-virtual "
+                                                "{{{result_register}}}, {cast}\n\n".format(
+                                                    result_register=tmp_result_register,
+                                                    cast=self.reverse_cast_dict[
+                                                        tmp_return_type
+                                                    ],
+                                                )
                                             )
 
                                             if (
