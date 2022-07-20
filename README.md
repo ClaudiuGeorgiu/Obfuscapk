@@ -27,9 +27,9 @@ Obfuscapk is adding support for
 using [BundleDecompiler](https://github.com/TamilanPeriyasamy/BundleDecompiler) (see
 [#121](https://github.com/ClaudiuGeorgiu/Obfuscapk/pull/121)). In order to use this new
 feature, download the latest version of BundleDecompiler available from
-[here](https://github.com/TamilanPeriyasamy/BundleDecompiler/tree/master/build/libs) and
+[here](https://github.com/TamilanPeriyasamy/BundleDecompiler/tree/master/build/libs),
 save it as `BundleDecompiler.jar` in a directory included in `PATH` (e.g., in Ubuntu,
-`/usr/local/bin` or `/usr/bin`).
+`/usr/local/bin` or `/usr/bin`) and make sure it has the executable flag set.
 
 `NOTE:` BundleDecompiler doesn't work on Windows yet, so app bundle obfuscation is not
 supported by Obfuscapk on Windows platform. Also, app bundle support is still in early
@@ -193,9 +193,9 @@ Copyright (C) 2009 The Android Open Source Project
 To support app bundles obfuscation you also need
 [BundleDecompiler](https://github.com/TamilanPeriyasamy/BundleDecompiler), so download
 the latest available version from
-[here](https://github.com/TamilanPeriyasamy/BundleDecompiler/tree/master/build/libs) and
+[here](https://github.com/TamilanPeriyasamy/BundleDecompiler/tree/master/build/libs),
 save it as `BundleDecompiler.jar` in a directory included in `PATH` (e.g., in Ubuntu,
-`/usr/local/bin` or `/usr/bin`).
+`/usr/local/bin` or `/usr/bin`) and make sure it has the executable flag set.
 
 To use BundleDecompiler and `apktool` you also need a recent version of Java. 
 `zipalign` and `apksigner` are included in the Android SDK. The location of the
