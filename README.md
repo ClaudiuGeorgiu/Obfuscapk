@@ -53,7 +53,7 @@ You can cite the paper as follows:
     year = "2020",
     issn = "2352-7110",
     doi = "https://doi.org/10.1016/j.softx.2020.100403",
-    url = "http://www.sciencedirect.com/science/article/pii/S2352711019302791",
+    url = "https://www.sciencedirect.com/science/article/pii/S2352711019302791",
     author = "Simone Aonzo and Gabriel Claudiu Georgiu and Luca Verderame and Alessio Merlo",
     keywords = "Android, Obfuscation, Program analysis"
 }
@@ -119,7 +119,7 @@ have a recent version of Docker installed:
 
 ```Shell
 $ docker --version
-Docker version 20.10.7, build f0df350
+Docker version 20.10.21, build baeda1f
 ```
 
 #### Official Docker Hub image
@@ -173,7 +173,7 @@ and available from the command line:
 
 ```Shell
 $ apktool
-Apktool v2.6.0 - a tool for reengineering Android apk files
+Apktool v2.7.0 - a tool for reengineering Android apk files
 ...
 ```
 ```Shell
@@ -215,9 +215,8 @@ install the needed dependencies:
 ```Shell
 $ # Make sure to run the commands in Obfuscapk/ directory.
 
-$ # The usage of a virtual environment is highly recommended, e.g., virtualenv.
-$ # If not using virtualenv (https://virtualenv.pypa.io/), skip the next 2 lines.
-$ virtualenv -p python3 venv
+$ # The usage of a virtual environment is highly recommended.
+$ python3 -m venv venv
 $ source venv/bin/activate
 
 $ # Install Obfuscapk's requirements.
@@ -412,113 +411,176 @@ alphabetical order). Please refer to the source code of the project for more det
 as obfuscators to keep the architecture modular and easy to extend with new
 functionality.
 
-### [AdvancedReflection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/advanced_reflection) \[Code]
+
+<details><summary><b>AdvancedReflection</b> [Code]</summary>
 
 > Uses reflection to invoke dangerous APIs of the Android Framework. To find out if a
 > method belongs to the Android Framework, Obfuscapk refers to the mapping discovered by
-> [Backes et al](https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_backes-android.pdf).
+> [Backes et al](https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_backes-android.pdf).  
+> [:page_facing_up: AdvancedReflection source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/advanced_reflection)
+</details>
 
-### [ArithmeticBranch](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/arithmetic_branch) \[Code]
+
+<details><summary><b>ArithmeticBranch</b> [Code]</summary>
 
 > Insert junk code. In this case, the junk code is composed by arithmetic computations
 > and a branch instruction depending on the result of these computations, crafted in
-> such a way that the branch is never taken.
+> such a way that the branch is never taken.  
+> [:page_facing_up: ArithmeticBranch source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/arithmetic_branch)
+</details>
 
-### [AssetEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/asset_encryption) \[Encryption]
 
-> Encrypt asset files.
+<details><summary><b>AssetEncryption</b> [Encryption]</summary>
 
-### [CallIndirection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/call_indirection) \[Code]
+> Encrypt asset files.  
+> [:page_facing_up: AssetEncryption source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/asset_encryption)
+</details>
+
+
+<details><summary><b>CallIndirection</b> [Code]</summary>
 
 > This technique modifies the control-flow graph without impacting the code semantics:
 > it adds new methods that invoke the original ones. For example, an invocation to the
 > method *m1* will be substituted by a new wrapper method *m2*, that, when invoked, it
-> calls the original method *m1*.
+> calls the original method *m1*.  
+> [:page_facing_up: CallIndirection source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/call_indirection)
+</details>
 
-### [ClassRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/class_rename) \[Rename]
 
-> Change the package name and rename classes (even in the manifest file).
+<details><summary><b>ClassRename</b> [Rename]</summary>
 
-### [ConstStringEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/const_string_encryption) \[Encryption]
+> Change the package name and rename classes (even in the manifest file).  
+> [:page_facing_up: ClassRename source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/class_rename)
+</details>
 
-> Encrypt constant strings in code.
 
-### [DebugRemoval](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/debug_removal) \[Code]
+<details><summary><b>ConstStringEncryption</b> [Encryption]</summary>
 
-> Remove debug information.
+> Encrypt constant strings in code.  
+> [:page_facing_up: ConstStringEncryption source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/const_string_encryption)
+</details>
 
-### [FieldRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/field_rename) \[Rename]
 
-> Rename fields.
+<details><summary><b>DebugRemoval</b> [Code]</summary>
 
-### [Goto](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/goto) \[Code]
+> Remove debug information.  
+> [:page_facing_up: DebugRemoval source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/debug_removal)
+</details>
+
+
+<details><summary><b>FieldRename</b> [Rename]</summary>
+
+> Rename fields.  
+> [:page_facing_up: FieldRename source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/field_rename)
+</details>
+
+
+<details><summary><b>Goto</b> [Code]</summary>
 
 > Given a method, it inserts a `goto` instruction pointing to the end of the method and
 > another `goto` pointing to the instruction after the first `goto`; it modifies the
-> control-flow graph by adding two new nodes.
+> control-flow graph by adding two new nodes.  
+> [:page_facing_up: Goto source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/goto)
+</details>
 
-### [LibEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/lib_encryption) \[Encryption]
 
-> Encrypt native libs.
+<details><summary><b>LibEncryption</b> [Encryption]</summary>
 
-### [MethodOverload](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/method_overload) \[Code]
+> Encrypt native libs.  
+> [:page_facing_up: LibEncryption source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/lib_encryption)
+</details>
+
+
+<details><summary><b>MethodOverload</b> [Code]</summary>
 
 > It exploits the overloading feature of the Java programming language to assign the
 > same name to different methods but using different arguments. Given an already
 > existing method, this technique creates a new void method with the same name and
 > arguments, but it also adds new random arguments. Then, the body of the new method
-> is filled with random arithmetic instructions.
+> is filled with random arithmetic instructions.  
+> [:page_facing_up: MethodOverload source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/method_overload)
+</details>
 
-### [MethodRename](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/method_rename) \[Rename]
 
-> Rename methods.
+<details><summary><b>MethodRename</b> [Rename]</summary>
 
-### [NewAlignment](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/new_alignment) \[Trivial]
+> Rename methods.  
+> [:page_facing_up: MethodRename source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/method_rename)
+</details>
 
-> Realign the application.
 
-### [NewSignature](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/new_signature) \[Trivial]
+<details><summary><b>NewAlignment</b> [Trivial]</summary>
 
-> Re-sign the application with a new custom signature.
+> Realign the application.  
+> [:page_facing_up: NewAlignment source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/new_alignment)
+</details>
 
-### [Nop](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/nop) \[Code]
+
+<details><summary><b>NewSignature</b> [Trivial]</summary>
+
+> Re-sign the application with a new custom signature.  
+> [:page_facing_up: NewSignature source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/new_signature)
+</details>
+
+
+<details><summary><b>Nop</b> [Code]</summary>
 
 > Insert junk code. Nop, short for *no-operation*, is a dedicated instruction that does
 > nothing. This technique just inserts random `nop` instructions within every method
-> implementation.
+> implementation.  
+> [:page_facing_up: Nop source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/nop)
+</details>
 
-### [RandomManifest](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/random_manifest) \[Resource]
 
-> Randomly reorder entries in the manifest file.
+<details><summary><b>RandomManifest</b> [Resource]</summary>
 
-### [Rebuild](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/rebuild) \[Trivial]
+> Randomly reorder entries in the manifest file.  
+> [:page_facing_up: RandomManifest source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/random_manifest)
+</details>
 
-> Rebuild the application.
 
-### [Reflection](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reflection) \[Code]
+<details><summary><b>Rebuild</b> [Trivial]</summary>
+
+> Rebuild the application.  
+> [:page_facing_up: Rebuild source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/rebuild)
+</details>
+
+
+<details><summary><b>Reflection</b> [Code]</summary>
 
 > This technique analyzes the existing code looking for method invocations of the app,
 > ignoring the calls to the Android framework (see `AdvancedReflection`). If it finds
 > an instruction with a suitable method invocation (i.e., no constructor methods,
 > public visibility, enough free registers etc.) such invocation is redirected to a
-> custom method that will invoke the original method using the Reflection APIs.
+> custom method that will invoke the original method using the Reflection APIs.  
+> [:page_facing_up: Reflection source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reflection)
+</details>
 
-### [Reorder](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reorder) \[Code]
+
+<details><summary><b>Reorder</b> [Code]</summary>
 
 > This technique consists of changing the order of basic blocks in the code. When a
 > branch instruction is found, the condition is inverted (e.g., *branch if lower than*,
 > becomes *branch if greater or equal than*) and the target basic blocks are reordered
 > accordingly. Furthermore, it also randomly re-arranges the code abusing `goto`
-> instructions.
+> instructions.  
+> [:page_facing_up: Reorder source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/reorder)
+</details>
 
-### [ResStringEncryption](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/res_string_encryption) \[Encryption]
 
-> Encrypt strings in resources (only those called inside code).
+<details><summary><b>ResStringEncryption</b> [Encryption]</summary>
 
-### [VirusTotal](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/virus_total) \[Other]
+> Encrypt strings in resources (only those called inside code).  
+> [:page_facing_up: ResStringEncryption source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/res_string_encryption)
+</details>
+
+
+<details><summary><b>VirusTotal</b> [Other]</summary>
 
 > Send the original and the obfuscated application to Virus Total. You must provide
-> the VT API key (see `-k` option).
+> the VT API key (see `-k` option).  
+> [:page_facing_up: VirusTotal source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/virus_total)
+</details>
 
 
 
@@ -553,7 +615,7 @@ This software was developed for research purposes at the Computer Security Lab
 
 ## ❱ Team
 
-* [Simone Aonzo](https://packmad.github.io/) - Research Assistant
+* [Simone Aonzo](https://simoneaonzo.it/) - Research Assistant
 * [Gabriel Claudiu Georgiu](https://github.com/ClaudiuGeorgiu) - Core Developer
 * [Luca Verderame](https://csec.it/people/luca_verderame/) - Postdoctoral Researcher
 * [Alessio Merlo](https://csec.it/people/alessio_merlo/) - Faculty Member
