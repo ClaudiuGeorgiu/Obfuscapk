@@ -11,21 +11,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.7, 3.8, 3.9, '3.10' ]
+        python-version: [ 3.7, 3.8, 3.9, '3.10', '3.11' ]
         os: [ windows-latest ]
     env:
-      APKTOOL_VERSION: 2.6.0
-      BUILD_TOOLS_VERSION: 32.0.0
+      APKTOOL_VERSION: 2.7.0
+      BUILD_TOOLS_VERSION: 33.0.0
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          architecture: x64
 
       - name: Install Python packages
         run: |
@@ -54,6 +53,6 @@ jobs:
           python-codacy-coverage
 
       - name: Upload tests coverage to Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: false
