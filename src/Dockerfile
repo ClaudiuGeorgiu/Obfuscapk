@@ -23,7 +23,7 @@ RUN apt update && \
     wget -q "https://raw.githubusercontent.com/TamilanPeriyasamy/BundleDecompiler/master/build/libs/BundleDecompiler-0.0.2.jar" \
     -O /usr/local/bin/BundleDecompiler.jar && chmod a+x /usr/local/bin/BundleDecompiler.jar && \
     # Clean.
-    apt remove --purge -y wget unzip && \
+    apt remove --purge -y wget && \
     apt autoremove --purge -y && apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy requirements and install.
