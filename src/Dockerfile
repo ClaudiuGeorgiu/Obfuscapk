@@ -8,7 +8,7 @@ ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/cmdline-tools/bin:${
 # Install the needed tools.
 RUN apt update && \
     # Java JDK (needed for apktool).
-    apt install --no-install-recommends -y openjdk-11-jdk-headless wget unzip && \
+    apt install --no-install-recommends -y openjdk-11-jdk-headless wget zip unzip && \
     # Android SDK (needed for zipalign and apksigner).
     mkdir -p "${ANDROID_HOME}" && \
     wget -q "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip" -O android-sdk.zip && \
