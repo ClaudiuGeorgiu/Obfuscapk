@@ -594,6 +594,10 @@ class Obfuscation(object):
             if self.is_bundle:
                 aabsigner.sign(
                     self.obfuscated_apk_path,
+                    self.keystore_file,
+                    self.keystore_password,
+                    self.key_alias,
+                    self.key_password,
                 )
             else:
                 apksigner.resign(

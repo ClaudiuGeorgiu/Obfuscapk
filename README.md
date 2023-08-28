@@ -31,6 +31,9 @@ feature, download the latest version of BundleDecompiler available from
 save it as `BundleDecompiler.jar` in a directory included in `PATH` (e.g., in Ubuntu,
 `/usr/local/bin` or `/usr/bin`) and make sure it has the executable flag set.
 
+If you want to resign .aab application with your custom keys you need to download [aabresguard](https://github.com/kaedea/aab-signer/tree/master/dist) and save it as `aabresguard.jar` in a directory included in `PATH` (e.g., in Ubuntu,
+`/usr/local/bin` or `/usr/bin`) and make sure it has the executable flag set.
+
 `NOTE:` BundleDecompiler doesn't work on Windows yet, so app bundle obfuscation is not
 supported by Obfuscapk on Windows platform. Also, app bundle support is still in early
 development, so if you faced any problems or if you want to help us improve, please see

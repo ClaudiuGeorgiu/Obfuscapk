@@ -219,10 +219,13 @@ class AABSigner(object):
             )
             return
 
-        if "BUNDLE_DECOMPILER_PATH" in os.environ:
-            self.aabsigner_path: str = os.environ["BUNDLE_DECOMPILER_PATH"]
+
+        if "BUNDLE_SIGNER_PATH" in os.environ:
+            self.aabsigner_path: str = os.environ["BUNDLE_SIGNER_PATH"]
         else:
-            self.aabsigner_path: str = "BundleDecompiler.jar"
+            self.aabsigner_path: str = "aabresguard.jar"
+        #download from here:https://github.com/kaedea/aab-signer/tree/master/dist
+        #rename to aabresguard.jar and move it to /use/local/bin/
 
         full_aabsigner_path = shutil.which(self.aabsigner_path)
 
@@ -238,6 +241,10 @@ class AABSigner(object):
     def sign(
         self,
         aab_path: str,
+        keystore_file: str,
+        keystore_password: str,
+        key_alias: str,
+        key_password: str,
     ) -> str:
         if platform.system() == "Windows":
             raise NotImplementedError(
@@ -253,9 +260,13 @@ class AABSigner(object):
             "java",
             "-jar",
             self.aabsigner_path,
-            "sign-bundle",
-            "--in=" + aab_path,
-            "--out=" + aab_path.replace(".aab", "_signed.aab"),
+            "sign-aab",
+            "--bundle=" + aab_path,
+            "--output=" + aab_path.replace(".aab", "_signed.aab"),
+            "--storeFile=" + keystore_file,
+            "--storePassword=" + keystore_password,
+            "--keyAlias=" + key_alias,
+            "--keyPassword=" + key_password
         ]
 
         try:
