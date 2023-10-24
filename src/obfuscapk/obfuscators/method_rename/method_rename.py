@@ -36,11 +36,9 @@ class MethodRename(obfuscator_category.IRenameObfuscator):
             description="Renaming method declarations",
         ):
             with util.inplace_edit_file(smali_file) as (in_file, out_file):
-
                 skip_remaining_lines = False
                 class_name = None
                 for line in in_file:
-
                     if skip_remaining_lines:
                         out_file.write(line)
                         continue

@@ -60,7 +60,6 @@ class LibEncryption(obfuscator_category.IEncryptionObfuscator):
                     editing_constructor = False
                     start_index = 0
                     for line_number, line in enumerate(lines):
-
                         if not class_name:
                             class_match = util.class_pattern.match(line)
                             if class_match:

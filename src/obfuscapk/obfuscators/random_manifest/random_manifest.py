@@ -59,7 +59,6 @@ class RandomManifest(obfuscator_category.IResourcesObfuscator):
         return all(self.xml_elements_equal(e1, e2) for e1, e2 in zip(one, other))
 
     def remove_xml_duplicates(self, root: Element):
-
         # Recursively eliminate duplicates starting from children nodes.
         for element in root:
             self.remove_xml_duplicates(element)

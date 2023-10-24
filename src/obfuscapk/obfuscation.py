@@ -139,7 +139,6 @@ class Obfuscation(object):
             )
 
     def _get_total_fields(self) -> Union[int, List[int]]:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -158,14 +157,12 @@ class Obfuscation(object):
 
         return_list = []
         for dex_smali_files in to_iterate:
-
             total_fields = set()
 
             for smali_file in dex_smali_files:
                 with open(smali_file, "r", encoding="utf-8") as current_file:
                     class_name = None
                     for line in current_file:
-
                         if not class_name:
                             class_match = util.class_pattern.match(line)
                             if class_match:
@@ -200,7 +197,6 @@ class Obfuscation(object):
             return return_list[0]
 
     def _get_total_methods(self) -> Union[int, List[int]]:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -219,14 +215,12 @@ class Obfuscation(object):
 
         return_list = []
         for dex_smali_files in to_iterate:
-
             total_methods = set()
 
             for smali_file in dex_smali_files:
                 with open(smali_file, "r", encoding="utf-8") as current_file:
                     class_name = None
                     for line in current_file:
-
                         if not class_name:
                             class_match = util.class_pattern.match(line)
                             if class_match:
@@ -293,7 +287,6 @@ class Obfuscation(object):
             return return_list[0]
 
     def _get_remaining_fields(self) -> Union[int, List[int]]:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -316,7 +309,6 @@ class Obfuscation(object):
         return remaining_fields
 
     def _get_remaining_methods(self) -> Union[int, List[int]]:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -339,9 +331,7 @@ class Obfuscation(object):
         return remaining_methods
 
     def decode_apk(self) -> None:
-
         if not self._is_decoded:
-
             # The input apk will be decoded with apktool or BundleDecompiler.
             apktool: Apktool = Apktool()
             bundledecompiler: BundleDecompiler = BundleDecompiler()
@@ -478,7 +468,6 @@ class Obfuscation(object):
                 self._is_decoded = True
 
     def get_remaining_fields_per_obfuscator(self) -> Union[int, List[int]]:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -509,7 +498,6 @@ class Obfuscation(object):
         return self._remaining_fields_per_obfuscator
 
     def get_remaining_methods_per_obfuscator(self) -> Union[int, List[int]]:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -540,7 +528,6 @@ class Obfuscation(object):
         return self._remaining_methods_per_obfuscator
 
     def build_obfuscated_apk(self) -> None:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -560,7 +547,6 @@ class Obfuscation(object):
             raise
 
     def sign_obfuscated_apk(self) -> None:
-
         # This method must be called AFTER the obfuscated apk has been built.
 
         # The obfuscated apk will be signed with APKSigner or BundleDecompiler.
@@ -608,7 +594,6 @@ class Obfuscation(object):
             raise
 
     def align_obfuscated_apk(self) -> None:
-
         # This method must be called AFTER the obfuscated apk has been signed.
 
         # The obfuscated apk will be aligned with zipalign.
@@ -623,28 +608,24 @@ class Obfuscation(object):
             raise
 
     def is_multidex(self) -> bool:
-
         if not self._is_decoded:
             self.decode_apk()
 
         return self._is_multidex
 
     def get_manifest_file(self) -> str:
-
         if not self._is_decoded:
             self.decode_apk()
 
         return self._manifest_file
 
     def get_smali_files(self) -> List[str]:
-
         if not self._is_decoded:
             self.decode_apk()
 
         return self._smali_files
 
     def get_multidex_smali_files(self) -> List[List[str]]:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -652,14 +633,12 @@ class Obfuscation(object):
         return self._multidex_smali_files
 
     def get_native_lib_files(self) -> List[str]:
-
         if not self._is_decoded:
             self.decode_apk()
 
         return self._native_lib_files
 
     def get_assets_directory(self) -> str:
-
         if not self._is_decoded:
             self.decode_apk()
 
@@ -670,7 +649,6 @@ class Obfuscation(object):
             return os.path.join(self._decoded_apk_path, "assets", "")
 
     def get_resource_directory(self) -> str:
-
         if not self._is_decoded:
             self.decode_apk()
 

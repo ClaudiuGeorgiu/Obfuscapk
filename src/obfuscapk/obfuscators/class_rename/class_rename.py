@@ -76,12 +76,10 @@ class ClassRename(obfuscator_category.IRenameObfuscator):
         ):
             annotation_flag = False
             with util.inplace_edit_file(smali_file) as (in_file, out_file):
-
                 skip_remaining_lines = False
                 class_name = None
                 r_class = False
                 for line in in_file:
-
                     if skip_remaining_lines:
                         out_file.write(line)
                         continue

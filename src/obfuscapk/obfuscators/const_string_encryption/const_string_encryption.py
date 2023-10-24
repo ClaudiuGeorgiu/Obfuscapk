@@ -99,7 +99,6 @@ class ConstStringEncryption(obfuscator_category.IEncryptionObfuscator):
 
                 current_local_count = 0
                 for line_number, line in enumerate(lines):
-
                     if not class_name:
                         class_match = util.class_pattern.match(line)
                         if class_match:

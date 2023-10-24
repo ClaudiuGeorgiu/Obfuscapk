@@ -51,7 +51,6 @@ class ResStringEncryption(obfuscator_category.IEncryptionObfuscator):
     def encrypt_string_resources(
         self, string_resources_xml_file: str, string_names_to_encrypt: Set[str]
     ):
-
         xml_parser = Xml.XMLParser(encoding="utf-8")
         xml_tree = Xml.parse(string_resources_xml_file, parser=xml_parser)
 
@@ -69,7 +68,6 @@ class ResStringEncryption(obfuscator_category.IEncryptionObfuscator):
         string_array_resources_xml_file: str,
         string_array_names_to_encrypt: Set[str],
     ):
-
         xml_parser = Xml.XMLParser(encoding="utf-8")
         xml_tree = Xml.parse(string_array_resources_xml_file, parser=xml_parser)
 

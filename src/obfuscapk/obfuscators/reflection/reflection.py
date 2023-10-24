@@ -460,13 +460,11 @@ class Reflection(obfuscator_category.ICodeObfuscator):
                 # smali file, and change normal invocations with invocations through
                 # reflection.
                 for method_number, index in enumerate(method_index):
-
                     # If there are enough registers for reflection operations, look for
                     # method invocations inside each method's body.
                     if method_is_reflectable[method_number]:
                         current_line_number = index
                         while not lines[current_line_number].startswith(".end method"):
-
                             # There is no space for further reflection instructions.
                             if (
                                 self.obfuscator_instructions_length
@@ -484,7 +482,6 @@ class Reflection(obfuscator_category.ICodeObfuscator):
                                 invoke_match
                                 and "<init>" not in lines[current_line_number]
                             ):
-
                                 # The method belongs to an Android class or is
                                 # invoked on an array.
                                 if invoke_match.group(

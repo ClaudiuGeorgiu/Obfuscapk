@@ -58,7 +58,6 @@ class CallIndirection(obfuscator_category.ICodeObfuscator):
         new_method: StringIO,
         out_file,
     ):
-
         new_method_name = util.get_random_string(16)
 
         is_range_invocation = self.is_range(invoke_type)
@@ -154,7 +153,6 @@ class CallIndirection(obfuscator_category.ICodeObfuscator):
         with util.inplace_edit_file(smali_file) as (in_file, out_file):
             class_name = None
             for line in in_file:
-
                 if not class_name:
                     class_match = util.class_pattern.match(line)
                     if class_match:

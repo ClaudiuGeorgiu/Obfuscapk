@@ -28,11 +28,9 @@ class MethodOverload(obfuscator_category.ICodeObfuscator):
     ) -> int:
         new_methods_num: int = 0
         with util.inplace_edit_file(smali_file) as (in_file, out_file):
-
             skip_remaining_lines = False
             class_name = None
             for line in in_file:
-
                 if skip_remaining_lines:
                     out_file.write(line)
                     continue
@@ -106,7 +104,6 @@ class MethodOverload(obfuscator_category.ICodeObfuscator):
         max_methods_to_add: int,
         interactive: bool = False,
     ):
-
         overloaded_method_body = util.get_smali_method_overload()
         added_methods = 0
 

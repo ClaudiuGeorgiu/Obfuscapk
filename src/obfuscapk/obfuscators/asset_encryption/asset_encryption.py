@@ -119,7 +119,6 @@ class AssetEncryption(obfuscator_category.IEncryptionObfuscator):
                     for index, asset_name in enumerate(asset_names):
                         asset_file = os.path.join(assets_dir, asset_name)
                         if os.path.isfile(asset_file):
-
                             # Encrypt the asset file (if not already encrypted).
                             if asset_file not in already_encrypted_files:
                                 with open(asset_file, "rb") as original_asset_file:

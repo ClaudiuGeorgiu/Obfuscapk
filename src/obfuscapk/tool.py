@@ -35,7 +35,6 @@ class Apktool(object):
     def decode(
         self, apk_path: str, output_dir_path: str = None, force: bool = False
     ) -> str:
-
         # Check if the apk file to decode is a valid file.
         if not os.path.isfile(apk_path):
             self.logger.error('Unable to find file "{0}"'.format(apk_path))
@@ -122,7 +121,6 @@ class Apktool(object):
     def build(
         self, source_dir_path: str, output_apk_path: str = None, use_aapt2: bool = False
     ) -> str:
-
         # Check if the input directory exists.
         if not os.path.isdir(source_dir_path):
             self.logger.error(
@@ -216,7 +214,6 @@ class Zipalign(object):
             self.zipalign_path = full_zipalign_path
 
     def align(self, apk_path: str) -> str:
-
         # Check if the apk file to align is a valid file.
         if not os.path.isfile(apk_path):
             self.logger.error('Unable to find file "{0}"'.format(apk_path))
@@ -294,7 +291,6 @@ class ApkSigner(object):
         key_alias: str,
         key_password: str = None,
     ) -> str:
-
         # Check if the apk file to sign is a valid file.
         if not os.path.isfile(apk_path):
             self.logger.error('Unable to find file "{0}"'.format(apk_path))
@@ -340,7 +336,6 @@ class ApkSigner(object):
         key_alias: str,
         key_password: str = None,
     ) -> str:
-
         # If present, delete the old signature of the apk and then sign it with the
         # new signature. Since Python doesn't allow directly deleting a file inside an
         # archive, an OS independent solution is to create a new archive without
@@ -355,7 +350,6 @@ class ApkSigner(object):
                     entry.filename.startswith("META-INF/")
                     for entry in current_apk.infolist()
                 ):
-
                     self.logger.info(
                         'Removing current signature from apk "{0}"'.format(apk_path)
                     )

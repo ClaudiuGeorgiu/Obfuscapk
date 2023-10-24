@@ -32,7 +32,6 @@ class Nop(obfuscator_category.ICodeObfuscator):
                 )
                 with util.inplace_edit_file(smali_file) as (in_file, out_file):
                     for line in in_file:
-
                         # Print original instruction.
                         out_file.write(line)
 
