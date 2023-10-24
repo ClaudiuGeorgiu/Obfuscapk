@@ -1,8 +1,8 @@
 FROM python:3.11.1-slim-bullseye
 
-ENV APKTOOL_VERSION="2.7.0"
+ENV APKTOOL_VERSION="2.9.0"
 ENV ANDROID_HOME="/android-sdk-linux"
-ENV BUILD_TOOLS_VERSION="33.0.0"
+ENV BUILD_TOOLS_VERSION="34.0.0"
 ENV PATH="${PATH}:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/cmdline-tools/bin:${ANDROID_HOME}/build-tools/${BUILD_TOOLS_VERSION}"
 
 # Install the needed tools.
