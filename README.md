@@ -1,11 +1,17 @@
+> [!IMPORTANT]  
+> This project is archived. Please don't contact me for support.
+> 
+> Some of the most common questions are answered in
+> [FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md) and
+> [troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md).
+
+
+
 ![Logo](https://raw.githubusercontent.com/ClaudiuGeorgiu/Obfuscapk/master/docs/logo/logo.png)
 
 > A black-box obfuscation tool for Android apps.
 
 [![Codacy](https://app.codacy.com/project/badge/Grade/076af5e6284541d39679c96d16d83772)](https://www.codacy.com/gh/ClaudiuGeorgiu/Obfuscapk)
-[![Ubuntu Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Ubuntu/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AUbuntu)
-[![Windows Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/Windows/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AWindows)
-[![MacOS Build Status](https://github.com/ClaudiuGeorgiu/Obfuscapk/workflows/MacOS/badge.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/actions?query=workflow%3AMacOS)
 [![Code Coverage](https://codecov.io/gh/ClaudiuGeorgiu/Obfuscapk/badge.svg)](https://codecov.io/gh/ClaudiuGeorgiu/Obfuscapk)
 [![Python Version](https://img.shields.io/badge/Python-3.7%2B-green.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/LICENSE)
@@ -31,10 +37,11 @@ feature, download the latest version of BundleDecompiler available from
 save it as `BundleDecompiler.jar` in a directory included in `PATH` (e.g., in Ubuntu,
 `/usr/local/bin` or `/usr/bin`) and make sure it has the executable flag set.
 
-`NOTE:` BundleDecompiler doesn't work on Windows yet, so app bundle obfuscation is not
-supported by Obfuscapk on Windows platform. Also, app bundle support is still in early
-development, so if you faced any problems or if you want to help us improve, please see
-[contributing](#-contributing).
+> [!IMPORTANT]
+> BundleDecompiler doesn't work on Windows yet, so app bundle obfuscation is not
+> supported by Obfuscapk on Windows platform. Also, app bundle support is still in early
+> development, so if you faced any problems or if you want to help us improve, please see
+> [contributing](#-contributing).
 
 
 
@@ -173,7 +180,7 @@ and available from the command line:
 
 ```Shell
 $ apktool
-Apktool v2.7.0 - a tool for reengineering Android apk files
+Apktool v2.9.0 - a tool for reengineering Android apk files
 ...
 ```
 ```Shell
@@ -371,7 +378,7 @@ aligned and ready to be installed into a device/emulator
 As seen in the previous example, `Rebuild`, `NewAlignment` and `NewSignature` 
 obfuscators are always needed to complete an obfuscation operation, to build the final
 obfuscated apk. They are not actual obfuscation techniques, but they are needed in the
-build process and so they are included in the list of obfuscators to keep the overall
+build process, so they are included in the list of obfuscators to keep the overall
 architecture modular.
 
 Not working as expected? See
@@ -406,10 +413,11 @@ code.
 The obfuscators currently bundled with Obfuscapk are briefly presented below (in
 alphabetical order). Please refer to the source code of the project for more details.
 
-`NOTE:` not all the obfuscators below correspond to real obfuscation techniques (e.g.,
-`Rebuild`, `NewAlignment`, `NewSignature` and `VirusTotal`), but they are implemented
-as obfuscators to keep the architecture modular and easy to extend with new
-functionality.
+> [!TIP]
+> Not all the obfuscators below correspond to real obfuscation techniques (e.g.,
+> `Rebuild`, `NewAlignment`, `NewSignature` and `VirusTotal`), but they are implemented
+> as obfuscators to keep the architecture modular and easy to extend with new
+> functionality.
 
 
 <details><summary><b>AdvancedReflection</b> [Code]</summary>
@@ -581,18 +589,6 @@ functionality.
 > the VT API key (see `-k` option).  
 > [:page_facing_up: VirusTotal source code](https://github.com/ClaudiuGeorgiu/Obfuscapk/tree/master/src/obfuscapk/obfuscators/virus_total)
 </details>
-
-
-
-## ❱ Contributing
-
-Questions, bug reports and pull requests are welcome on GitHub at
-[https://github.com/ClaudiuGeorgiu/Obfuscapk](https://github.com/ClaudiuGeorgiu/Obfuscapk)
-(see [contributing](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/CONTRIBUTING.md)).
-Make sure to also check
-[FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md) and
-[troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md),
-since some of the most common questions are already answered there.
 
 
 
