@@ -1,10 +1,12 @@
 > [!IMPORTANT]  
-> This project is archived. Please don't contact me for support.
+> From 17/01/2024, the Obfuscapk project is maintained by the other co-authors at <https://github.com/Mobile-IoT-Security-Lab/Obfuscapk>.
+> Consider it as the **new official Obfuscapk repository**.
+>
+> This repository is archived. Please don't contact me for support.
 > 
 > Some of the most common questions are answered in
 > [FAQ](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/FAQ.md) and
 > [troubleshooting](https://github.com/ClaudiuGeorgiu/Obfuscapk/blob/master/docs/TROUBLESHOOTING.md).
-
 
 
 ![Logo](https://raw.githubusercontent.com/ClaudiuGeorgiu/Obfuscapk/master/docs/logo/logo.png)
